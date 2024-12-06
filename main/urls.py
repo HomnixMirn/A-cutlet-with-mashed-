@@ -8,7 +8,6 @@ urlpatterns = [
     # re_path(r'^api/students/$', views.students_list),
     re_path(r'^api/hacaton/get_code/$', get_code),
     re_path(r'^api/hacaton/get_organization/$', getOrganization),
-    #TODO: repath
     re_path(r'^api/hacaton/register/$', register),
     re_path(r'^api/hacaton/login/$', login),
     re_path(r'^api/hacaton/logout/$', logout),
@@ -16,4 +15,8 @@ urlpatterns = [
     re_path(r'^api/hacaton/redactPersonalInfo/$',redactPersonal),
     re_path(r'^api/hacaton/getTekEvent/$', getTekEvent),
     re_path(r'^api/hacaton/createEvent/$', createEvent),
+    re_path(r'^api/hacaton/verifyEvent/$', verifyEvent),
+    re_path(r'^api/hacaton/deleteEvent/$', deleteEvent),
+    re_path(r'^api/hacaton/getNotVerifiedEvent/$', getNotVerifiedEvents),
+    re_path(r'^api/hacaton/addEventToPerson/$', addEventToPersonal ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   

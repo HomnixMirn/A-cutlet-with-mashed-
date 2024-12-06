@@ -51,3 +51,16 @@ class EventSerializer(serializers.ModelSerializer):
         
         
         
+class OrganizationsEventsSerializer(serializers.ModelSerializer):
+    events = EventSerializer(many=True)
+    organization = OrganizationSerializer()
+    class Meta:
+        model = OrganizationsEvents
+        fields = "__all__"
+        
+class PersonaEventsSerializer(serializers.ModelSerializer):
+    events = EventSerializer(many=True)
+    persona = personalSerializer()
+    class Meta:
+        model = personaEvents
+        fields = "__all__"

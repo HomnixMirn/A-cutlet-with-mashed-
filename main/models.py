@@ -66,3 +66,11 @@ class Event(models.Model):
     date_start = models.DateField()
     date_end = models.DateField()
     verify = models.BooleanField(default=False)
+    
+class OrganizationsEvents(models.Model):
+    events =models.ManyToManyField(Event)
+    organization = models.ForeignKey(organization, on_delete=models.CASCADE)
+    
+class personaEvents(models.Model):
+    events =models.ManyToManyField(Event)
+    persona = models.ForeignKey(persona, on_delete=models.CASCADE)
