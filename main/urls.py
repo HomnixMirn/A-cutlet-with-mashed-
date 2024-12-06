@@ -6,5 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # re_path(r'^api/students/$', views.students_list),
-    # re_path(r'^api/students/(\d+)$', views.students_detail),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    re_path(r'^api/hacaton/get_code/$', get_code),
+    re_path(r'^api/hacaton/get_organization/$', getOrganization),
+    #TODO: repath
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   

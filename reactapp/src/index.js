@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Login from './packages/Login';
 import Register from './packages/Register';
+import Map from './packages/MapComponents';
 import { BrowserRouter, Route, Routes  } from'react-router-dom';
 
 export const API_URL = "http://localhost:8000/api/mininCode/";
@@ -17,6 +18,7 @@ root.render(
           <Route path="/" element={<App/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register />} />
+          <Route path="/map" element={<Map />} />
         </Routes>
     </BrowserRouter>
   // </React.StrictMode>
