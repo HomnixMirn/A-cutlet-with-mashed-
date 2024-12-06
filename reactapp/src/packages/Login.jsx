@@ -22,7 +22,7 @@ export default function Login() {
               </div>
                 <div className="under-login">
                   <Link className="password-recovery">ЗАБЫЛИ ПАРОЛЬ</Link>
-                  <Link className="register-login">РЕГИСТРАЦИЯ</Link>
+                  <Link to="/register" className="register-login">РЕГИСТРАЦИЯ</Link>
                 </div>
             </div>
           </div>

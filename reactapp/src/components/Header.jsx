@@ -22,8 +22,8 @@ function Header() {
                     <img src={region}  alt='' className="Region-img"/>
                     <h1 className="regions-h1">Список регионов</h1>
                     </Link>
-                    <Link className="personal_info">Вход</Link>
-                    <Link className="register-header">Регистрация</Link>
+                    <Link to="/login" className="personal_info">Вход</Link>
+                    <Link to ="/register" className="register-header">Регистрация</Link>
                 </ul>
             </>
         </header>
