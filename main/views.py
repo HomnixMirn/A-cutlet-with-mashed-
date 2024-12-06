@@ -350,3 +350,18 @@ def getOrganizationsInfo(request: HttpRequest, id: int):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+@api_view(['GET'])
+def getVerifiedEvents(request: HttpRequest, id: int):
+    if request.method == 'GET':
+        
+        try:
+            id = int(id)
+            events = Event.objects.filter(verify = True)
+            serializer = EventSerializer(events[id*5:(id+1)*5], many=True)
+            return Response({ 'events':  serializer.data }, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    

@@ -20,4 +20,5 @@ urlpatterns = [
     re_path(r'^api/hacaton/getNotVerifiedEvent/$', getNotVerifiedEvents),
     re_path(r'^api/hacaton/addEventToPerson/$', addEventToPersonal ),
     re_path(r'^api/hacaton/getOrganizationInfo/(?P<id>[0-9]+)$', getOrganizationsInfo ),
+    re_path(r'^api/hacaton/getVerifiedEvents/(?P<id>[0-9]+)$', getVerifiedEvents ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   
