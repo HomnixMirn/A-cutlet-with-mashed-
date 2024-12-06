@@ -33,13 +33,12 @@ function submitHandler(e) {
 
   return (
     <div className="">
-
     <div>
       <form action="" method='POST' onSubmit={(e) => submitHandler(e)}>
-        <input type="text" name="email" placeholder='Email'/>
+        <input className='max-sm:30px' type="text" name="email" placeholder='Email'/>
         {Gos==true ?<button type='submit'>Получить код</button>
         :<input type="text" name="code" placeholder='Код'/>}
-        <input type="password" name="password" placeholder='Пароль'/>
+        <input className='w-90px' type="password" name="password" placeholder='Пароль'/>
         <button type='submit'>Зарегистрироваться</button>
       </form>
     </div>
