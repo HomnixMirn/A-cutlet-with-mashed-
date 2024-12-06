@@ -13,3 +13,7 @@ class orgAdmin(admin.ModelAdmin):
 @admin.register(lastIvent)
 class lastIventAdmin(admin.ModelAdmin):
     list_display = ('city', 'mens', 'discipline', 'title', 'format', 'date_start', 'date_end')
+    
+@admin.register(persona)
+class personaAdmin(admin.ModelAdmin):
+    list_display = ('user', 'name', 'id_user', 'fio', 'phone', 'born_date', 'sex', 'country', 'region', 'city', 'user')

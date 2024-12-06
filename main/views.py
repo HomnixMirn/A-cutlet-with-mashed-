@@ -41,12 +41,15 @@ from django.contrib.auth.models import User
 @api_view(['POST'])
 def register(request : HttpRequest):
     if request.method == 'POST':
-        data = json.loads(request.body)
+        data = request.data
+        print(data)
         if 'email' in data:
             email = data['email']
+            
+            print(code.objects.get(code = data['code']))
             if User.objects.filter(email=email).exists():
                 return Response({'error': 'Email already exists'}, status=status.HTTP_400_BAD_REQUEST)
-            if 'email_code' in data:
+            if 'code' in data:
                 if code.objects.get(code = data['code']):
                     try:
                         password = data['password']
@@ -69,9 +72,8 @@ def register(request : HttpRequest):
 @api_view(['POST'])
 def get_code(request : HttpRequest):
     if request.method == 'POST':
-        
-        data = json.loads(request.body)
-        print(data)
+        print(request.data)
+        data = request.data
         if 'email' in data:
             email = data['email']
             if User.objects.filter(email=email).exists():
@@ -85,13 +87,21 @@ def get_code(request : HttpRequest):
                 return Response( status=status.HTTP_201_CREATED)
             except Exception as _ex:
                 return Response({'error': f'{_ex}'}, status=status.HTTP_400_BAD_REQUEST)
-        return Response({'message': 'Email registered successfully'}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'error': 'Email not found'}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
     
     
 @api_view(['GET'])
 def getOrganization(request):
     if request.method == 'GET':
         org = organization.objects.all()
+        if 'search' in request.GET:
+            search = request.GET['search']
+            org = org.filter(Q(region__icontains=search.lower()) | Q(region__icontains=search.title()) | Q(region__icontains=search.upper()))
+            
+        
         serializer = OrganizationSerializer(org,many=True)
         return Response(serializer.data)
     
@@ -118,7 +128,7 @@ def personalInfo(request: HttpRequest):
 @api_view(["POST"])
 def login(request : HttpRequest):
     if request.method == "POST":
-        data = json.loads(request.body)
+        data = request.data
         if 'email' in data and 'password' in data :
             try:
                 user = authenticate(username = data['email'], password = data['password'] )
@@ -178,3 +188,4 @@ def redactPersonal(request:HttpRequest):
                 
             
     
+
