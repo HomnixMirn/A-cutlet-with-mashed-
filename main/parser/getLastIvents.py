@@ -1,18 +1,25 @@
 import requests as req
 from bs4 import BeautifulSoup
+import time
+
 
 def get_last_events():
+    print(2)
 
     res = req.get("https://fsp-russia.com/calendar/archive/")
+    print(res)
+    while res.status_code == 503:
+        res = req.get("https://fsp-russia.com/calendar/archive/")
+        print(res)
 
     soup = BeautifulSoup(res.text, "html.parser")
 
     items = soup.find_all("div", class_="archive_item")
 
     data =[]
-    
+    print(items)
     for item in items:
-
+        time.sleep(1)
         city_cont = item.find("div", class_="city")
         city = city_cont.find("p").text if city_cont and city_cont.find("p") else None
         mens_cont = item.find("div", class_="mens")
@@ -31,10 +38,11 @@ def get_last_events():
 
         if not url:
             continue 
-
+        
         response = req.get("https://fsp-russia.com/" + url)
+        print(response)
+        
         s = BeautifulSoup(response.text, "html.parser")
-
 
         format_cont = s.find("div", class_="hybrid")
         format = format_cont.find("p").text if format_cont and format_cont.find("p") else None
