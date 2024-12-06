@@ -7,11 +7,11 @@ function App() {
     <div className='wrapper'>
       <Header/>
         <main>
- 
+            
         </main>
       <Footer/>
     </div>  
   );
 }
-
+ 
 export default App;
