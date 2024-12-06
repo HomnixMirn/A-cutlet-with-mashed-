@@ -117,7 +117,11 @@ def personalInfo(request: HttpRequest):
                 if authorizedToken.objects.filter(key=token).exists():
                     users = authorizedToken.objects.get(key=token).user
                     if organization.objects.filter(user = users).exists():
+                        if not OrganizationsEvents.objects.filter(organization = organization.objects.get(user=users)).exists():
+                                OrganizationsEvents.objects.create(organization = organization.objects.get(user=users))
                         return Response({'user': OrganizationsEventsSerializer(OrganizationsEvents.objects.get(organization = organization.objects.get(user=users))).data}, status=status.HTTP_200_OK)
+                    if not personaEvents.objects.filter(persona = persona.objects.get(user=users)).exists():
+                        personaEvents.objects.create(persona = persona.objects.get(user=users))
                     return Response({'user': PersonaEventsSerializer(personaEvents.objects.get(persona = persona.objects.get(user=users))).data}, status=status.HTTP_200_OK)
                 else:
                     return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
