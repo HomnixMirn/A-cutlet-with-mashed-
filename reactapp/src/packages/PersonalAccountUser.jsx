@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {API_URL} from '../index'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import vector_bottom from '../static/img/стрелка.png';
 import Vector from '../static/img/Vector.png';
+
+
 
 export default function PersonalAccountUser() {
     const [gender, setGender] = useState('');
@@ -31,6 +33,7 @@ export default function PersonalAccountUser() {
         setOption(option);
         setDropdownOpen(false);
     };
+
 
     return (
         <>
