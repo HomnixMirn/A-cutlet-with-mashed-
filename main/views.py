@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+
 from rest_framework import status
 from .serializers import *
 from django.http import HttpRequest
@@ -12,10 +13,12 @@ import re
 from django.shortcuts import redirect
 from geopy.geocoders import Nominatim
 from .sendEmail import getEmailCode
+from .sendEmail import sendRestorePassword
 from datetime import datetime
 import random
 from .parser import getInfo
 from .parser import getLastIvents
+
 import datetime
 from django.contrib.auth.models import User
 
@@ -358,7 +361,6 @@ def getOrganizationsInfo(request: HttpRequest, id: int):
 @api_view(['GET'])
 def getVerifiedEvents(request: HttpRequest, id: int):
     if request.method == 'GET':
-        
         try:
             id = int(id)
             events = Event.objects.filter(verify = True)
@@ -368,4 +370,37 @@ def getVerifiedEvents(request: HttpRequest, id: int):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+@api_view(['POST'])
+def forgotPassword(request: HttpRequest):
+    if request.method == 'POST':
+        data = request.data
+        if 'email' in data:
+            try:
+                if not User.objects.filter(username = data['email']).exists():
+                    return Response({'error': 'Email not found'}, status=status.HTTP_400_BAD_REQUEST)
+                sendRestorePassword.sendVerificated(data['email'],f'http://localhost:3000/resetPassword/{data["email"]}/')
+                return Response(status=status.HTTP_200_OK)
+            except Exception as e:
+                return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
     
+@api_view(['POST'])
+def resetPassword(request: HttpRequest, email: str):
+    if request.method == 'POST':
+        data = request.data
+        if 'password' in data:
+            try:
+                user = User.objects.get(username = email)
+                user.set_password(data['password'])
+                user.save()
+                return Response(status=status.HTTP_200_OK)
+            except Exception as e:
+                return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)

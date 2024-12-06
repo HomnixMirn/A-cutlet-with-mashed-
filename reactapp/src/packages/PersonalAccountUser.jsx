@@ -4,10 +4,13 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import vector_bottom from '../static/img/стрелка.png';
 import Vector from '../static/img/Vector.png';
+import axios from 'axios';
 
 
 
 export default function PersonalAccountUser() {
+    const [email, setEmail] = useState('');
+
     const [gender, setGender] = useState('');
     const [isGenderDropdownOpen, setIsGenderDropdownOpen] = useState(false);
 
@@ -33,8 +36,18 @@ export default function PersonalAccountUser() {
         setOption(option);
         setDropdownOpen(false);
     };
-
-
+    useEffect(() => {
+        axios.get(API_URL + 'personalInfo', {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}})
+        .then(res => {
+            const data = res.data
+            setEmail(data.user.persona.user.username)
+            console.log(data);
+            
+        }).catch(err => {
+            console.log(err)
+        })
+    })
+    
     return (
         <>
         <Header/>
@@ -87,7 +100,7 @@ export default function PersonalAccountUser() {
                         </div>
 
                         <div className=' '>
-                            <input type="text" className="" /> Ваша почта
+                            <input type="text" className="" value ={email} readOnly placeholder ="Ваша почта"/>
                         </div>
 
                     </div>

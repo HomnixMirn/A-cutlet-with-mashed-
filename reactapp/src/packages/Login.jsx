@@ -28,7 +28,7 @@ export default function Login() {
                 <button type='submit' className="submit-login">ВОЙТИ</button>
               </div>
                 <div className="under-login">
-                  <Link className="password-recovery">ЗАБЫЛИ ПАРОЛЬ</Link>
+                  <Link to='/forgotPassword' className="password-recovery">ЗАБЫЛИ ПАРОЛЬ</Link>
                   <Link to="/register" className="register-login">РЕГИСТРАЦИЯ</Link>
                 </div>
             </div>
