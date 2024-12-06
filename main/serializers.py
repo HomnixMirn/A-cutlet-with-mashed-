@@ -9,7 +9,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = organization
-        fields = ['region', 'fio', 'email']
+        fields = ['id','region', 'fio', 'email']
 
     # def get_number_region(self, obj):
         
