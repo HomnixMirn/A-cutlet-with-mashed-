@@ -47,7 +47,7 @@ class personalSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ['date_start', 'date_end']
+        fields = "__all__"
         
         
         

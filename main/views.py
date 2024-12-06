@@ -25,7 +25,8 @@ from django.contrib.auth.models import User
 # data = getInfo.get_ruks()
 # organization.objects.all().delete()
 # for i in data:
-#     organization.objects.create(region=i[0],fio=i[1],email=i[2])
+#     user = User.objects.create_user(username=i[2], password='admin')
+#     organization.objects.create(region=i[0],fio=i[1],email=i[2],user =user)
 
 # data = getLastIvents.get_last_events()
 # lastIvent.objects.all().delete()
@@ -47,7 +48,7 @@ def register(request : HttpRequest):
             email = data['email']
             
             print(code.objects.get(code = data['code']))
-            if User.objects.filter(email=email).exists():
+            if User.objects.filter(username=email).exists():
                 return Response({'error': 'Email already exists'}, status=status.HTTP_400_BAD_REQUEST)
             if 'code' in data:
                 if code.objects.get(code = data['code']):
@@ -76,7 +77,7 @@ def get_code(request : HttpRequest):
         data = request.data
         if 'email' in data:
             email = data['email']
-            if User.objects.filter(email=email).exists():
+            if User.objects.filter(username=email).exists():
                 return Response({'error': 'Email already exists'}, status=status.HTTP_400_BAD_REQUEST)
             try:
                 if code.objects.filter(email = email).exists():
@@ -115,7 +116,8 @@ def personalInfo(request: HttpRequest):
                 token = request.headers.get('Authorization').split(' ')[1]
                 if authorizedToken.objects.filter(key=token).exists():
                     users = authorizedToken.objects.get(key=token).user
-
+                    if organization.objects.filter(user = users).exists():
+                        return Response({'user': OrganizationSerializer(organization.objects.get(user =users)).data}, status=status.HTTP_200_OK)
                     return Response({'user': personalSerializer(persona.objects.get(user =users)).data}, status=status.HTTP_200_OK)
                 else:
                     return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -189,12 +191,35 @@ def redactPersonal(request:HttpRequest):
             
     
 @api_view(['GET'])
-def getTekEvents(request: HttpRequest):
+def getTekEvent(request: HttpRequest):
     if request.method == 'GET':
         try:
-            event = Event.objects.filter(date_start__gte = datetime.datetime.today()).first()
+            event = Event.objects.filter(Q(date_start__gte = datetime.datetime.today()) &Q(verify = True)).order_by('date_start').first()
+            
             serializer = EventSerializer(event)
             return Response(serializer.data , status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+@api_view(['POST'])
+def createEvent(request: HttpRequest):
+    if request.method == 'POST':
+        if request.headers.get('Authorization'):
+            token = request.headers.get('Authorization').split(' ')[1]
+            if not authorizedToken.objects.filter(key=token).exists():
+                return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+            # if authorizedToken.objects.get(key=token).user:
+            data = request.data
+            if 'name' in data and 'date_start' in data and 'date_end' in data and 'type' in data and 'age_group' in data:
+                try:
+                    event = Event.objects.create(name = data['name'], date_start = data['date_start'], date_end = data['date_end'], type = data['type'], age_group = data['age_group'])
+                    return Response(status=status.HTTP_201_CREATED)
+                except Exception as e:
+                    return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': "Authorization header is missing"}, status=status.HTTP_401_UNAUTHORIZED)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
         

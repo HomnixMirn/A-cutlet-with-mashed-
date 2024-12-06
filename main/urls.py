@@ -14,4 +14,6 @@ urlpatterns = [
     re_path(r'^api/hacaton/logout/$', logout),
     re_path(r'^api/hacaton/personalInfo/$', personalInfo),
     re_path(r'^api/hacaton/redactPersonalInfo/$',redactPersonal),
+    re_path(r'^api/hacaton/getTekEvent/$', getTekEvent),
+    re_path(r'^api/hacaton/createEvent/$', createEvent),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   
