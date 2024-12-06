@@ -9,4 +9,9 @@ urlpatterns = [
     re_path(r'^api/hacaton/get_code/$', get_code),
     re_path(r'^api/hacaton/get_organization/$', getOrganization),
     #TODO: repath
+    re_path(r'^api/hacaton/register/$', register),
+    re_path(r'^api/hacaton/login/$', login),
+    re_path(r'^api/hacaton/logout/$', logout),
+    re_path(r'^api/hacaton/personalInfo/$', personalInfo),
+    re_path(r'^api/hacaton/redactPersonalInfo/$',redactPersonal),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   
