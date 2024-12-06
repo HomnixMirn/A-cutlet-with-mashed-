@@ -1,10 +1,16 @@
 import './App.css';
+import Footer from './components/Footer';
+import Header from './components/Header';
 
 function App() {
   return (
-    <div className="App">
-        <h1>Hello world!</h1>
-    </div>
+    <div className='wrapper'>
+      <Header/>
+        <main>
+ 
+        </main>
+      <Footer/>
+    </div>  
   );
 }
 

@@ -1,0 +1,131 @@
+header{
+    display: flex;
+    width: 100%;
+    height: 80px;
+    align-items: center;
+    background-color: white;
+    justify-content: space-around;
+    box-shadow: 2px -2px 12px rgba(50, 51, 50, 0.5);
+}
+
+
+.logo{
+    background-image:url(../static/img/fsp_full_ru-black.svg);
+    width: 260px;
+    height: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.ul-header{
+    display: flex;
+    width: 640px;
+    list-style-type: none;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.personal_info{
+    width: 200px;
+    height: 40px;
+    background-color: #463ACB;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 8px;
+    font-family: bold;
+    border-width: 1px;
+    border-style:solid;
+    border-color: black;
+}
+
+.personal_info:hover{
+    background-color: #A3A3A3;
+}
+
+.register-header{
+    width: 200px;
+    height: 40px;
+    background-color: #463ACB;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 8px;
+    font-family: bold;
+    border-width: 1px;
+    border-style:solid;
+    border-color: black;
+}
+
+.register-header:hover{
+    background-color: #A3A3A3;
+}
+
+.regions{
+    width: 200px;
+    height: 40px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(0, 0, 0);
+    border-radius: 8px;
+    font-family: bold;
+}
+
+.Event{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    flex-direction: column;
+    width: 70px;
+    height: 50px;
+}
+
+.Event:hover{
+    background-color: #dadada;
+    border-radius: 10px;
+}
+
+.Event-img{
+    width: 35px;
+    height: 35px;
+}
+
+.event-h1{
+    color: black;
+    font-family: bold;
+    font-size: 12px;
+}
+
+.Region{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    flex-direction: column;
+    width: 118px;
+    height: 51px;
+}
+
+.Region:hover{
+    background-color: #dadada;
+    border-radius: 10px;
+}
+
+.Region-img{
+    width: 35px;
+    height: 35px;
+}
+
+.regions-h1{
+    color: black;
+    font-family: bold;
+    font-size: 12px;
+    text-decoration: none;
+}
