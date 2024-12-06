@@ -7,7 +7,7 @@ import Register from './packages/Register';
 import Map from './packages/MapComponents';
 import { BrowserRouter, Route, Routes  } from'react-router-dom';
 
-export const API_URL = "http://localhost:8000/api/mininCode/";
+export const API_URL = "http://localhost:8000/api/hacaton/";
 export const API_MEDIA = "http://localhost:8000";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
