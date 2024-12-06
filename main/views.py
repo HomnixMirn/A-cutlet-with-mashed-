@@ -361,7 +361,6 @@ def getOrganizationsInfo(request: HttpRequest, id: int):
 @api_view(['GET'])
 def getVerifiedEvents(request: HttpRequest, id: int):
     if request.method == 'GET':
-        
         try:
             id = int(id)
             events = Event.objects.filter(verify = True)
