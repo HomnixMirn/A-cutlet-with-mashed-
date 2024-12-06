@@ -9,6 +9,7 @@ class organization(models.Model):
     region = models.CharField(max_length=150)
     fio = models.CharField(max_length=250)
     email = models.CharField(max_length=250)
+    admin = models.BooleanField(default=False)
     
     def __str__(self):
         return self.region
@@ -56,3 +57,11 @@ class persona (models.Model):
     def __str__(self):
         return f"{self.fio}"    
     
+
+class Event(models.Model):
+    name = models.CharField(max_length=250)
+    type = models.CharField(max_length=250)
+    age_group = models.CharField(max_length=250)
+    date_start = models.DateField()
+    date_end = models.DateField()
+    verify = models.BooleanField(default=False)

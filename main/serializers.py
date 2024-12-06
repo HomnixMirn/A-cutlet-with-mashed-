@@ -44,6 +44,10 @@ class personalSerializer(serializers.ModelSerializer):
         fields = ['user', 'name', 'id_user', 'fio', 'phone', 'born_date', 'sex', 'country', 'region', 'city', 'user']
 
 
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['date_start', 'date_end']
         
         
         

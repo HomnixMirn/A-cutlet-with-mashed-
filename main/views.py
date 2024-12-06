@@ -188,4 +188,13 @@ def redactPersonal(request:HttpRequest):
                 
             
     
-
+@api_view(['GET'])
+def getTekEvents(request: HttpRequest):
+    if request.method == 'GET':
+        try:
+            event = Event.objects.filter(date_start__gte = datetime.datetime.today()).first()
+            serializer = EventSerializer(event)
+            return Response(serializer.data , status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
