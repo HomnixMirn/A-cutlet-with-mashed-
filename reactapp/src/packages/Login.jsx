@@ -1,12 +1,19 @@
 import React from 'react'
 import './login.css';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { API_URL } from '..';
+import { useNavigate } from 'react-router-dom';
 export default function Login() {
+  const navigate = useNavigate();
     function submitHandler(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
         const email = formData.get('email');
         const password = formData.get('password');
+        axios.post(`${API_URL}login`, {email: email, password: password}).then(
+            (res) => { localStorage.setItem('token', res.data.token);
+              navigate('/')}).catch((err) => console.log(err));
         console.log(email, password);
     }
   return (  
@@ -22,7 +29,7 @@ export default function Login() {
               </div>
                 <div className="under-login">
                   <Link className="password-recovery">ЗАБЫЛИ ПАРОЛЬ</Link>
-                  <Link className="register-login">РЕГИСТРАЦИЯ</Link>
+                  <Link to="/register" className="register-login">РЕГИСТРАЦИЯ</Link>
                 </div>
             </div>
           </div>
