@@ -67,18 +67,20 @@ function App() {
             const object = objectManager.objects.getById(objectId);
             
             if (object) {
-                // Устанавливаем опции для объекта при наведении
-                objectManager.objects.setObjectOptions(objectId, {
-                    strokeColor: HOVER_STROKE_COLOR,
-                    strokeWidth: 3,
-                });
-        
-                // Предполагаем, что имя региона хранится в свойстве name
-                const regionName = object.name || 'Неизвестный регион'; // Устанавливаем значение по умолчанию
-      
- 
-                console.log(regionName) 
-            }
+              // Устанавливаем опции для объекта при наведении
+              objectManager.objects.setObjectOptions(objectId, {
+                  strokeColor: HOVER_STROKE_COLOR,
+                  strokeWidth: 3,
+              });
+          
+              // Предполагаем, что имя региона хранится в свойстве name
+              const originalRegionName = object.name || 'Неизвестный регион'; // Устанавливаем значение по умолчанию
+              let regionNameToDisplay = originalRegionName; // Переменная для отображения имени региона
+              // regionNameToDisplay = mapData.find(item => item.region=== originalRegionName);
+              // Проверяем, есть ли регион в mapData
+              
+              console.log(regionNameToDisplay); // Выводим имя региона
+          }
         });
 
           objectManager.objects.events.add('mouseleave', function (e) {
