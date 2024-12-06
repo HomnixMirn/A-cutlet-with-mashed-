@@ -14,7 +14,7 @@ def sendVerificated(email,code):
         print( f'{_ex}\n Проверьте правильно ли указанны ваши данные')
     
     msg=MIMEMultipart('alternative')
-    msg['Subject'] = 'Верефикация прошла успешно'
+    msg['Subject'] = 'Ваш код подтверждения'
     msg['From'] = sender
     msg['To'] = email
     massage=f"""<html><head></head><body><p style='font-size:20px;'>Ваш Код подтвержения : {code} <br><br></p></body></html>"""

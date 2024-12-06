@@ -25,7 +25,8 @@ from django.contrib.auth.models import User
 # data = getInfo.get_ruks()
 # organization.objects.all().delete()
 # for i in data:
-#     organization.objects.create(region=i[0],fio=i[1],email=i[2])
+#     user = User.objects.create_user(username=i[2], password='admin')
+#     organization.objects.create(region=i[0],fio=i[1],email=i[2],user =user)
 
 # data = getLastIvents.get_last_events()
 # lastIvent.objects.all().delete()
@@ -41,12 +42,15 @@ from django.contrib.auth.models import User
 @api_view(['POST'])
 def register(request : HttpRequest):
     if request.method == 'POST':
-        data = json.loads(request.body)
+        data = request.data
+        print(data)
         if 'email' in data:
             email = data['email']
-            if User.objects.filter(email=email).exists():
+            
+            print(code.objects.get(code = data['code']))
+            if User.objects.filter(username=email).exists():
                 return Response({'error': 'Email already exists'}, status=status.HTTP_400_BAD_REQUEST)
-            if 'email_code' in data:
+            if 'code' in data:
                 if code.objects.get(code = data['code']):
                     try:
                         password = data['password']
@@ -69,12 +73,11 @@ def register(request : HttpRequest):
 @api_view(['POST'])
 def get_code(request : HttpRequest):
     if request.method == 'POST':
-        
-        data = json.loads(request.body)
-        print(data)
+        print(request.data)
+        data = request.data
         if 'email' in data:
             email = data['email']
-            if User.objects.filter(email=email).exists():
+            if User.objects.filter(username=email).exists():
                 return Response({'error': 'Email already exists'}, status=status.HTTP_400_BAD_REQUEST)
             try:
                 if code.objects.filter(email = email).exists():
@@ -85,13 +88,21 @@ def get_code(request : HttpRequest):
                 return Response( status=status.HTTP_201_CREATED)
             except Exception as _ex:
                 return Response({'error': f'{_ex}'}, status=status.HTTP_400_BAD_REQUEST)
-        return Response({'message': 'Email registered successfully'}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'error': 'Email not found'}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
     
     
 @api_view(['GET'])
 def getOrganization(request):
     if request.method == 'GET':
         org = organization.objects.all()
+        if 'search' in request.GET:
+            search = request.GET['search']
+            org = org.filter(Q(region__icontains=search.lower()) | Q(region__icontains=search.title()) | Q(region__icontains=search.upper()))
+            
+        
         serializer = OrganizationSerializer(org,many=True)
         return Response(serializer.data)
     
@@ -105,8 +116,9 @@ def personalInfo(request: HttpRequest):
                 token = request.headers.get('Authorization').split(' ')[1]
                 if authorizedToken.objects.filter(key=token).exists():
                     users = authorizedToken.objects.get(key=token).user
-
-                    return Response({'user': personalSerializer(persona.objects.get(user =users)).data}, status=status.HTTP_200_OK)
+                    if organization.objects.filter(user = users).exists():
+                        return Response({'user': OrganizationsEventsSerializer(OrganizationsEvents.objects.get(organization = organization.objects.get(user=users))).data}, status=status.HTTP_200_OK)
+                    return Response({'user': PersonaEventsSerializer(personaEvents.objects.get(persona = persona.objects.get(user=users))).data}, status=status.HTTP_200_OK)
                 else:
                     return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
             except Exception as e:
@@ -118,7 +130,7 @@ def personalInfo(request: HttpRequest):
 @api_view(["POST"])
 def login(request : HttpRequest):
     if request.method == "POST":
-        data = json.loads(request.body)
+        data = request.data
         if 'email' in data and 'password' in data :
             try:
                 user = authenticate(username = data['email'], password = data['password'] )
@@ -126,6 +138,11 @@ def login(request : HttpRequest):
                 return Response({'token': token}, status=status.HTTP_200_OK)
             except Exception as e:
                 return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+        
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
             
 
 @api_view(['GET'])
@@ -177,4 +194,174 @@ def redactPersonal(request:HttpRequest):
             return Response({'error': "Authorization header is missing"}, status=status.HTTP_401_UNAUTHORIZED)
                 
             
+    
+@api_view(['GET'])
+def getTekEvent(request: HttpRequest):
+    if request.method == 'GET':
+        try:
+            event = Event.objects.filter(Q(date_start__gte = datetime.datetime.today()) &Q(verify = True)).order_by('date_start').first()
+            
+            serializer = EventSerializer(event)
+            return Response(serializer.data , status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+@api_view(['POST'])
+def createEvent(request: HttpRequest):
+    if request.method == 'POST':
+        if request.headers.get('Authorization'):
+            token = request.headers.get('Authorization').split(' ')[1]
+            if not authorizedToken.objects.filter(key=token).exists():
+                return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+            if not organization.objects.filter(user = authorizedToken.objects.get(key=token).user).exists():
+                return Response({'error': 'You are not an organization'}, status=status.HTTP_401_UNAUTHORIZED)
+            organ = organization.objects.get(user = authorizedToken.objects.get(key=token).user)
+            data = request.data
+            if 'name' in data and 'date_start' in data and 'date_end' in data and 'type' in data and 'age_group' in data:
+                try:
+                    event = Event.objects.create(name = data['name'], date_start = data['date_start'], date_end = data['date_end'], type = data['type'], age_group = data['age_group'])
+                    if OrganizationsEvents.objects.filter(organization = organ).exists():
+                        OrganizationsEvents.objects.get(organization = organ).events.add(event)
+                    else:
+                        OrganizationsEvents.objects.create(organization = organ , events = event)
+                    
+                    return Response(status=status.HTTP_201_CREATED)
+                except Exception as e:
+                    return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': "Authorization header is missing"}, status=status.HTTP_401_UNAUTHORIZED)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+@api_view(['POST'])
+def verifyEvent(request: HttpRequest):
+    if request.method == 'POST':
+        if request.headers.get('Authorization'):
+            token = request.headers.get('Authorization').split(' ')[1]
+            if not authorizedToken.objects.filter(key=token).exists():
+                return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+            if not organization.objects.filter(user = authorizedToken.objects.get(key=token).user).exists():
+                return Response({'error': 'You are not an organization'}, status=status.HTTP_401_UNAUTHORIZED)
+            organ = organization.objects.get(user = authorizedToken.objects.get(key=token).user)
+            if organ.admin != True:
+                return Response({'error': 'You are not an admin'}, status=status.HTTP_401_UNAUTHORIZED)
+            data = request.data
+            if 'id' in data:
+                
+                try:
+                    event = Event.objects.get(id = data['id'])
+                    if OrganizationsEvents.objects.filter(Q(organization = organ)&Q(events = event)).exists():
+                        return Response({'error': 'you cannot verify your event'}, status=status.HTTP_400_BAD_REQUEST)
+                    event.verify = True
+                    event.save()
+                    return Response(status=status.HTTP_200_OK)
+                except Exception as e:
+                    return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': "Authorization header is missing"}, status=status.HTTP_401_UNAUTHORIZED)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+@api_view(['GET'])
+def getNotVerifiedEvents(request: HttpRequest):
+    if request.method == 'GET':
+        try:
+            events = Event.objects.filter(verify = False)
+            serializer = EventSerializer(events, many=True)
+            return Response(serializer.data , status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+@api_view(['POST'])
+def deleteEvent(request: HttpRequest):
+    if request.method == 'POST':
+        if request.headers.get('Authorization'):
+            token = request.headers.get('Authorization').split(' ')[1]
+            if not authorizedToken.objects.filter(key=token).exists():
+                return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+            if not organization.objects.filter(user = authorizedToken.objects.get(key=token).user).exists():
+                return Response({'error': 'You are not an organization'}, status=status.HTTP_401_UNAUTHORIZED)
+            organ = organization.objects.get(user = authorizedToken.objects.get(key=token).user)
+            if organ.admin != True:
+                return Response({'error': 'You are not an admin'}, status=status.HTTP_401_UNAUTHORIZED)
+            data = request.data
+            if 'id' in data:
+                try:
+                    event = Event.objects.get(id = data['id'])
+                    event.delete()
+                    return Response(status=status.HTTP_200_OK)
+                except Exception as e:
+                    return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': "Authorization header is missing"}, status=status.HTTP_401_UNAUTHORIZED)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+
+@api_view(['POST'])
+def addEventToPersonal(request: HttpRequest):
+    if request.method == 'POST':
+        if request.headers.get('Authorization'):
+            token = request.headers.get('Authorization').split(' ')[1]
+            if not authorizedToken.objects.filter(key=token).exists():
+                return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+            if not persona.objects.filter(user = authorizedToken.objects.get(key=token).user).exists():
+                return Response({'error': 'You are not a persona'}, status=status.HTTP_401_UNAUTHORIZED)
+            perso = persona.objects.get(user = authorizedToken.objects.get(key=token).user)
+            data = request.data
+            if 'id' in data:
+                try:
+                    event = Event.objects.get(id = data['id'])
+                    if personaEvents.objects.filter(Q(persona = perso)&Q(events = event)).exists():
+                        return Response({'error': 'You already have this event'}, status=status.HTTP_400_BAD_REQUEST)
+                    if personaEvents.objects.filter(persona = perso).exists():
+                        personaEvents.objects.get(persona = perso).events.add(event)
+                    else:
+                        personaEvents.objects.create(persona = perso , events = event)
+                    return Response(status=status.HTTP_200_OK)
+                except Exception as e:
+                    return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': "Authorization header is missing"}, status=status.HTTP_401_UNAUTHORIZED)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+                           
+@api_view(['GET'])
+def getOrganizationsInfo(request: HttpRequest, id: int):
+    if request.method == 'GET':
+        try:
+            org = organization.objects.get(id = id)
+            if not OrganizationsEvents.objects.filter(organization = org).exists():
+                OrganizationsEvents.objects.create(organization = org)
+            Orgs = OrganizationsEvents.objects.get(organization = org)
+            serializer = OrganizationsEventsSerializer(Orgs)
+            return Response(serializer.data , status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+@api_view(['GET'])
+def getVerifiedEvents(request: HttpRequest, id: int):
+    if request.method == 'GET':
+        
+        try:
+            id = int(id)
+            events = Event.objects.filter(verify = True)
+            serializer = EventSerializer(events[id*5:(id+1)*5], many=True)
+            return Response({ 'events':  serializer.data }, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
     

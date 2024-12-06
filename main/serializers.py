@@ -1,19 +1,33 @@
 from rest_framework import serializers
 from .models import *
-import pycountry
+
 
 
 class OrganizationSerializer(serializers.ModelSerializer):
     # мне надо чтобы number_region зависел от region и имел значение region+1
-    number_region = serializers.SerializerMethodField()
+    # number_region = serializers.SerializerMethodField()
 
     class Meta:
         model = organization
-        fields = ['region', 'fio', 'email', 'number_region']
+        fields = ['id','region', 'fio', 'email']
 
-    def get_number_region(self, obj):
+    # def get_number_region(self, obj):
         
-        return f" {obj.region} + 1"
+    #     # name = translit(obj.region, 'ru', reversed=True)
+
+    #     for subdivision in pycountry.subdivisions.get(country_code='RU'):
+    #         # print(subdivision.name)
+            
+    #         #AttributeError: 'NoneType' object has no attribute 'group'
+    #         try:
+
+    #             print(1)
+    #         except AttributeError:
+    #             name = subdivision.name
+    #         print(name)
+    #         if obj.region == name:
+                
+    #             return f"{subdivision.code}"
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -30,6 +44,23 @@ class personalSerializer(serializers.ModelSerializer):
         fields = ['user', 'name', 'id_user', 'fio', 'phone', 'born_date', 'sex', 'country', 'region', 'city', 'user']
 
 
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = "__all__"
         
         
         
+class OrganizationsEventsSerializer(serializers.ModelSerializer):
+    events = EventSerializer(many=True)
+    organization = OrganizationSerializer()
+    class Meta:
+        model = OrganizationsEvents
+        fields = "__all__"
+        
+class PersonaEventsSerializer(serializers.ModelSerializer):
+    events = EventSerializer(many=True)
+    persona = personalSerializer()
+    class Meta:
+        model = personaEvents
+        fields = "__all__"
