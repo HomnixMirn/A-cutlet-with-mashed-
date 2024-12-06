@@ -17,3 +17,7 @@ class lastIventAdmin(admin.ModelAdmin):
 @admin.register(persona)
 class personaAdmin(admin.ModelAdmin):
     list_display = ('user', 'name', 'id_user', 'fio', 'phone', 'born_date', 'sex', 'country', 'region', 'city', 'user')
+    
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('name', 'date_start', 'date_end', 'type', 'age_group', 'verify')

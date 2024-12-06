@@ -9,7 +9,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = organization
-        fields = ['region', 'fio', 'email']
+        fields = ['id','region', 'fio', 'email']
 
     # def get_number_region(self, obj):
         
@@ -47,7 +47,20 @@ class personalSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ['date_start', 'date_end']
+        fields = "__all__"
         
         
         
+class OrganizationsEventsSerializer(serializers.ModelSerializer):
+    events = EventSerializer(many=True)
+    organization = OrganizationSerializer()
+    class Meta:
+        model = OrganizationsEvents
+        fields = "__all__"
+        
+class PersonaEventsSerializer(serializers.ModelSerializer):
+    events = EventSerializer(many=True)
+    persona = personalSerializer()
+    class Meta:
+        model = personaEvents
+        fields = "__all__"

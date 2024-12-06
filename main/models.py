@@ -10,6 +10,7 @@ class organization(models.Model):
     fio = models.CharField(max_length=250)
     email = models.CharField(max_length=250)
     admin = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.region
@@ -65,3 +66,11 @@ class Event(models.Model):
     date_start = models.DateField()
     date_end = models.DateField()
     verify = models.BooleanField(default=False)
+    
+class OrganizationsEvents(models.Model):
+    events =models.ManyToManyField(Event)
+    organization = models.ForeignKey(organization, on_delete=models.CASCADE)
+    
+class personaEvents(models.Model):
+    events =models.ManyToManyField(Event)
+    persona = models.ForeignKey(persona, on_delete=models.CASCADE)
