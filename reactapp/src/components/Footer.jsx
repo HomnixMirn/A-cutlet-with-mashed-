@@ -1,6 +1,6 @@
 import './footer.css';
 import React, { Component } from 'react'
-import Telegram from "../static/img/Telegram.png"
+import VK from "../static/img/VK.png"
 
 function Footer() {
     return (
@@ -12,7 +12,7 @@ function Footer() {
             </div>
         <div className="mes">
             <a href="https://vk.com/russiafsp" className="VK">
-                <img src={Telegram} className="VK" alt=""/>
+                <img src={VK} className="VK" alt=""/>
             </a>
         </div>
         </div>

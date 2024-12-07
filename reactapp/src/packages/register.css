@@ -30,9 +30,8 @@
 }
 
 .in-registr-email{
-    width: 270px;
-
-    padding: 15px;
+    width: 280px;
+    padding: 8px;
     border-radius: 10px;
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.425);
@@ -42,17 +41,24 @@
 .line-reg{
     display: flex;
     justify-content: space-between;
-    width: 508px;
+    width: 512px;
     height: 60px;
 }
 
 .get-code{
-    width: 190px;
-    height: 60px;
+    width: 202px;
+    height: 59px;
     border-radius: 10px;
     background-color: #463ACB;
     color: white;
     font-family: bold;
+    transition: opacity 0.2s ease;
+    opacity: 1;
+    border: none;
+}
+
+.get-code:hover{
+    opacity: 0.8;
 }
 
 
@@ -122,16 +128,18 @@
 .p-link-reg{
     display: flex;
     justify-content: space-around;
-    width: 345px;
+    width: 340px;
 }
 
 .link-login{
     color: #463ACB;
+    text-decoration: none;
 }
 
-.under-get-code{
+.under-get-cod{
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.425);
-    border-radius: 10px;
-    padding: 15px;
+    border-radius: 8px;
+    width: 190px;
+    height: 57px;
 }

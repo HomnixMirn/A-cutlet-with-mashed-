@@ -34,7 +34,7 @@ function submitHandler(e) {
             <div className="line-reg">
               <input className='in-registr-email' type="text" name="email" placeholder='Email'/>
               {Gos===true ?<button type='submit' className="get-code">Получить код</button>
-              :<input className='under-get-code' type="text" name="code" placeholder='Код'/>}
+              :<input className='under-get-cod' type="text" name="code" placeholder='Код'/>}
             </div>
             <p className='p-register'>Введите Ваш контактный e-mail адрес. Вам будет отправлено проверочное сообщение с кодом.</p>
             <div className='pasword-reg'>
