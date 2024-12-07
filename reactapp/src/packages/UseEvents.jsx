@@ -40,7 +40,14 @@ function UseEvents() {
 
 
     useEffect(() => {
-        const loadEvents = async () => {
+/*************  ✨ Codeium Command ⭐  *************/
+    /**
+     * Loads events of the day, specified by the current 'pageNum',
+     * and sets the state variables 'events', 'error', and 'loading'
+     * accordingly. If an error occurs, sets 'error' to it and
+     * 'loading' to false.
+     */
+/******  e986af1a-3538-4fef-8a30-c7f165aa72aa  *******/        const loadEvents = async () => {
             try {
                 const events = await fetchEvents(pageNum);
                 setEvents(events);
