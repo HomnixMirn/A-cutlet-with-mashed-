@@ -38,7 +38,7 @@ function App() {
               <div className="block-2-2">
                 <div className="block-2-2-1">
                   <img src={calendar} alt="" />
-                  <h1 className="h1-block-2-2">{data.date_start} - {data.date_end}</h1>
+                  <h1 className="h1-block-2-2">{data.date_start ? <>{data.date_start.split('-')[1]}.{data.date_start.split('-')[2]} - {data.date_end.split('-')[1]}.{data.date_end.split('-')[2]} </>: ''}</h1>
                 </div>
                 <div className="block-2-2-1">
                   <img src={romb} alt="" />
@@ -48,7 +48,7 @@ function App() {
               {
                 localStorage.getItem('token') 
                 ? (
-                  <Link to="/addEventToPerson">Зарегистрироваться</Link>
+                  <Link to="/addEventToPerson">Записаться</Link>
                 )
                 : (
                   <Link to="/login">Зарегистрироваться</Link>
