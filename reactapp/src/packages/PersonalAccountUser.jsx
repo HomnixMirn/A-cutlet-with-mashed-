@@ -49,9 +49,8 @@ export default function PersonalAccountUser() {
     })
     
     return (
-        <>
-        <Header/>
-        <Footer/>
+        <div className="wrapper">
+            <Header/>
         <div class="GeneralDiv_PerAccUs">
 
             <div className="LeftMenu_PerAccUsmain">
@@ -187,7 +186,8 @@ export default function PersonalAccountUser() {
                 </div>
             </div>
         </div>
-        </>
+            <Footer/>
+        </div>
         
      );
 }

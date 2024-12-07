@@ -25,3 +25,40 @@
     background-color: #463ACB;
     color: white;
 }
+
+.wrapper {
+    display: flex;
+    flex-direction: column; 
+    min-height: 100vh; 
+}
+
+.event_button-opisani{
+    width: 251px;
+    height: 50px;
+    background: #463acb;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 111%;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.event_age_group-ev{
+    padding: 10px 25px;
+    width: 811px;
+    height: 178px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.button-Sign{
+    display: flex;
+    width: 350px;
+    flex-direction: column-reverse;
+    height: 170px;
+
+}

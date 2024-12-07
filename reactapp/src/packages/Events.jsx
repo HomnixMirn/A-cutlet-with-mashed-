@@ -55,7 +55,6 @@ function Events() {
     return (
         <div className='wrapper'>
             <Header />
-            <Footer />
             <h2>Verified Events</h2>
             <div className='events'>
             {events.map((event) => (
@@ -77,11 +76,12 @@ function Events() {
                                 <img src={TypeImg} alt="" className="event_type_img"/>
                                 <p className="event_type_name">{event.type}</p>
                             </div>
-                            <div className="event_age_group">
+                            <div className="event_age_group-ev">
                                 <img src={user_icon} alt="" className="event_type_img" />
                                 <p className="event_age_group_name">{event.age_group}</p>
                             </div>
-                            <button className="event_button" onClick={() => {
+                            <div className='button-Sign'>
+                            <button className="event_button-opisani" onClick={() => {
                                 if (!localStorage.getItem('token')) {
                                     navigate('/Login');
                                     return;
@@ -95,6 +95,7 @@ function Events() {
                                 })
                             }}
                                 >Записаться</button>
+                            </div>
                         </div>
                     </div>
                 ))}
@@ -106,6 +107,7 @@ function Events() {
                     </button>
                 ))}
             </div>
+            <Footer />
         </div>
     );
 }

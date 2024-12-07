@@ -4,7 +4,7 @@ import Telegram from "../static/img/Telegram.png"
 
 function Footer() {
     return (
-        <footer>
+    <footer>
         <p className="year-footer">@2024 Федерация спортивного программирования России</p>
         <div className="info-mess">
             <div className="contact-info">
