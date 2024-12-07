@@ -75,7 +75,7 @@ function UseEvents() {
     return (
         <div className='wrapper'>
             <Header />
-            <div className="search_input">
+            <div className="search_input-even">
             <input type="text" placeholder="Поиск"  className='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
             <div><img src={loopa} alt=""  className="loopa"/></div>
             </div>
@@ -84,8 +84,8 @@ function UseEvents() {
                     <div className="event">
                         <div className="event_top">
                             <div className="date-use-event">
-                                <p className="day_start">{event.date_start}</p>
-                                <p className="day_start">{event.date_end}</p>
+                                <p className="day_start">{event.date_start.split('-')[1]}.{event.date_start.split('-')[2]} - {event.date_end.split('-')[1]}.{event.date_end.split('-')[2]}</p>
+
                             </div>
                             <div className="event_title-use">
                                 <p className="event_name">{event.name}</p>

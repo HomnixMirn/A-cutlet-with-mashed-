@@ -58,10 +58,17 @@ class EventSerializer(serializers.ModelSerializer):
         return None
         
         
+class commentSerializer(serializers.ModelSerializer):
+    persona = personalSerializer()
+    event = EventSerializer()
+    class Meta:
+        model = comment
+        fields = "__all__"
         
 class OrganizationsEventsSerializer(serializers.ModelSerializer):
     events = EventSerializer(many=True)
     organization = OrganizationSerializer()
+    comments = commentSerializer(many=True)
     class Meta:
         model = OrganizationsEvents
         fields = "__all__"
