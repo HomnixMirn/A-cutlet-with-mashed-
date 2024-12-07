@@ -46,3 +46,67 @@ padding-left:10px ;
     width: 26px;
     float: inline-end;
 }
+
+.date{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+    width: 500px;
+    align-self: center;
+    gap: 50px;
+
+}
+
+.date_button_up{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #463ACB;
+    color: white;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.date_button_down{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #463ACB;
+    color: white;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.month{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    padding: 10px 15px;
+    cursor: pointer;
+
+    color: black;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.year{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    padding: 10px 15px;
+    cursor: pointer;
+
+    color: black;
+    cursor: pointer;
+    font-size: 30px;
+}
