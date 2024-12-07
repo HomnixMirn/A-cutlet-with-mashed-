@@ -13,7 +13,6 @@ import loopa from '../static/img/loopa.png';
 
 
 function Events() {
-    
     const [counts, setCounts] = useState({});
     const navigate = useNavigate();
     const [events, setEvents] = useState([]);
