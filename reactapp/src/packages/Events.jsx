@@ -9,6 +9,7 @@ import './Events.css';
 import TypeImg from '../static/img/TypeImg.png';
 import user_icon from '../static/img/user_icon.png';
 import { useNavigate } from 'react-router-dom';
+import loopa from '../static/img/loopa.png';
 
 function Events() {
     const navigate = useNavigate();
@@ -16,12 +17,14 @@ function Events() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [pageNum, setPageNum] =  useState(useRef(0)["current"])
-    const [pageId, setPageId] = useState(0);
+
     const [pages, setPage] = useState(0);
+    const [search, setSearch] = useState('');
     const fetchEvents = async (id) => {
         try {
-            const response = await axios.get(`${API_URL}getVerifiedEvents/${id}`);
+            const response = await axios.get(`${API_URL}getVerifiedEvents/${id}?search=${search}`);
             setPage(response.data.pages);
+            
             return response.data.events;
         } catch (err) {
             throw err.response ? err.response.data.error : 'Что-то пошло не так';
@@ -33,16 +36,17 @@ function Events() {
             try {
                 const events = await fetchEvents(pageNum);
                 setEvents(events);
-                setPageId(0);
             } catch (err) {
                 setError(err);
             } finally {
                 setLoading(false);
             }
         };
-        console.log(pageId);
+
         loadEvents();
-    }, [pageId, pageNum]);
+    }, [ pageNum,search]);
+
+
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -56,7 +60,10 @@ function Events() {
         <div className='wrapper'>
             <Header />
             <Footer />
-            <h2>Verified Events</h2>
+            <div className="search_input">
+            <input type="text" placeholder="Поиск"  className='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
+            <div><img src={loopa} alt=""  className="loopa"/></div>
+            </div>
             <div className='events'>
             {events.map((event) => (
                     <div className="event">
