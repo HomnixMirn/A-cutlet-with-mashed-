@@ -10,6 +10,7 @@ import TypeImg from '../static/img/TypeImg.png';
 import user_icon from '../static/img/user_icon.png';
 import { useNavigate } from 'react-router-dom';
 import loopa from '../static/img/loopa.png';
+import Back from '../static/img/Back.png'
 
 function UseEvents() {
     const navigate = useNavigate();
@@ -20,7 +21,6 @@ function UseEvents() {
     const [pages, setPage] = useState(0);
     const [search, setSearch] = useState('');
     const url = new URL(window.location.href);
-
     const year = url.pathname.split('/')[2];
     const month = url.pathname.split('/')[3];
     const day = url.pathname.split('/')[4];
@@ -68,22 +68,25 @@ function UseEvents() {
             <input type="text" placeholder="Поиск"  className='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
             <div><img src={loopa} alt=""  className="loopa"/></div>
             </div>
-            <div className='events'>
+            <div className='events-back'>
+        <div className='back'>
+            <a className='a-back' href='/Event/:days/:year'><button class="date_button_up">←</button></a>
+        </div>
             {events.map((event) => (
                     <div className="event">
                         <div className="event_top">
-                            <div className="date">
+                            <div className="date-use-event">
                                 <p className="day_start">{event.date_start}</p>
                                 <p className="day_start">{event.date_end}</p>
                             </div>
-                            <div className="event_title">
+                            <div className="event_title-use">
                                 <p className="event_name">{event.name}</p>
                             </div>
                             <div className="event_city">
                                 {event.organization ?<p className="event_date">{event.organization.region}</p>: <p className="event_date">Проводиться Онлайн</p>}
                             </div>
                         </div>
-                        <div className="event_bottom">
+                        <div className="event_bottom-useev">
                             <div className="event_type">
                                 <img src={TypeImg} alt="" className="event_type_img"/>
                                 <p className="event_type_name">{event.type}</p>
