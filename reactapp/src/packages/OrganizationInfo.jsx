@@ -11,6 +11,7 @@ import Footer from '../components/Footer';
 import './OrganizationInfo.css';
 import TypeImg from '../static/img/TypeImg.png';
 import user_icon from '../static/img/user_icon.png';
+import MapOrganiz from "../components/MapOrganiz";
 
 function OrganizationInfo() {
     const navigate = useNavigate();
@@ -37,7 +38,7 @@ function OrganizationInfo() {
         <div className="main">
             <h1 className="title">Представитель региона</h1>
             <div className="main_info">
-                <div className="map">карта от кирилла</div>
+                <MapOrganiz regionName={organization.region}/>
                 <div className="info_org">
                     <div className="stat_info">
                         <p className="name">Руководитель:</p>
