@@ -18,9 +18,14 @@ function UseEvents() {
     const [pageNum, setPageNum] =  useState(useRef(0)["current"])
     const [pages, setPage] = useState(0);
     const [search, setSearch] = useState('');
+    const url = new URL(window.location.href);
+
+    const year = url.pathname.split('/')[2];
+    const month = url.pathname.split('/')[3];
+    const day = url.pathname.split('/')[4];
     const fetchEvents = async (id) => {
         try {
-            const response = await axios.get(`${API_URL}getVerifiedEvents/${id}?search=${search}`);
+            const response = await axios.get(`${API_URL}getEventsOnDay?search=${search}&month=${month}&year=${year}&day=${day}`);
             setPage(response.data.pages);
             
             return response.data.events;
