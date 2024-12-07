@@ -1,64 +1,67 @@
-import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+
+import { useEffect , useState} from "react";
+import { Link } from 'react-router-dom';
+import event from '../static/img/event.png';
+import region from '../static/img/region.png';
+import axios from "axios";
+import { API_URL } from '../index';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { API_URL } from '..';
-import { use } from 'react';
 import './OrganizationInfo.css';
-import './Events.css';
 import TypeImg from '../static/img/TypeImg.png';
 import user_icon from '../static/img/user_icon.png';
-import { useNavigate } from 'react-router-dom';
 
-function Events() {
+function OrganizationInfo() {
     const navigate = useNavigate();
-    const [events, setEvents] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [pageNum, setPageNum] =  useState(useRef(0)["current"])
-    const [pageId, setPageId] = useState(0);
-    const [pages, setPage] = useState(0);
-    const fetchEvents = async (id) => {
-        try {
-            const response = await axios.get(`${API_URL}getVerifiedEvents/${id}`);
-            setPage(response.data.pages);
-            return response.data.events;
-        } catch (err) {
-            throw err.response ? err.response.data.error : 'Что-то пошло не так';
-        }
-    };
-
+    const [organization , setOrganization] = useState([]);
+    const [events , setEvents] = useState([]);
+    const id  = new URL(window.location.href).pathname.split('/')[2];
+    console.log(id);
+    
     useEffect(() => {
-        const loadEvents = async () => {
-            try {
-                const events = await fetchEvents(pageNum);
-                setEvents(events);
-                setPageId(0);
-            } catch (err) {
-                setError(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        console.log(pageId);
-        loadEvents();
-    }, [pageId, pageNum]);
-
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error}</div>;
-
-    const handleDescriptionClick = (description) => {
-        alert(description);
-    };
+        
+        axios.get(API_URL + 'getOrganizationInfo/'+id, {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}}).then(res => {
+            const data = res.data
+            setOrganization(data.organization);
+            setEvents(data.events);
+        }).catch(err => {
+            console.log(err)
+        })
+    },[])
     console.log(events);
     
     return (
-        <div className='wrapper'>
-            <Header />
-            <Footer />
-            <h2>Verified Events</h2>
-            <div className='events'>
-            {events.map((event) => (
+        <div className="wrapper">
+        <Header />
+        <div className="main">
+            <h1 className="title">Представитель региона</h1>
+            <div className="main_info">
+                <div className="map">карта от кирилла</div>
+                <div className="info_org">
+                    <div className="stat_info">
+                        <p className="name">Руководитель:</p>
+                        <div className="cart_stat">
+                            <p className="p_info">{organization.fio}</p>
+                        </div>
+                    </div>
+                    <div className="stat_info">
+                        <p className="name">Контакты:</p>
+                        <div className="cart_stat">
+                            <p className="p_info">{organization.email}</p>
+                        </div>
+                    </div>
+                    <div className="stat_info">
+                        <p className="name">Субъект:</p>
+                        <div className="cart_stat">
+                            <p className="p_info">{organization.region}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1 className="title title_event">События</h1>
+            <div className="events">
+                {events.map((event) => (
                     <div className="event">
                         <div className="event_top">
                             <div className="date">
@@ -69,7 +72,7 @@ function Events() {
                                 <p className="event_name">{event.name}</p>
                             </div>
                             <div className="event_city">
-                                {event.organization ?<p className="event_date">{event.organization.region}</p>: <p className="event_date">Проводиться Онлайн</p>}
+                                <p className="event_date">{organization.region}</p>
                             </div>
                         </div>
                         <div className="event_bottom">
@@ -99,15 +102,11 @@ function Events() {
                     </div>
                 ))}
             </div>
-            <div className='pagination'>
-                {Array.from({ length: pages+1 }, (_, index) => index + 1).map((page) => (
-                    <button className={page === pageNum+1 ? 'page active' : 'page'} key={page} onClick={() => {setPageNum(page-1); console.log(page)}}>
-                        {page}
-                    </button>
-                ))}
-            </div>
         </div>
-    );
+        <Footer />
+        </div>
+
+    )
 }
 
-export default Events;
+export default OrganizationInfo

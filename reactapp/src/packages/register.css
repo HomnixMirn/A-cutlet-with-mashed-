@@ -9,7 +9,7 @@
     background-image: url(../static/img/fon.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: cente
+    background-position: center;
 }
 
 .zap{
@@ -29,19 +29,21 @@
     font-size: 25px;
 }
 
-.in-reg-email{
-    width: 305px;
-    height: 60px;
+.in-registr-email{
+    width: 270px;
+
     padding: 15px;
     border-radius: 10px;
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.425);
 }
 
+
 .line-reg{
     display: flex;
     justify-content: space-between;
     width: 508px;
+    height: 60px;
 }
 
 .get-code{
@@ -53,18 +55,11 @@
     font-family: bold;
 }
 
-.under-get-code{
-    border-width: 1px;
-    border-color: rgba(0, 0, 0, 0.425);
-    width: 190px;
-    height: 60px;
-    border-radius: 10px;    
-    padding: 13px;
-}
+
 
 .p-register{
     width: 508px;
-    margin-top: -25px;
+    margin-top: -25px
 }
 
 .pasword-reg{
@@ -75,8 +70,8 @@
 }
 
 .w-90px{
-    width: 508px;
-    height: 60px;
+    width: 480px;
+    height: 25px;
     border-radius: 10px;
     border-width: 1px;
     padding: 15px;
@@ -132,4 +127,11 @@
 
 .link-login{
     color: #463ACB;
+}
+
+.under-get-code{
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.425);
+    border-radius: 10px;
+    padding: 15px;
 }

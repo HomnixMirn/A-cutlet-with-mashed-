@@ -15,6 +15,9 @@ function Header() {
         document.title = "Header";
     }, []);
     useEffect(() => {
+        if (!localStorage.getItem('token')) {
+            return;
+        }
         axios.get(API_URL + 'personalInfo', {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}}).then(res => {
             const data = res.data
         }).catch(err => {
@@ -23,11 +26,11 @@ function Header() {
     })
     return (
         <header>
-            <Link className="logo"></Link>
+            <Link to={"/"} className="logo"></Link>
             <>  
                 <ul className="ul-header">
                     <div className="fix-header">
-                        <Link className="Event">
+                        <Link to="/Event/0" className="Event">
                         <img src={event}  alt='' className="Event-img"/>
                         <h1 className="event-h1">Событие</h1>
                         </Link>
@@ -37,7 +40,7 @@ function Header() {
                         </Link>
                     </div>
                         {localStorage.getItem('token') ?
-                        <div> <Link to="/personalAccount" className="personal_info">Личный кабинет</Link>
+                        <div className='Personal-profile'> <Link to="/PersonalAccountUser" className="personal_info">Личный кабинет</Link>
                         <button onClick={() => {localStorage.removeItem('token')
                         navigate('/')
                         }} className="register-header">Выход</button>

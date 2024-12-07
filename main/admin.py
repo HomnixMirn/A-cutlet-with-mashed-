@@ -21,3 +21,7 @@ class personaAdmin(admin.ModelAdmin):
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ('name', 'date_start', 'date_end', 'type', 'age_group', 'verify')
+    
+@admin.register(OrganizationsEvents)
+class OrganizationsEventsAdmin(admin.ModelAdmin):
+    list_display = ('organization',)

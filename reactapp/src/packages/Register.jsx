@@ -32,8 +32,8 @@ function submitHandler(e) {
           <div className="zap">
             <h1 className="zap-h1">Пройдите регистрацию:</h1>
             <div className="line-reg">
-              <input className='in-reg-email' type="text" name="email" placeholder='Email'/>
-              {Gos==true ?<button type='submit' className="get-code">Получить код</button>
+              <input className='in-registr-email' type="text" name="email" placeholder='Email'/>
+              {Gos===true ?<button type='submit' className="get-code">Получить код</button>
               :<input className='under-get-code' type="text" name="code" placeholder='Код'/>}
             </div>
             <p className='p-register'>Введите Ваш контактный e-mail адрес. Вам будет отправлено проверочное сообщение с кодом.</p>
@@ -41,7 +41,6 @@ function submitHandler(e) {
               <input className='w-90px' type="password" name="password" placeholder='Пароль'/>
               <p className="p-register">Придумайте пароль, потом вы сможете его поменять в личном кабинете.</p>
             </div>
-
             <div className='reg-check'> 
               <input className='checkbox' type="checkbox" name="code" placeholder='Код'/>
                 <div className='p-register-un'>

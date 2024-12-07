@@ -1,9 +1,12 @@
 import React from 'react'
 import './login.css';
+import './forgotPassword.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '..';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function ForgotPassword() {
     const navigate = useNavigate();
@@ -15,12 +18,18 @@ function ForgotPassword() {
         ;
     }
     return (
+        <>
+            <Header />
         <div className="login-container">
             <form action="" method='POST' onSubmit={(e) => submitHandler(e)}>
-                <input type="email" name='email'/>
-                <button type="submit">Отправить на почту</button>
+                <div className="forgot-email">
+                    <input placeholder='ЭЛЕКТРОННАЯ ПОЧТА' className="email-forgot" type="email" name='email'/>
+                    <button className="submit-forgot" type="submit">Отправить на почту</button>
+                </div>
                 </form>
             </div>
+            <Footer />
+        </>
     )
 
 }

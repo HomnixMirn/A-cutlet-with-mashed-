@@ -23,9 +23,11 @@ export default function ForgotPassword() {
     return (
         <div className="login-container">
             <form action="" method='POST' onSubmit={(e) => submitHandler(e)}>
-                <input type="password" name='password'/>
-                <input type="password" name='password_check'/>
-                <button type="submit">Обновить Пароль</button>
+                <div className="reset-div">
+                    <input type="password" name='password'/>
+                    <input type="password" name='password_check'/>
+                    <button type="submit">Обновить Пароль</button>
+                </div>
                 </form>
             </div>
     )

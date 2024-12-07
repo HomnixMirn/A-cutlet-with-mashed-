@@ -45,7 +45,7 @@ export default function PersonalAccountUser() {
         <Footer/>
         <div class="GeneralDiv_PerAccUs">
 
-            <div className="LeftMenu_PerAccUs">
+            <div className="LeftMenu_PerAccUsmain">
                 <div className="LeftMenuButt_PerAccUs">
                     <button className= "ProfileButt_PerAccUs" type = "submit">Данные профиля</button>
                     <button className= "PartButt_PerAccUs" type = "submit">Мои участия</button>
