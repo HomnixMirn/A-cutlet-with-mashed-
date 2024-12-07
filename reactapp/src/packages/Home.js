@@ -8,8 +8,10 @@ import { API_URL } from '..';
 import { useEffect } from 'react';
 import axios from 'axios';
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 function App() {
+
   const [data, setData] = React.useState([]);
   useEffect (() => {
     axios.get(API_URL + 'getTekEvent')
@@ -30,20 +32,29 @@ function App() {
             <div className="app-block-2">
               <div className="block-2-1">
                 <h1 className="h1-block-2">{data.name}</h1>
-                <p className="p-block-2">{data.type}</p>
+                <p className="p-block-2"></p>
                 </div>
 
               <div className="block-2-2">
                 <div className="block-2-2-1">
                   <img src={calendar} alt="" />
-                  <h1 className="h1-block-2-2">22.11 - 08.12</h1>
+                  <h1 className="h1-block-2-2">{data.date_start} - {data.date_end}</h1>
                 </div>
                 <div className="block-2-2-1">
                   <img src={romb} alt="" />
-                  <h1 className="h1-block-2-2">Программирование продуктовое </h1>
+                  <h1 className="h1-block-2-2">{data.type}</h1>
                 </div>
               </div>
-              <a href="" className="button-app-reg">Зарегистрироваться</a>
+              {
+                localStorage.getItem('token') 
+                ? (
+                  <Link to="/addEventToPerson">Зарегистрироваться</Link>
+                )
+                : (
+                  <Link to="/login">Зарегистрироваться</Link>
+                )
+              }
+              
             </div>
         </main>
       <Footer/>
