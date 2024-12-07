@@ -67,7 +67,7 @@ function Events() {
         <div className='wrapper'>
             <Header />
             <h2></h2>
-            <div className="search_input">
+            <div className="search_input-use">
             <input type="text" placeholder="Поиск"  className='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
             <div><img src={loopa} alt=""  className="loopa"/></div>
             

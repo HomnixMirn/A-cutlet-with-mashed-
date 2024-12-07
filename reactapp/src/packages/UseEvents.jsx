@@ -75,7 +75,7 @@ function UseEvents() {
     return (
         <div className='wrapper'>
             <Header />
-            <div className="search_input">
+            <div className="search_input-even">
             <input type="text" placeholder="Поиск"  className='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
             <div><img src={loopa} alt=""  className="loopa"/></div>
             </div>
