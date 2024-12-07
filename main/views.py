@@ -402,13 +402,15 @@ def getVerifiedEvents(request: HttpRequest):
             month = get['month']
             year = get['year']
             events = Event.objects.filter(verify = True, date_start__year = year, date_start__month = month)
-            
-            if 'search' in get:
-                print(get['search'])
-                events = events.filter(Q(name__icontains = get['search'].lower()) | Q(name__icontains = get['search'].title()) | Q(name__icontains = get['search'].upper()) )
             serializer = EventSerializer(events, many=True)
             
-            return Response({ 'events':  serializer.data}, status=status.HTTP_200_OK)
+            if 'search' in get:
+        
+                serializer = list(filter(lambda x: get['search'].lower() in x['name'].lower() or get['search'].lower() in x['organization']['region'].lower()  , serializer.data))
+
+            
+            
+            return Response({ 'events':  serializer}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     else:
@@ -483,10 +485,11 @@ def getEventsOnDay(request: HttpRequest):
             month = get['month']
             year = get['year']
             events = Event.objects.filter(date_start__year = year, date_start__month = month, date_start__day = day)
-            if 'search' in get:
-                events = events.filter(Q(name__icontains = get['search'].lower()) | Q(name__icontains = get['search'].title()) | Q(name__icontains = get['search'].upper()) )
             serializer = EventSerializer(events, many=True)
-            return Response({ 'events':  serializer.data}, status=status.HTTP_200_OK)
+            if 'search' in get:
+                serializer = list(filter(lambda x: get['search'].lower() in x['name'].lower() or get['search'].lower() in x['organization']['region'].lower()  , serializer.data))
+            
+            return Response({ 'events':  serializer}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     else:

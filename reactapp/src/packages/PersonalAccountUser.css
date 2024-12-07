@@ -1,11 +1,11 @@
 
 .GeneralDiv_PerAccUs{
-    height:920px;
     width:1764px;
     display: flex;
     justify-content: space-between;
     margin-top: 27.5px;
     margin-left: 68.5px;
+    margin-bottom: 50px;
 }
 /*Левое меню */
 .LeftMenu_PerAccUsmain{
@@ -764,7 +764,7 @@ padding: 12px 12px;
     position: absolute;
     left: 40%;
     overflow-y: auto;
-    max-height: 400px;
+    max-height: 100px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     border: 1px solid black;
@@ -775,5 +775,6 @@ padding: 12px 12px;
     color:black;
     height: 25px;
     width:300px;
-    text-align: center;
+    text-align: left;
+    padding: 0 14px;
 }
