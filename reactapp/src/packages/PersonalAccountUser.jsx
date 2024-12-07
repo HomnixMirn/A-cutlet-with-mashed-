@@ -17,6 +17,7 @@ export default function PersonalAccountUser() {
     const [gender, setGender] = useState('');
     const [isGenderDropdownOpen, setIsGenderDropdownOpen] = useState(false);
 
+
     const [activeButton, setActiveButton] = useState('profile');
 
     const [events, setEvents] = useState([]);
@@ -31,6 +32,8 @@ export default function PersonalAccountUser() {
 
     const [personals, setPersonals] = useState([]);
     const [search, setSearch] = useState('');
+    const [selectPersona, setSelectPersona] = useState(-1)
+    const [searchPerson , setSearchPerson] = useState(false)
 
     useEffect(() => {
         axios.get(API_URL + `getPersonas?search=${search}` , {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}})
@@ -155,6 +158,7 @@ export default function PersonalAccountUser() {
             })
             .then(res =>{
                 setPopup(false);
+                window.location.reload()
                 console.log('Данные успешно добавлены', res,data);
             })
             .catch(err =>{
@@ -162,6 +166,8 @@ export default function PersonalAccountUser() {
             });
 
         }
+
+
         
     
     return (
@@ -510,7 +516,13 @@ export default function PersonalAccountUser() {
                                 </div>
                                     <input type="text" onChange={(e) => {
                                         setSearch(e.target.value);
-                                    }} className=" popup-input" name ="winner" placeholder='Победитель:'/>
+                                    }} className=" popup-input" name ="winner" placeholder='Победитель:' onClick={() => setSearchPerson(!searchPerson)}/>
+                                    {searchPerson ===true 
+                                    ?<div className="search_input">
+                                        personals.map
+                                    </div>
+                                    : null}
+
                                     <input type="hidden" className=" popup-input" name ="id" value={popupId.id}/>
                                     <input type="number" className=" popup-input" name ="bolls" placeholder='Баллы:'/>
                                     <input type="text" className=" popup-input" name ="problems"placeholder='Проблемы при проведении:'/>
