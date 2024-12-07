@@ -6,6 +6,7 @@ header{
     background-color: white;
     justify-content: space-around;
     box-shadow: 2px -2px 12px rgba(50, 51, 50, 0.5);
+    z-index: 1;
 }
 
 
@@ -17,15 +18,22 @@ header{
     background-repeat: no-repeat;
 }
 
+.fix-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 380px;
+}
+
 .ul-header{
     display: flex;
-    width: 640px;
+    width: 700px;
     list-style-type: none;
     align-items: center;
     justify-content: space-between;
 }
 
-.personal_info{
+.rounded{
     width: 200px;
     height: 40px;
     background-color: #463ACB;
