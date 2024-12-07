@@ -17,7 +17,7 @@ function App() {
   const [popup, setPopup] = React.useState([]); // Хранение попапа
 
   React.useEffect(() => {
-    axios.get(API_URL + 'get_organization/')
+    axios.get(API_URL + 'get_organization')
       .then((res) => {
         setMapData(res.data);
         console.log(res.data); // Сохраняем данные о регионах

@@ -409,3 +409,30 @@ def resetPassword(request: HttpRequest, email: str):
             return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+@api_view(['POST'])
+def removePersonaEvent(request: HttpRequest):
+    if request.method == 'POST':
+        if request.headers.get('Authorization'):
+            token = request.headers.get('Authorization').split(' ')[1]
+            if not authorizedToken.objects.filter(key=token).exists():
+                return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+            if not persona.objects.filter(user = authorizedToken.objects.get(key=token).user).exists():
+                return Response({'error': 'You are not a persona'}, status=status.HTTP_401_UNAUTHORIZED)
+            perso = persona.objects.get(user = authorizedToken.objects.get(key=token).user)
+            data = request.data
+            if 'id' in data:
+                try:
+                    event = Event.objects.get(id = data['id'])
+                    if personaEvents.objects.filter(persona = perso).exists():
+                        personaEvents.objects.get(persona = perso).events.remove(event)
+                    return Response(status=status.HTTP_200_OK)
+                except Exception as e:
+                    return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': "Authorization header is missing"}, status=status.HTTP_401_UNAUTHORIZED)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
