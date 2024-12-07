@@ -365,12 +365,11 @@ def getVerifiedEvents(request: HttpRequest):
             get = request.GET
             month = get['month']
             year = get['year']
-            #как мне получить верефецированный ивент по месяцу и году
             events = Event.objects.filter(verify = True, date_start__year = year, date_start__month = month)
             
             if 'search' in get:
                 print(get['search'])
-                events = events.filter(name__icontains = get['search'])
+                events = events.filter(Q(name__icontains = get['search'].lower()) | Q(name__icontains = get['search'].title()) | Q(name__icontains = get['search'].upper()) )
             serializer = EventSerializer(events, many=True)
             
             return Response({ 'events':  serializer.data}, status=status.HTTP_200_OK)
@@ -449,7 +448,7 @@ def getEventsOnDay(request: HttpRequest):
             year = get['year']
             events = Event.objects.filter(date_start__year = year, date_start__month = month, date_start__day = day)
             if 'search' in get:
-                events = events.filter(name__icontains = get['search'])
+                events = events.filter(Q(name__icontains = get['search'].lower()) | Q(name__icontains = get['search'].title()) | Q(name__icontains = get['search'].upper()) )
             serializer = EventSerializer(events, many=True)
             return Response({ 'events':  serializer.data}, status=status.HTTP_200_OK)
         except Exception as e:

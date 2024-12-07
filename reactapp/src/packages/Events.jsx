@@ -22,6 +22,7 @@ function Events() {
     const [days , setDay] = useState(new Date(year, month,0).getDate());
     const [pages, setPage] = useState(0);
     const [search, setSearch] = useState('');
+    let count = 0
     console.log(days)
     const moths = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"]
     const fetchEvents = async () => {
@@ -66,7 +67,7 @@ function Events() {
         <div className='wrapper'>
             <Header />
             <h2>Verified Events</h2>
-            <Footer />
+            
             <div className="search_input">
             <input type="text" placeholder="Поиск"  className='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
             <div><img src={loopa} alt=""  className="loopa"/></div>
@@ -93,33 +94,39 @@ function Events() {
                     
                     }}>→</button>
             </div>
-            <div className='events'>
+            <div className='events_Calendar'>
             
                 <>
                 {Array.from({ length: days }, (_, index) => index + 1).map((day) => (
                     <div className='card_day'>
                         <p className="num_day">{day}</p>
-                    {events.map((event) => (
-                        <>
-                        {console.log(day)
+                        {events.map((event) => {
+                                <>
+                                
+                                    {day === Number(event.date_start.split('-')[2]) ?
+                                    
+                                        count++
+                                    
+                                    :
+                                    <></>
+                                    }
+                                </>
+                        })}
                         
+                        <div className="many_event">
+                                <p className="p_many_event">Количество мероприятий в этот день: <span className="days_count"> {count}</span></p>
+                        </div>
+                        {count !==0 ? <button className="button_day" onClick={() => navigate(`/events/${year}/${month}/${day}`)}>Показать</button> : <></>}
+                        <p className="hiden">{count = 0}</p>
                         
-                        }
-                        {day === Number(event.date_start.split('-')[2]) ?
-                        <button className={day === event.date_start.split('-')[2] ? 'day active' : 'day'} key={day}>
-                            {day}
-                        </button>
-                        :
-                        <></>
-                        }
-                        </>
-                    ))}
-                </div>
-            ))}
+                    </div>
+                ))}
                 </>
 
             </div>
+            <Footer />
         </div>
+        
     );
 }
 

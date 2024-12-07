@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 
 function Header() {
     const navigate = useNavigate();
+    const month = new Date().getMonth()+1
+    const year = new Date().getFullYear()
     useEffect(() => {
         document.title = "Header";
     }, []);
@@ -30,7 +32,7 @@ function Header() {
             <>  
                 <ul className="ul-header">
                     <div className="fix-header">
-                        <Link to="/Event/0" className="Event">
+                        <Link to={`/Event/${month}/${year}`} className="Event">
                         <img src={event}  alt='' className="Event-img"/>
                         <h1 className="event-h1">Событие</h1>
                         </Link>
