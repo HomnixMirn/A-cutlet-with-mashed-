@@ -8,7 +8,7 @@
     margin-left: 68.5px;
 }
 /*Левое меню */
-.LeftMenu_PerAccUs{
+.LeftMenu_PerAccUsmain{
     width: 331px;
     height: 240px;
     background-color: rgba(70, 58, 203, 0.1);
@@ -26,11 +26,33 @@
 .ProfileButt_PerAccUs{
     width: 261px;
     height: 49px;
+    background-color: white;
+    border-radius: 20px;
+    color: black;
 }
 .PartButt_PerAccUs{
     width: 261px;
     height: 49px;
     margin-top:21px;
+    background-color: white;
+    border-radius: 20px;
+    color: black;
+}
+
+.ProfileButt_PerAccUs.active{
+    width: 261px;
+    height: 49px;
+    background-color: #463ACB;
+    border-radius: 20px;
+    color: white;
+}
+.PartButt_PerAccUs.active{
+    width: 261px;
+    height: 49px;
+    margin-top:21px;
+    background-color: #463ACB;
+    border-radius: 20px;
+    color: white;
 }
 
 .MainDiv_PerAccUs{
@@ -297,6 +319,11 @@
     border-radius: 10px;
     background-color: white;
     border-color: blue;
+    font-family: Regular;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: left;
+    padding-left: 10px;
 }
 
 /*Сохранить данные*/
@@ -314,6 +341,7 @@
     font-size: 18px;
     font-weight: 400;
     color: white;
+    
 }
 
 /*Общие*/
