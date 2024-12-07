@@ -43,7 +43,7 @@ class authorizedToken(Token):
     
     
 class persona (models.Model):
-    sexs=[('М','Мужчина'),('Ж','Женщина')]
+    sexs=[('Мужчина','Мужчина'),('Женщина','Женщина')]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=250 , blank=True, null=True)
     id_user = models.CharField(max_length=250 , blank=True, null=True)

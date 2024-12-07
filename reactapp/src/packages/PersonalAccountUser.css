@@ -125,6 +125,7 @@
     height: 161px;
     display: flex;
     justify-content: center;
+    margin-left: 5px;
 }
 
 .LocalInfo_PerAccUs{
@@ -132,7 +133,7 @@
 }
 
 .LocalInfoInputs_PerAccUs{
-    margin-left: 15px;
+    margin-left: 10px;
 }
 
 .LocalDataInputFIO_PerAccUs{
@@ -251,17 +252,14 @@
     border-right: 1px solid blue;
 }
 
-.Location_PerAccUs{
-    width: 920px;
-    height:178px;
-    margin-left:15px;
-}
+
 
 .LocationInputs_PerAccUs{
     width: 925px;
     height: 178px ;
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+    margin-left:10px;
 }
 
 .LocationInputContry_PerAccUs{
@@ -342,6 +340,96 @@
     font-weight: 400;
     color: white;
     
+}
+
+/*Ивенты*/
+.GeneralListParticipation_PerAccUs{
+    width: 1195px;
+    height: auto;
+}
+
+
+.card_event{
+    width: 1195px ;
+    height: 312px ;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.25);
+    margin-top: 57.5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+
+.left_event{
+    width: 550px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.type_event{
+    width: 530px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 5px;
+    margin-top: 25px;
+}
+
+.DivGeneralRightEvent{
+    width: 420px;
+    height: 164px;
+    display: flex;
+    align-items: end;
+}
+
+.right_event{
+    width: 420px;
+}
+
+.RightEvent_DeleteButt{
+    width:420px ;
+    height: 60px;
+    background-color: #463ACB;
+    color: white;
+    font-family: Regular;
+    font-weight: 700;
+    font-size: 24px;
+    border-radius: 15px;
+    border: none;
+}
+
+.date_event{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.h1_event{
+    font-family: Bold;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.p_event{
+    width: auto;
+    font-family: Regular;
+    font-weight: 700;
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+.h1_notevent{
+    height: 920px;
+    width: auto;
+    font-family: Bold;
+    font-size: 32px;
+    font-weight: 700;
 }
 
 /*Общие*/
