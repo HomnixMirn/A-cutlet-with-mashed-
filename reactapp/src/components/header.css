@@ -6,6 +6,7 @@ header{
     background-color: white;
     justify-content: space-around;
     box-shadow: 2px -2px 12px rgba(50, 51, 50, 0.5);
+    z-index: 1;
 }
 
 
