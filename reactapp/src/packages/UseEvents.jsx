@@ -3,21 +3,19 @@ import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { API_URL } from '..';
-import { use } from 'react';
 import './OrganizationInfo.css';
-import './Events.css';
+import './userevents.css';
 import TypeImg from '../static/img/TypeImg.png';
 import user_icon from '../static/img/user_icon.png';
 import { useNavigate } from 'react-router-dom';
 import loopa from '../static/img/loopa.png';
 
-function Events() {
+function UseEvents() {
     const navigate = useNavigate();
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [pageNum, setPageNum] =  useState(useRef(0)["current"])
-
     const [pages, setPage] = useState(0);
     const [search, setSearch] = useState('');
     const fetchEvents = async (id) => {
@@ -120,4 +118,4 @@ function Events() {
     );
 }
 
-export default Events;
+export default UseEvents;
