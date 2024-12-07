@@ -38,7 +38,7 @@ export default function PersonalAccountUser() {
     useEffect(() => {
         axios.get(API_URL + `getPersonas?search=${search}` , {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}})
         .then(res => {
-            setPersonals(res.data)
+            setPersonals(res.data.personas)
         })
     }, [search])
 
@@ -144,7 +144,7 @@ export default function PersonalAccountUser() {
             const formData = {
                 id: data.get('id'),  
                 bolls : data.get('bolls'),
-                winner: data.get('winner'),
+                winner: selectPersona,
                 problems: data.get('problems'),
                 helpers: data.get('helpers'),
                 file : data.get('file')
@@ -359,7 +359,7 @@ export default function PersonalAccountUser() {
                         type = "submit"
                         onClick ={() => setActiveButton('admin')}
                         >
-                            валидация мероприятий
+                            Валидация мероприятий
                     </button>
                     :null}
                     </div>
@@ -514,15 +514,26 @@ export default function PersonalAccountUser() {
                                     <p className="dates2 popup2-p">{popupId.date_start}</p>
                                     <p className='dates2 popup2-p'>{popupId.date_end}</p>
                                 </div>
+                                <div className ="GeneralInputSearch">
                                     <input type="text" onChange={(e) => {
                                         setSearch(e.target.value);
-                                    }} className=" popup-input" name ="winner" placeholder='Победитель:' onClick={() => setSearchPerson(!searchPerson)}/>
+                                    }} className=" popup-input" value={search} name ="winner" placeholder='Победитель:' onClick={() => setSearchPerson(true)}/>
                                     {searchPerson ===true 
                                     ?<div className="search_input">
-                                        personals.map
+                                        {personals.map(personal => (
+                                            <div className="search_result" onClick={() => {
+                                                setSelectPersona(personal.id);
+                                                setSearch(personal.fio);
+                                                setSearchPerson(false);
+                                            }}> 
+                                                
+                                                    {personal.fio}
+                                                
+                                            </div>
+                                        ))}
                                     </div>
                                     : null}
-
+                                </div>
                                     <input type="hidden" className=" popup-input" name ="id" value={popupId.id}/>
                                     <input type="number" className=" popup-input" name ="bolls" placeholder='Баллы:'/>
                                     <input type="text" className=" popup-input" name ="problems"placeholder='Проблемы при проведении:'/>

@@ -402,13 +402,15 @@ def getVerifiedEvents(request: HttpRequest):
             month = get['month']
             year = get['year']
             events = Event.objects.filter(verify = True, date_start__year = year, date_start__month = month)
-            
-            if 'search' in get:
-                print(get['search'])
-                events = events.filter(Q(name__icontains = get['search'].lower()) | Q(name__icontains = get['search'].title()) | Q(name__icontains = get['search'].upper()) )
             serializer = EventSerializer(events, many=True)
             
-            return Response({ 'events':  serializer.data}, status=status.HTTP_200_OK)
+            if 'search' in get:
+        
+                serializer = list(filter(lambda x: get['search'].lower() in x['name'].lower() or get['search'].lower() in x['organization']['region'].lower()  , serializer.data))
+
+            
+            
+            return Response({ 'events':  serializer}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     else:
@@ -483,10 +485,11 @@ def getEventsOnDay(request: HttpRequest):
             month = get['month']
             year = get['year']
             events = Event.objects.filter(date_start__year = year, date_start__month = month, date_start__day = day)
-            if 'search' in get:
-                events = events.filter(Q(name__icontains = get['search'].lower()) | Q(name__icontains = get['search'].title()) | Q(name__icontains = get['search'].upper()) )
             serializer = EventSerializer(events, many=True)
-            return Response({ 'events':  serializer.data}, status=status.HTTP_200_OK)
+            if 'search' in get:
+                serializer = list(filter(lambda x: get['search'].lower() in x['name'].lower() or get['search'].lower() in x['organization']['region'].lower()  , serializer.data))
+            
+            return Response({ 'events':  serializer}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     else:
@@ -554,6 +557,34 @@ def getReport(request: HttpRequest, id: int):
             rep = report.objects.get(id = id)
             serializer = reportSerializer(rep)
             return Response(serializer.data , status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+@api_view(['GET'])
+def getMostPopularOrganizationsEvents(request: HttpRequest):
+    if request.method == 'GET':
+        try:
+            personalEvents = personaEvents.objects.all()
+            allOrganization = {}
+            for i in personalEvents:
+                for j in i.events.all():
+                    if OrganizationsEvents.objects.filter(events = j).exists():
+                        allOrganization[OrganizationsEvents.objects.filter(events = j).first().organization.region] = allOrganization.get(OrganizationsEvents.objects.filter(events = j).first().organization.region, 0) + 1
+            events ={}
+            print(2)
+            orgEvents = OrganizationsEvents.objects.all()
+            for i in orgEvents:
+                for j in i.events.all():
+                    events[i.organization.region] = events.get(i.organization.region, 0) + 1
+                
+            
+            
+            print(allOrganization)
+            print(events)
+            return Response({'popularPerson': dict(sorted(allOrganization.items(), key=lambda x: x[1], reverse=True)[:5]), 'popularOrg': dict(sorted(events.items(), key=lambda x: x[1], reverse=True)[:5])}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     else:
