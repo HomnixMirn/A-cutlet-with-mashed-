@@ -24,6 +24,7 @@ export default function PersonalAccountUser() {
     const [popup2, setPopup2] = useState(false);
 
     const [lk , setLk] = useState("persona");
+    const [notVerified, setNotVerified] = useState([]);
     const navigate = useNavigate();
 
 
@@ -44,6 +45,10 @@ export default function PersonalAccountUser() {
                 setLk("organization")
                 setUser(data.user.organization)
                 setEvents(data.user.events)
+                axios.get(API_URL + 'getNotVerifiedEvent', {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}}).then(res => {
+                    setNotVerified(res.data)
+                    console.log(res.data)
+                })
             }
             else{
             console.log(data)
@@ -330,7 +335,7 @@ export default function PersonalAccountUser() {
                         type = "submit"
                         onClick ={() => setActiveButton('admin')}
                         >
-                            Мои участия
+                            валидация мероприятий
                     </button>
                     :null}
                     </div>
@@ -355,7 +360,7 @@ export default function PersonalAccountUser() {
                     </div>
                     <button className="button_create_event" onClick={() => setPopup(true)}>Создать мероприятие</button>
                 </div>
-                : 
+                : activeButton === 'participation' ?
                 <>
                     <div className="GeneralListParticipation_PerAccUs">
                             {events.length === 0 ? (
@@ -390,11 +395,57 @@ export default function PersonalAccountUser() {
                                         </div>
                                     </div>
                                     </div>
-                                </>))
+                                </>
+                
+                            ))
                                 
                             )}
                     </div>
-                </>}
+                </>
+                : <>
+                    <div className="MainDiv_PerAccUs">
+                        <h1 className="h1_Events_PerAccUs">Вы администратор и можете валидировать мероприятия</h1>
+
+                        <div className="validate_event">
+                            {notVerified.length === 0 ? (
+                                <h1 className="h1_notevent">В данный момент нет мероприятий для валидации</h1>
+                            ):(
+                            notVerified.map((event) =>
+                                ( event.organization.email !== user.email ?<>
+                              
+                                    <div className="card_event">
+                                        
+                                        <div className="left_event">
+                                            <p className="h1_event">{event.name}</p>
+                                            <div className="type_event">
+                                                <img src={TypeImg} alt="" className="event_type_img"/>
+                                                <p className="p_event">{event.type}</p>
+                                            </div>
+                                            <div className="left_bottom_event">
+                                                <div className="date_event">
+                                                    <img src= {Event} alt="" width="35px" height="35px" />
+                                                    <p className="p_event">{event.date_start.split('-')[1]}.{event.date_start.split('-')[2]} - {event.date_end.split('-')[1]}.{event.date_end.split('-')[2]}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="DivGeneralRightEvent">
+                                            <div className="right_event">
+                                                <button className='button_verify' onClick={() => axios.post(API_URL + 'verifyEvent' , {id : event.id}, {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}}).then(res => {window.location.reload()})}>Подтвердить</button>
+                                                <button className='button_verify' onClick={() => axios.post(API_URL + 'deleteEvent' , {id : event.id}, {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}}).then(res => {window.location.reload()})}>Отклонить</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                                :<></>
+                
+                            ))
+                                
+                            )}
+                        </div>
+                    </div>
+                </>
+            
+            }
             </div>
 }
             <Footer/>

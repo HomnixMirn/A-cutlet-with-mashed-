@@ -8,7 +8,7 @@ class codeAdmin(admin.ModelAdmin):
     
 @admin.register(organization)
 class orgAdmin(admin.ModelAdmin):
-    list_display = ('region', 'fio', 'email')
+    list_display = ('region', 'fio', 'email', 'admin')
     
 @admin.register(lastIvent)
 class lastIventAdmin(admin.ModelAdmin):
@@ -33,3 +33,7 @@ class authorizedTokenAdmin(admin.ModelAdmin):
 @admin.register(personaEvents)
 class personaEventsAdmin(admin.ModelAdmin):
     list_display = ('persona',)
+    
+@admin.register(report)
+class reportAdmin(admin.ModelAdmin):
+    list_display = ('event', 'winner')

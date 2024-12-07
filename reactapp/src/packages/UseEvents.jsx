@@ -20,7 +20,6 @@ function UseEvents() {
     const [pages, setPage] = useState(0);
     const [search, setSearch] = useState('');
     const url = new URL(window.location.href);
-
     const year = url.pathname.split('/')[2];
     const month = url.pathname.split('/')[3];
     const day = url.pathname.split('/')[4];
@@ -72,18 +71,18 @@ function UseEvents() {
             {events.map((event) => (
                     <div className="event">
                         <div className="event_top">
-                            <div className="date">
+                            <div className="date-use-event">
                                 <p className="day_start">{event.date_start}</p>
                                 <p className="day_start">{event.date_end}</p>
                             </div>
-                            <div className="event_title">
+                            <div className="event_title-use">
                                 <p className="event_name">{event.name}</p>
                             </div>
                             <div className="event_city">
                                 {event.organization ?<p className="event_date">{event.organization.region}</p>: <p className="event_date">Проводиться Онлайн</p>}
                             </div>
                         </div>
-                        <div className="event_bottom">
+                        <div className="event_bottom-useev">
                             <div className="event_type">
                                 <img src={TypeImg} alt="" className="event_type_img"/>
                                 <p className="event_type_name">{event.type}</p>

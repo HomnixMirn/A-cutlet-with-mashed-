@@ -11,7 +11,9 @@ import user_icon from '../static/img/user_icon.png';
 import { useNavigate } from 'react-router-dom';
 import loopa from '../static/img/loopa.png';
 
+
 function Events() {
+    const [counts, setCounts] = useState({});
     const navigate = useNavigate();
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -38,7 +40,9 @@ function Events() {
         }
     };
 
+    
     useEffect(() => {
+        
         const loadEvents = async () => {
             try {
                 const events = await fetchEvents();
@@ -67,7 +71,6 @@ function Events() {
         <div className='wrapper'>
             <Header />
             <h2></h2>
-        
             <div className="search_input">
             <input type="text" placeholder="Поиск"  className='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
             <div><img src={loopa} alt=""  className="loopa"/></div>
@@ -97,7 +100,7 @@ function Events() {
             <div className='events_Calendar'>
             
                 <>
-                {Array.from({ length: days }, (_, index) => index + 1).map((day) => (
+                {Array(days).fill().map((_, index) => index + 1).map((day) => (
                     <div className='card_day'>
                         <p className="num_day">{day}</p>
                         {events.map((event) => {
@@ -116,7 +119,7 @@ function Events() {
                         <div className="many_event">
                                 <p className="p_many_event">Количество мероприятий в этот день: <span className="days_count"> {count}</span></p>
                         </div>
-                        {count !==0 ? <button className="button_day" onClick={() => navigate(`/events/${year}/${month}/${day}`)}>Показать</button> : <></>}
+                        {count !==0 ? <a href={`/event/${year}/${month}/${day}`}><button className="button_day">Показать</button></a> : <></>}
                         <p className="hiden">{count = 0}</p>
                         
                     </div>

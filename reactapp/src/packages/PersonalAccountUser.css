@@ -394,6 +394,9 @@
 
 .right_event{
     width: 420px;
+    display: flex;
+    flex-direction: row;
+    gap:20px
 }
 
 .RightEvent_DeleteButt{
@@ -608,6 +611,22 @@ font-size: 24px;
 line-height: 104%;
 text-align: center;
 color: #000;
+}
+
+.button_verify{
+    border: 1px solid #000;
+    border-radius: 15px;
+
+    height: 46px;
+    background: #fff;
+    font-family: bold;
+font-weight: 700;
+font-size: 18px;
+line-height: 111%;
+text-transform: uppercase;
+text-align: center;
+color: #000;
+padding: 12px 12px;
 }
 
 .DivGeneralRightEvent2{

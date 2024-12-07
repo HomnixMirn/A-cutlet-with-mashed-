@@ -45,3 +45,68 @@
     width: 26px;
     float: inline-end;
 }
+
+.date-use-event{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 550px;
+    align-self: center;
+    gap: 20px;
+}
+
+.event_title-use{
+    border-right: 3px solid #fff;
+    padding: 10px;
+    width: 882px;
+    min-height: 113px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 3px solid white;
+}
+
+.event_age_group-ev{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+}
+
+.event_bottom-useev{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.button-Sign{
+    width: 270px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    height: 170px;
+}
+
+.event_button-opisani{
+    width: 200px;
+    height: 40px;
+    background-color: #463ACB;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 8px;
+    font-family: bold;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    transition: opacity 0.2s ease;
+    opacity: 1;
+}
+
+.event_button-opisani:hover{
+    opacity: 0.8;
+}
+
