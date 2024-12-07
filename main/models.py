@@ -22,6 +22,11 @@ class code(models.Model):
     def __str__(self):
         return f"{self.code}"
     
+
+    
+    def __str__(self):
+        return f"{self.user.username}"
+    
 class lastIvent(models.Model):
     city = models.CharField(max_length=250, blank=True, null=True)
     mens = models.CharField(max_length=250,blank=True, null=True)
@@ -68,14 +73,20 @@ class Event(models.Model):
     verify = models.BooleanField(default=False)
     ended = models.BooleanField(default=False)
     
+class comment (models.Model):
+    comment = models.CharField(max_length=250)
+    persona = models.ForeignKey(persona, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    
 class OrganizationsEvents(models.Model):
     events =models.ManyToManyField(Event)
     organization = models.ForeignKey(organization, on_delete=models.CASCADE)
+    comments = models.ManyToManyField(comment)
     
 class personaEvents(models.Model):
     events =models.ManyToManyField(Event)
     persona = models.ForeignKey(persona, on_delete=models.CASCADE)
-
+    
     def __str__(self):
         return f'{self.persona.user.username}'
     
