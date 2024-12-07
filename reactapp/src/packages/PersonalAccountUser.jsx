@@ -24,6 +24,7 @@ export default function PersonalAccountUser() {
     const [popup, setPopup] = useState(false);
     const [popup2, setPopup2] = useState(false);
     const [popupId, setPopupId] = useState([]);
+    const [popup3, setPopup3] = useState(false);
 
     const [lk , setLk] = useState("persona");
     const [notVerified, setNotVerified] = useState([]);
@@ -157,7 +158,7 @@ export default function PersonalAccountUser() {
                 }
             })
             .then(res =>{
-                setPopup(false);
+                setPopup2(false);
                 window.location.reload()
                 console.log('Данные успешно добавлены', res,data);
             })
@@ -165,6 +166,28 @@ export default function PersonalAccountUser() {
                 console.error("Ошибка при добавлении данных:", err);
             });
 
+        }
+
+        function handleComment(e){
+            e.preventDefault();
+            const data = new FormData(e.target);
+            const formData ={
+                comment : data.get('comment')
+            };
+            axios.post(API_URL + 'addComment', formData,{
+                headers: {
+                    'Authorization': 'Token' + localStorage.getItem('token'),
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then(res =>{
+                setPopup3(false);
+                window.location.reload()
+                console.log('Комментарий успешно добавлен',res.data)
+            })
+            .catch(err=>{
+                console.error("Ошибка при добавлении комментария:", err);
+            })
         }
 
 
@@ -311,6 +334,9 @@ export default function PersonalAccountUser() {
                                             </div>
                                         </div>
                                         <div className="DivGeneralRightEvent">
+                                            <div className="RightEvent_CommentDiv">
+                                                <button className="RightEvent_DeleteButt" onClick ={() => setPopup3(true) }>Написать комментарий</button>
+                                            </div>
                                             <div className="right_event">
                                                 <button 
                                                     onClick={() => {
@@ -549,6 +575,24 @@ export default function PersonalAccountUser() {
                     </div>
 
                 </div>
+            : null}
+
+                {popup3 !== false ?
+                    <div className=" popup3">
+                        <div className="back3">
+                            <div className = "popup3-content">
+                                <h1 className='popup-title'>Написать комментарий</h1>
+                                <p className='popup3-p'>Напишите в текстовом поле снизу краткое впечатление об мероприятии</p>
+                            </div>
+                            <form className="popup3-body" onSubmit={(e) => handleComment(e)}>
+                                <textarea name="" id="" className="popup3-textarea" placeholder='Ваш текст'></textarea>
+                            <div className="popup3-buttons">
+                                <button className="popup3-button" type="submit">Отправить комментарий</button>
+                                <button className="popup3-button" onClick ={() => setPopup3(false)}>Отменить</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
             : null}
         </div>
         
