@@ -1,11 +1,11 @@
 
 .GeneralDiv_PerAccUs{
-    height:920px;
     width:1764px;
     display: flex;
     justify-content: space-between;
     margin-top: 27.5px;
     margin-left: 68.5px;
+    margin-bottom: 50px;
 }
 /*Левое меню */
 .LeftMenu_PerAccUsmain{
