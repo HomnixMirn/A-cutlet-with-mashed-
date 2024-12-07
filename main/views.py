@@ -365,7 +365,7 @@ def getVerifiedEvents(request: HttpRequest, id: int):
             id = int(id)
             events = Event.objects.filter(verify = True)
             serializer = EventSerializer(events[id*5:(id+1)*5], many=True)
-            return Response({ 'events':  serializer.data }, status=status.HTTP_200_OK)
+            return Response({ 'events':  serializer.data , 'pages' : len(events)//5}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     else:

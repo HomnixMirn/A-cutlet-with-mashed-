@@ -11,6 +11,8 @@ import PersonalAccountUser from './packages/PersonalAccountUser.jsx';
 import { BrowserRouter, Route, Routes  } from'react-router-dom';
 import ForgotPassword from './packages/forgotPassword.jsx';
 import ResetPassword from './packages/resetPassword.jsx';
+import OrganizationInfo from './packages/OrganizationInfo.jsx';
+
 
 export const API_URL = "http://localhost:8000/api/hacaton/";
 export const API_MEDIA = "http://localhost:8000";
@@ -28,6 +30,8 @@ root.render(
           <Route path = "/PersonalAccountUser" element={<PersonalAccountUser />} />
           <Route path='/forgotPassword' element={<ForgotPassword />} />
           <Route path = "/resetPassword/:email" element={<ResetPassword />} />
+          <Route path = "/Event/:id" element={<Events/>} />
+          <Route path = "/OrganizationInfo/:id" element={<OrganizationInfo/>} />
         </Routes>
     </BrowserRouter>
   // </React.StrictMode>
