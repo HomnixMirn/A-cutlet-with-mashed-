@@ -66,6 +66,7 @@ class Event(models.Model):
     date_start = models.DateField()
     date_end = models.DateField()
     verify = models.BooleanField(default=False)
+    ended = models.BooleanField(default=False)
     
 class OrganizationsEvents(models.Model):
     events =models.ManyToManyField(Event)
@@ -77,3 +78,15 @@ class personaEvents(models.Model):
 
     def __str__(self):
         return f'{self.persona.user.username}'
+    
+class report(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    winner = models.ForeignKey(persona, on_delete=models.CASCADE)
+    bolls = models.IntegerField()
+    problems = models.TextField()
+    helpers = models.TextField()
+    file = models.FileField(upload_to='files/', blank=True, null=True)
+    
+    def __str__(self):
+        return f'{self.event.name}'
+    

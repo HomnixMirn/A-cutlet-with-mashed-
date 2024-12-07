@@ -179,15 +179,42 @@ def redactPersonal(request:HttpRequest):
         if request.headers.get('Authorization'):
             token = request.headers.get('Authorization').split(' ')[1]
             try:
-                name = data['name']
-                id_user = data['id_user']
-                fio = data['fio']
-                phone= data['phone']
-                born_date = data['born_date']
-                sex = data['sex']
-                country = data['country']
-                region = data['region']
-                city = data['city']
+                if 'name' in data :
+                    name = data['name']
+                else:
+                    name = ''
+                if 'id_user' in data :
+                    id_user = data['id_user']
+                else:
+                    id_user = ''
+                if 'fio' in data :
+                    fio = data['fio']
+                else:
+                    fio = ''
+                if 'phone' in data :
+                    phone = data['phone']
+                else:
+                    phone = ''
+                if 'born_date' in data :
+                    born_date = data['born_date']
+                else:
+                    born_date = ''
+                if 'sex' in data :
+                    sex = data['sex']
+                else:
+                    sex = ''
+                if 'country' in data :
+                    country = data['country']
+                else:
+                    country = ''
+                if 'region' in data :
+                    region = data['region']
+                else:
+                    region = ''
+                if 'city' in data :
+                    city = data['city']
+                else:
+                    city = ''
                 user = authorizedToken.objects.get(key=token).user
                 personal = persona.objects.get(user = user)
                 print(personal)
@@ -465,3 +492,55 @@ def getEventsOnDay(request: HttpRequest):
     else:
         return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
     
+    
+@api_view(['GET'])
+def getPersonas(request: HttpRequest):
+    if request.method == 'GET':
+        try:
+            perso = persona.objects.all()
+            if 'search' in request.GET:
+                perso = perso.filter(Q(fio__icontains = request.GET['search'].lower()) | Q(fio__icontains = request.GET['search'].title()) | Q(fio__icontains = request.GET['search'].upper()) )
+            serializer = personalSerializer(perso, many=True)
+            return Response({ 'personas':  serializer.data}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+@api_view(['POST'])
+def addReport(request: HttpRequest):
+    if request.method == 'POST':
+        if request.headers.get('Authorization'):
+            token = request.headers.get('Authorization').split(' ')[1]
+            if not authorizedToken.objects.filter(key=token).exists():
+                return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+            if not organization.objects.filter(user = authorizedToken.objects.get(key=token).user).exists():
+                return Response({'error': 'You are not an organization'}, status=status.HTTP_401_UNAUTHORIZED)
+            organ = organization.objects.get(user = authorizedToken.objects.get(key=token).user)
+            data = request.data
+            if 'id' in data:
+                try:
+                    event = Event.objects.get(id = data['id'])
+                    if OrganizationsEvents.objects.filter(organization = organ , events = event).exists():
+                        if 'winner' in data and 'bolls' in data and 'problems' in data and 'helpers' in data:
+                            if request.FILES:
+                                file = request.FILES['file']
+                            else:
+                                file = None
+                            report.objects.create(bolls = data['bolls'], problems = data['problems'], helpers = data['helpers'], event = event, winner = data['winner'], file = file)
+                            event.ended = True
+                            event.save_base()
+                            return Response(status=status.HTTP_200_OK)
+                        else:
+                            return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+                    else:
+                        return Response({'error': 'Event is not in your organization'}, status=status.HTTP_400_BAD_REQUEST)
+                except Exception as e:
+                    return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': "Authorization header is missing"}, status=status.HTTP_401_UNAUTHORIZED)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            

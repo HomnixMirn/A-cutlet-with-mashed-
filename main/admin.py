@@ -33,3 +33,7 @@ class authorizedTokenAdmin(admin.ModelAdmin):
 @admin.register(personaEvents)
 class personaEventsAdmin(admin.ModelAdmin):
     list_display = ('persona',)
+    
+@admin.register(report)
+class reportAdmin(admin.ModelAdmin):
+    list_display = ('event', 'winner')
