@@ -31,7 +31,7 @@ root.render(
           <Route path = "/PersonalAccountUser" element={<PersonalAccountUser />} />
           <Route path='/forgotPassword' element={<ForgotPassword />} />
           <Route path = "/resetPassword/:email" element={<ResetPassword />} />
-          <Route path = "/Event/:id" element={<Events/>} />
+          <Route path = "/Event/:days/:year" element={<Events/>} />
           <Route path = "/OrganizationInfo/:id" element={<OrganizationInfo/>} />
           <Route path="/useevents/:id" element={<UseEvents />} />
         </Routes>
