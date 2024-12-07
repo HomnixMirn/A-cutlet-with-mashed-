@@ -13,6 +13,9 @@ import loopa from '../static/img/loopa.png';
 
 function UseEvents() {
     const navigate = useNavigate();
+    const [report, setReport] = useState([]);
+    const [popup, setPopup] = useState(false);
+    const [closePopup, setClosePopup] = useState(false);
     const [ended, setEnded] = useState(false);
     const [events,  setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -46,6 +49,7 @@ function UseEvents() {
             } finally {
                 setLoading(false);
             }
+
         };
 
         loadEvents();
@@ -99,9 +103,24 @@ function UseEvents() {
                                                 navigate('/Login');
                                                 return;
                                             }
+                                            if (event.ended == 1) {
+                                                setPopup (true);
+                                            }
                                         }}>
                                     {event.ended == 1 && 'Результаты' || 'Записаться'}
                                 </button>
+                                {popup && (
+                                <div className='popup2'>
+                                    <div className="back2">
+                                        <div className="popup-content-use">
+                                            <h2 className='popup-title'>Результаты события</h2>
+                                            <p>{report.event_id}</p>
+                                            <p className='popup-description'>{event.description}</p>
+                                            <button className='popup-button' onClick={() => setPopup(false)}>Закрыть</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                )}
                             </div>
                         </div>
                     </div>

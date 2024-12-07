@@ -110,3 +110,23 @@
     opacity: 0.8;
 }
 
+.popup-content-use{
+    border-radius: 20px;
+    width: 627px;
+    height: 740px;
+    background: rgba(70, 58, 203, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.back2{
+    border-radius: 20px;
+    width: 627px;
+    height: 740px;
+    background: #fff;
+}
+
+
