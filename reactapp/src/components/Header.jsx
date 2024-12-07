@@ -26,7 +26,7 @@ function Header() {
     })
     return (
         <header>
-            <Link className="logo"></Link>
+            <Link to={"/"} className="logo"></Link>
             <>  
                 <ul className="ul-header">
                     <div className="fix-header">
@@ -40,7 +40,7 @@ function Header() {
                         </Link>
                     </div>
                         {localStorage.getItem('token') ?
-                        <div> <Link to="/PersonalAccountUser" className="personal_info">Личный кабинет</Link>
+                        <div className='Personal-profile'> <Link to="/PersonalAccountUser" className="personal_info">Личный кабинет</Link>
                         <button onClick={() => {localStorage.removeItem('token')
                         navigate('/')
                         }} className="register-header">Выход</button>
