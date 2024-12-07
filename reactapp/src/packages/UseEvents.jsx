@@ -62,7 +62,6 @@ function UseEvents() {
     return (
         <div className='wrapper'>
             <Header />
-            <h2>Verified Events</h2>
             <div className="search_input">
             <input type="text" placeholder="Поиск"  className='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
             <div><img src={loopa} alt=""  className="loopa"/></div>
@@ -92,20 +91,38 @@ function UseEvents() {
                                 <p className="event_age_group_name">{event.age_group}</p>
                             </div>
                             <div className='button-Sign'>
-                            <button className="event_button-opisani" onClick={() => {
-                                if (!localStorage.getItem('token')) {
-                                    navigate('/Login');
-                                    return;
-                                }
-                                axios.post(API_URL + 'addEventToPerson' , {id: event.id} , {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}}).then(res => {
-                                    const data = res.data
-                                    navigate('/PersonalAccountUser');
-                                    console.log(data);
-                                }).catch(err => {
-                                    navigate('/PersonalAccountUser');
-                                })
-                            }}
-                                >Записаться</button>
+                        <button className="event_button-opisani" 
+                                onClick={() => {
+                                    if (!localStorage.getItem('token')) {
+                                        navigate('/Login');
+                                        return;
+                                    }
+                                    const currentDate = new Date();
+                                    const eventEndDate = new Date(event.date_end);
+                                    if (isNaN(eventEndDate.getTime())) {
+                                        console.error("Неверный формат даты:", event.date_end);
+                                        return; 
+                                    }
+                                        console.log("Текущая дата:", currentDate);
+                                        console.log("Дата окончания события:", eventEndDate);
+                                    if (eventEndDate < currentDate) {
+                                        console.log("Дата завершена, отображаем результаты");
+                                        navigate('/Results'); 
+                                        return; 
+                                    }
+                                    axios.post(API_URL + 'addEventToPerson', { id: event.id }, { 
+                                        headers: { 'Authorization': 'Token ' + localStorage.getItem('token') }
+                                    }).then(res => {
+                                        const data = res.data;
+                                        navigate('/PersonalAccountUser');
+                                        console.log(data);
+                                    }).catch(err => {
+                                        console.error("Ошибка при добавлении события:", err);
+                                        navigate('/PersonalAccountUser');
+                                    });
+                                }}
+                                > {new Date(event.date_end)  > new Date()  ? 'Записаться' : 'Результаты'}
+                            </button>
                             </div>
                         </div>
                     </div>
