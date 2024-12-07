@@ -4,9 +4,11 @@
     width:1764px;
     display: flex;
     justify-content: space-between;
+    margin-top: 27.5px;
+    margin-left: 68.5px;
 }
 /*Левое меню */
-.LeftMenu_PerAccUs{
+.LeftMenu_PerAccUsmain{
     width: 331px;
     height: 240px;
     background-color: rgba(70, 58, 203, 0.1);
@@ -24,11 +26,33 @@
 .ProfileButt_PerAccUs{
     width: 261px;
     height: 49px;
+    background-color: white;
+    border-radius: 20px;
+    color: black;
 }
 .PartButt_PerAccUs{
     width: 261px;
     height: 49px;
     margin-top:21px;
+    background-color: white;
+    border-radius: 20px;
+    color: black;
+}
+
+.ProfileButt_PerAccUs.active{
+    width: 261px;
+    height: 49px;
+    background-color: #463ACB;
+    border-radius: 20px;
+    color: white;
+}
+.PartButt_PerAccUs.active{
+    width: 261px;
+    height: 49px;
+    margin-top:21px;
+    background-color: #463ACB;
+    border-radius: 20px;
+    color: white;
 }
 
 .MainDiv_PerAccUs{
@@ -40,7 +64,6 @@
     width: 1362px;
     height: 172px;
     display: flex;
-    flex-direction: inline;
     align-items: center;
     background-color: rgba(70, 58, 203, 0.1);
     border-radius: 20px;
@@ -51,14 +74,13 @@
     width: 1291px;
     height: 107px;
     display: flex;
-    flex-direction: inline;
     justify-content: center;
 }
 
 .PublicInfo_PerAccUs{
     width: 297px;
-    height: 93px;
-
+    height: 106px;
+    border-right: 1px solid blue;
 }
 
 .PublicInfoInputs_PerAccUs{
@@ -68,7 +90,7 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-
+    margin-left: 15px;
 }
 
 .PublicInputName_PerAccUs{
@@ -84,6 +106,253 @@
     border-radius: 10px;
 }
 
+
+/*Локальные данные*/
+.GeneralLocalData_PerAccUs{
+    width: 1362px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(70, 58, 203, 0.1);
+    border-radius: 20px;
+    border: 1px solid blue;
+    margin-top: 22.5px;
+
+}
+
+.LocalData_PerAccUs{
+    width: 1291px;
+    height: 161px;
+    display: flex;
+    justify-content: center;
+}
+
+.LocalInfo_PerAccUs{
+    border-right: 1px solid blue;
+}
+
+.LocalInfoInputs_PerAccUs{
+    margin-left: 15px;
+}
+
+.LocalDataInputFIO_PerAccUs{
+    width: 925px;
+    height: 45px ;
+    border-radius: 10px;
+}
+
+.DivLocalInfoPhoneBirthday_PerAccUs{
+    height: 45px ;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.LocalDataInputPhoneBirthday_PerAccUs{
+    width: 435px ;
+    height: 45px ;
+    border-radius: 10px;
+}
+
+.LocalInfoGender_PerAccUs{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.dropdown_PerAccUs{
+    width: 435px;
+    height: 45px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+    display:flex;
+    align-items: center;
+    padding-left: 10px;
+    border-color: blue;
+}
+
+.dropdown-list{
+    width: 168px;
+    height: 64px;
+    list-style-type: none;
+    background-color: white;
+    border: 1px solid blue;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.DivDropDownMale_PerAccUs{
+    width: 149px;
+    height: 27px;
+    margin-bottom: 1px;
+}
+
+.DropDownBorder_PerAccUs{
+    width: 149px;
+    height: 1px;
+    border-top: 1px solid blue;
+}
+
+.DivDropDownFemale_PerAccUs{
+    width: 149px;
+    height: 27px;
+}
+.DivDropDownMale_PerAccUs:hover{
+    background-color: #D9D9D9;
+    border-radius: 5px;
+}
+
+.DivDropDownFemale_PerAccUs:hover{
+    background-color: #D9D9D9;
+    border-radius: 5px;
+}
+
+.LocalInfoEmail_PerAccUs{
+    width: 435px ;
+    height: 45px ;
+    border-radius: 10px;
+}
+
+.PGender_PerAccUs{
+    width: 390px;
+    font-family: Regular;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+/*Местоположение*/
+.GeneralMainLocation_PerAccUs{
+    width: 1362px;
+    height: 233px;
+    background-color: rgba(70, 58, 203, 0.1);
+    border-radius: 20px;
+    border: 1px solid blue;
+    display: flex;
+    align-items: center;
+    margin-top: 22.5px;
+}
+
+.MainLocation_PerAccUs{
+    width: 1291px;
+    height: 178px;
+    display: flex;
+    justify-content: center;
+}
+
+.LocationInfo_PerAccUs{
+    width: 296px;
+    height: 178px;
+    border-right: 1px solid blue;
+}
+
+.Location_PerAccUs{
+    width: 920px;
+    height:178px;
+    margin-left:15px;
+}
+
+.LocationInputs_PerAccUs{
+    width: 925px;
+    height: 178px ;
+    display: flex;
+    flex-direction: column
+}
+
+.LocationInputContry_PerAccUs{
+    width: 925px;
+    height: 54px ;
+    border-radius: 10px;
+}
+
+.LocationInputRegion_PerAccUs{
+    width: 925px;
+    height: 54px ;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.LocationInputCity_PerAccUs{
+    width: 925px;
+    height: 54px ;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+/*Смена пароля*/
+.GeneralChangePassword_PerAccUs{
+    width: 1362px;
+    height: 150px;
+    background-color: rgba(70, 58, 203, 0.1);
+    border-radius: 20px;
+    border: 1px solid blue;
+    margin-top: 22.5px;
+    display: flex;
+    align-items: center;
+}
+
+.ChangePassword_PerAccUs{
+    width: 1291px;
+    height: 130px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 30px;
+}
+
+.ChangePasswordInfo_PerAccUs{
+    border-right:1px solid blue
+}
+
+
+.DivChange_PerrAccUs{
+    margin-left: 15px;
+}
+
+.ButtChange_PerrAccUs{
+    width: 350px;
+    height: 54px ;
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: white;
+    border-color: blue;
+    font-family: Regular;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+/*Сохранить данные*/
+
+.DivSave_PerAccUs{
+    width: 253px;
+    height: 58px;
+    margin-top: 15px;
+}
+.ButtSave_PerAccUs{
+    width: 253px;
+    height: 58px;
+    background-color: #463ACB;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+    
+}
+
+/*Общие*/
+input{
+    font-family: Regular;
+    font-size: 18px;
+    font-weight: 400;
+    padding-left: 10px;
+    border-color: blue;
+}
+
 .h1_PerAccUs{
     width: 297px;
     height: 30px;
@@ -96,98 +365,4 @@
     font-family: Regular;
     font-weight: 700;
     font-size: 18px;
-}
-
-/*Локальные данные*/
-.GeneralLocalData_PerAccUs{
-    width: 1362px;
-    height: 200px;
-    display: flex;
-    flex-direction: inline;
-    align-items: center;
-    background-color: rgba(70, 58, 203, 0.1);
-    border-radius: 20px;
-    border: 1px solid blue;
-    
-
-}
-
-.LocalData_PerAccUs{
-    width: 1291px;
-    height: 161px;
-    display: flex;
-    flex-direction: inline;
-    justify-content: center;
-}
-
-.LocalDataInputFIO_PerAccUs{
-    width: 925px;
-    height: 45px ;
-    border-radius: 10px;
-}
-
-.DivLocalInfoPhoneBirthday_PerAccUs{
-    width: 925px;
-    height: 45px ;
-    display: flex;
-    justify-content: space-between;
-}
-
-.LocalDataInputPhoneBirthday_PerAccUs{
-    width: 435px ;
-    height: 45px ;
-    border-radius: 10px;
-}
-
-.LocalInfoGender_PerAccUs{
-    display: flex;
-    justify-content: space-between;
-}
-
-.LocalInfoEmail_PerAccUs{
-    width: 435px ;
-    height: 45px ;
-    border-radius: 10px;
-}
-
-/*Местоположение*/
-.GeneralMainLocation_PerAccUs{
-    width: 1362px;
-    height: 233px;
-    background-color: rgba(70, 58, 203, 0.1);
-    border-radius: 20px;
-    border: 1px solid blue;
-    display: flex;
-    flex-direction: inline;
-    align-items: center;
-}
-
-.MainLocation_PerAccUs{
-    width: 1291px;
-    height: 178px;
-    display: flex;
-    flex-direction: inline;
-    justify-content: center;
-}
-
-.LocationInfo_PerAccUs{
-    width: 296px;
-    height: 141px;
-}
-
-.Location_PerAccUs{
-    width: 920px;
-    height:178px
-}
-
-/*Смена пароля*/
-.ChangePassword_PerAccUs{
-    width: 1362px;
-    height: 171px;
-    background-color: rgba(70, 58, 203, 0.1);
-    border-radius: 20px;
-    border: 1px solid blue;
-    display: flex;
-    flex-direction: inline;
-    align-items: center;
 }
