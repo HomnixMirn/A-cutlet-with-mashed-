@@ -19,18 +19,20 @@ export default function Login() {
               navigate('/')}).catch((err) => console.log(err));
         console.log(email, password);
     }
-  return (
-    <div className="Login-main">
-      <Header/>
-      <div className="Login-form">
-          <form action="" method='POST' onSubmit={(e) => submitHandler(e)}>
-            <div className="login-background">
-              <div className="login">
-                  <h1 className='login-h1'>АВТОРИЗИРУЙТЕСЬ, ЧТОБЫ ПРОДОЛЖИТЬ!</h1>
-                <div className="line-login">
-                  <input className="email-login" placeholder='ЭЛЕКТРОННАЯ ПОЧТА' type="email" name="email" />
-                  <input className="password-login" placeholder='ПАРОЛЬ' type="password" name='password' />
-                  <button type='submit' className="submit-login">ВОЙТИ</button>
+  return (  
+    <div className="Login-form">
+        <form action="" method='POST' onSubmit={(e) => submitHandler(e)}>
+          <div className="login-background">
+            <div className="login">
+                <h1 className='login-h1'>АВТОРИЗИРУЙТЕСЬ, ЧТОБЫ ПРОДОЛЖИТЬ!</h1>
+              <div className="line-login">
+                <input className="email-login" placeholder='ЭЛЕКТРОННАЯ ПОЧТА' type="email" name="email" />
+                <input className="password-login" placeholder='ПАРОЛЬ' type="password" name='password' />
+                <button type='submit' className="submit-login">ВОЙТИ</button>
+              </div>
+                <div className="under-login">
+                  <Link to='/forgotPassword' className="password-recovery">ЗАБЫЛИ ПАРОЛЬ</Link>
+                  <Link to="/register" className="register-login">РЕГИСТРАЦИЯ</Link>
                 </div>
                   <div className="under-login">
                     <Link className="password-recovery">ЗАБЫЛИ ПАРОЛЬ</Link>

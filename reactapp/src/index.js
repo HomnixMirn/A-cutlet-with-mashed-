@@ -9,6 +9,8 @@ import Register from './packages/Register';
 import Map from './packages/MapComponents';
 import PersonalAccountUser from './packages/PersonalAccountUser.jsx';
 import { BrowserRouter, Route, Routes  } from'react-router-dom';
+import ForgotPassword from './packages/forgotPassword.jsx';
+import ResetPassword from './packages/resetPassword.jsx';
 
 export const API_URL = "http://localhost:8000/api/hacaton/";
 export const API_MEDIA = "http://localhost:8000";
@@ -24,6 +26,8 @@ root.render(
           <Route path="/register" element={<Register />} />
           <Route path="/map" element={<Map />} />
           <Route path = "/PersonalAccountUser" element={<PersonalAccountUser />} />
+          <Route path='/forgotPassword' element={<ForgotPassword />} />
+          <Route path = "/resetPassword/:email" element={<ResetPassword />} />
         </Routes>
     </BrowserRouter>
   // </React.StrictMode>
