@@ -523,7 +523,11 @@ def addReport(request: HttpRequest):
                     event = Event.objects.get(id = data['id'])
                     if OrganizationsEvents.objects.filter(organization = organ , events = event).exists():
                         if 'winner' in data and 'bolls' in data and 'problems' in data and 'helpers' in data:
-                            report.objects.create(bolls = data['bolls'], problems = data['problems'], helpers = data['helpers'], event = event, winner = data['winner'])
+                            if request.FILES:
+                                file = request.FILES['file']
+                            else:
+                                file = None
+                            report.objects.create(bolls = data['bolls'], problems = data['problems'], helpers = data['helpers'], event = event, winner = data['winner'], file = file)
                             event.ended = True
                             event.save_base()
                             return Response(status=status.HTTP_200_OK)
