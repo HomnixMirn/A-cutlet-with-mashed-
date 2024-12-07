@@ -56,7 +56,7 @@ class persona (models.Model):
     city = models.CharField(max_length=250 , blank=True, null=True)
     
     def __str__(self):
-        return f"{self.fio}"    
+        return f"{self.user.username}"    
     
 
 class Event(models.Model):
@@ -74,3 +74,6 @@ class OrganizationsEvents(models.Model):
 class personaEvents(models.Model):
     events =models.ManyToManyField(Event)
     persona = models.ForeignKey(persona, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.persona.user.username}'

@@ -18,8 +18,6 @@ function ForgotPassword() {
         ;
     }
     return (
-        <>
-            <Header />
         <div className="login-container">
             <form action="" method='POST' onSubmit={(e) => submitHandler(e)}>
                 <div className="forgot-email">
@@ -28,8 +26,6 @@ function ForgotPassword() {
                 </div>
                 </form>
             </div>
-            <Footer />
-        </>
     )
 
 }

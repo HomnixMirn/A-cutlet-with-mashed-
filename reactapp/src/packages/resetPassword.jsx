@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '..';
 import { useNavigate } from 'react-router-dom';
-
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import './resetpassword.css';
 export default function ForgotPassword() {
     const navigate = useNavigate();
     function submitHandler(e) {
@@ -21,15 +23,17 @@ export default function ForgotPassword() {
     console.log(url.pathname.split('/')[2]);
     
     return (
-        <div className="login-container">
-            <form action="" method='POST' onSubmit={(e) => submitHandler(e)}>
-                <div className="reset-div">
-                    <input type="password" name='password'/>
-                    <input type="password" name='password_check'/>
-                    <button type="submit">Обновить Пароль</button>
+            <div className="wraper">
+                    <div className="login-container">
+                        <form action="" method='POST' onSubmit={(e) => submitHandler(e)}>
+                            <div className="reset-div">
+                                <input placeholder='ПАРОЛЬ' className="reset-pass" type="password" name='password'/>
+                                    <input placeholder='ПАРОЛЬ' className="reset-pass" type="password" name='password_check'/>
+                                <button type="submit" className="update-password">Обновить Пароль</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                </form>
-            </div>
     )
 }
 

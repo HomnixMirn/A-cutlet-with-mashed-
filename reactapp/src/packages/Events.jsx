@@ -65,6 +65,7 @@ function Events() {
     return (
         <div className='wrapper'>
             <Header />
+            <h2>Verified Events</h2>
             <Footer />
             <div className="search_input">
             <input type="text" placeholder="Поиск"  className='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
@@ -118,8 +119,6 @@ function Events() {
                 </>
 
             </div>
-            
-            
         </div>
     );
 }
