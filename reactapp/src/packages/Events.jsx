@@ -4,8 +4,14 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { API_URL } from '..';
 import { use } from 'react';
+import './OrganizationInfo.css';
+import './Events.css';
+import TypeImg from '../static/img/TypeImg.png';
+import user_icon from '../static/img/user_icon.png';
+import { useNavigate } from 'react-router-dom';
 
 function Events() {
+    const navigate = useNavigate();
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -47,27 +53,55 @@ function Events() {
     console.log(events);
     
     return (
-        <div>
+        <div className='wrapper'>
             <Header />
             <Footer />
             <h2>Verified Events</h2>
             <div className='events'>
-                {events.map((event) => (
-                    <div className='card' key={event.id}> 
-                    
-                        <h3>{event.name}</h3>
-                        <p>НАЗВАНИЕ: {event.type}</p>
-                        <p>{event.date_start}</p>
-                        <p>{event.date_end}</p>
-                        <button type='button' onClick={() => handleDescriptionClick(event.description)}>
-                            ОПИСАНИЕ
-                        </button>
+            {events.map((event) => (
+                    <div className="event">
+                        <div className="event_top">
+                            <div className="date">
+                                <p className="day_start">{event.date_start}</p>
+                                <p className="day_start">{event.date_end}</p>
+                            </div>
+                            <div className="event_title">
+                                <p className="event_name">{event.name}</p>
+                            </div>
+                            <div className="event_city">
+                                {event.organization ?<p className="event_date">{event.organization.region}</p>: <p className="event_date">Проводиться Онлайн</p>}
+                            </div>
+                        </div>
+                        <div className="event_bottom">
+                            <div className="event_type">
+                                <img src={TypeImg} alt="" className="event_type_img"/>
+                                <p className="event_type_name">{event.type}</p>
+                            </div>
+                            <div className="event_age_group">
+                                <img src={user_icon} alt="" className="event_type_img" />
+                                <p className="event_age_group_name">{event.age_group}</p>
+                            </div>
+                            <button className="event_button" onClick={() => {
+                                if (!localStorage.getItem('token')) {
+                                    navigate('/Login');
+                                    return;
+                                }
+                                axios.post(API_URL + 'addEventToPerson' , {id: event.id} , {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}}).then(res => {
+                                    const data = res.data
+                                    navigate('/PersonalAccountUser');
+                                    console.log(data);
+                                }).catch(err => {
+                                    navigate('/PersonalAccountUser');
+                                })
+                            }}
+                                >Записаться</button>
+                        </div>
                     </div>
                 ))}
             </div>
             <div className='pagination'>
                 {Array.from({ length: pages+1 }, (_, index) => index + 1).map((page) => (
-                    <button key={page} onClick={() => {setPageNum(page-1); console.log(page)}}>
+                    <button className={page === pageNum+1 ? 'page active' : 'page'} key={page} onClick={() => {setPageNum(page-1); console.log(page)}}>
                         {page}
                     </button>
                 ))}
