@@ -514,9 +514,10 @@ export default function PersonalAccountUser() {
                                     <p className="dates2 popup2-p">{popupId.date_start}</p>
                                     <p className='dates2 popup2-p'>{popupId.date_end}</p>
                                 </div>
+                                <div className ="GeneralInputSearch">
                                     <input type="text" onChange={(e) => {
                                         setSearch(e.target.value);
-                                    }} className=" popup-input" value={search} name ="winner" placeholder='Победитель:' onClick={() => setSearchPerson(!searchPerson)}/>
+                                    }} className=" popup-input" value={search} name ="winner" placeholder='Победитель:' onClick={() => setSearchPerson(true)}/>
                                     {searchPerson ===true 
                                     ?<div className="search_input">
                                         {personals.map(personal => (
@@ -524,13 +525,15 @@ export default function PersonalAccountUser() {
                                                 setSelectPersona(personal.id);
                                                 setSearch(personal.fio);
                                                 setSearchPerson(false);
-                                            }}>
-                                                {personal.fio}
+                                            }}> 
+                                                
+                                                    {personal.fio}
+                                                
                                             </div>
                                         ))}
                                     </div>
                                     : null}
-
+                                </div>
                                     <input type="hidden" className=" popup-input" name ="id" value={popupId.id}/>
                                     <input type="number" className=" popup-input" name ="bolls" placeholder='Баллы:'/>
                                     <input type="text" className=" popup-input" name ="problems"placeholder='Проблемы при проведении:'/>
