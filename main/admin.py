@@ -8,7 +8,7 @@ class codeAdmin(admin.ModelAdmin):
     
 @admin.register(organization)
 class orgAdmin(admin.ModelAdmin):
-    list_display = ('region', 'fio', 'email')
+    list_display = ('region', 'fio', 'email', 'admin')
     
 @admin.register(lastIvent)
 class lastIventAdmin(admin.ModelAdmin):

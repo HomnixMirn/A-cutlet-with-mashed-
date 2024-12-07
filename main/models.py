@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 class organization(models.Model):
     region = models.CharField(max_length=150)
-    fio = models.CharField(max_length=250)
+    fio = models.CharField(max_length=250, blank=True, null=True)
     email = models.CharField(max_length=250)
     admin = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
