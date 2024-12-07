@@ -52,7 +52,6 @@ padding-left:10px ;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-top: 50px;
     width: 550px;
     align-self: center;
     gap: 50px;
@@ -179,3 +178,4 @@ color: #fff;
 margin-top: 10px;
 border: none;
 }
+
