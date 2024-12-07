@@ -165,15 +165,14 @@ export default function PersonalAccountUser() {
                                 </>}
                                 
                             )}
-
-                        
                         </div>
                     </div>
                                     
                 </>
             }
             </div>
-        </>
+            <Footer/>
+        </div>
         
      );
 }
