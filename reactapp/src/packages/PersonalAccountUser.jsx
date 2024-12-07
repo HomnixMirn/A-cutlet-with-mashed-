@@ -294,7 +294,6 @@ export default function PersonalAccountUser() {
                             ):(
                             events.map((event) =>
                                 (<>
-                                    <h1 className="h1_Events_PerAccUs">Мои участия:</h1>
                                     <div className="ListParticipation_PerAccUs">
                                     <div className="card_event">
                                         
