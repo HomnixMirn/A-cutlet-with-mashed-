@@ -22,11 +22,25 @@ export default function PersonalAccountUser() {
     const [events, setEvents] = useState([]);
     const [popup, setPopup] = useState(false);
     const [popup2, setPopup2] = useState(false);
+    const [popupId, setPopupId] = useState([]);
 
     const [lk , setLk] = useState("persona");
     const [notVerified, setNotVerified] = useState([]);
+
     const navigate = useNavigate();
 
+    const [personals, setPersonals] = useState([]);
+    const [search, setSearch] = useState('');
+
+    useEffect(() => {
+        axios.get(API_URL + `getPersonas?search=${search}` , {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}})
+        .then(res => {
+            setPersonals(res.data)
+        })
+    }, [search])
+
+    console.log(personals);
+    
 
 
     const toggleDropdown = (setDropdownOpen) => {
@@ -125,15 +139,18 @@ export default function PersonalAccountUser() {
             e.preventDefault();
             const data = new FormData(e.target);
             const formData = {
-                name:data.get('name'),
-                type: data.get('type'),
-                date_start: data.get('date_start'),
-                date_end: data.get('date_end'),    
+                id: data.get('id'),  
+                bolls : data.get('bolls'),
+                winner: data.get('winner'),
+                problems: data.get('problems'),
+                helpers: data.get('helpers'),
+                file : data.get('file')
             };
-            axios.post(API_URL +'', formData,{
+            console.log(formData);
+            axios.post(API_URL +'addReport', formData,{
                 headers: {
                     'Authorization': 'Token ' + localStorage.getItem('token'),
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'multipart/form-data'
                 }
             })
             .then(res =>{
@@ -387,7 +404,10 @@ export default function PersonalAccountUser() {
                                         </div>
                                         <div className="DivGeneralRightEvent2">
                                             <div className= "DivButt_RightEvent2">
-                                                <button className="Butt_RightEvent2" onClick ={() => setPopup2(true)}>Добавить отчет</button>
+                                                <button className="Butt_RightEvent2" onClick ={(e) => {
+                                                    setPopup2(true)
+                                                    setPopupId(event)
+                                                    }}>Добавить отчет</button>
                                             </div>
                                             <div className="right_event2">
                                                 <p className="check_verify">Статус : {event.verify ? "Проверено" : "Не проверено"}</p>
@@ -481,19 +501,22 @@ export default function PersonalAccountUser() {
                             <div className="popup-header">
                                 <h1 className="popup-title">Добавление отчета</h1>
                             </div>
-                            <form className="popup-body" onSubmit={(e) => handleReport(e)}>
-                                <p className='type_p popup2-p' name ="">Название соревнования</p>
-                                <p className='type_p popup2-p' name ="">Введите тип соревнования</p>
+                            <form className="popup-body" encType="multipart/form-data" onSubmit={(e) => handleReport(e)}>
+                                <p className='type_p popup2-p' name ="">{popupId.name}</p>
+                                <p className='type_p popup2-p' name ="">{popupId.type}</p>
                                 <div className='popup_dates'>
-                                    <p className="dates2 popup2-p">Дата начала</p>
-                                    <p className='dates2 popup2-p'>Дата конца</p>
+                                    <p className="dates2 popup2-p">{popupId.date_start}</p>
+                                    <p className='dates2 popup2-p'>{popupId.date_end}</p>
                                 </div>
-                                    <input type="text" className=" popup-input" name ="" placeholder='Победитель:'/>
-                                    <input type="text" className=" popup-input" name ="" placeholder='Баллы:'/>
-                                    <input type="text" className=" popup-input" name =""placeholder='Проблемы при проведении:'/>
-                                    <input type="text" className=" popup-input" name =""placeholder='Организации помогающие при подготовке'/>
+                                    <input type="text" onChange={(e) => {
+                                        setSearch(e.target.value);
+                                    }} className=" popup-input" name ="winner" placeholder='Победитель:'/>
+                                    <input type="hidden" className=" popup-input" name ="id" value={popupId.id}/>
+                                    <input type="number" className=" popup-input" name ="bolls" placeholder='Баллы:'/>
+                                    <input type="text" className=" popup-input" name ="problems"placeholder='Проблемы при проведении:'/>
+                                    <input type="text" className=" popup-input" name ="helpers"placeholder='Организации помогающие при подготовке'/>
 
-                                    <input type="file" className="input-file" name ="" />
+                                    <input type="file" className="input-file" name ="file" />
   
                                 <div className="popup-buttons">
                                     <button className="popup-button" type="submit">Отправить отчёт</button>

@@ -41,7 +41,7 @@ class personalSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = persona
-        fields = ['user', 'name', 'id_user', 'fio', 'phone', 'born_date', 'sex', 'country', 'region', 'city', 'user']
+        fields = ['user', 'name', 'id_user', 'fio', 'phone', 'born_date', 'sex', 'country', 'region', 'city', 'user','id']
 
 
 class EventSerializer(serializers.ModelSerializer):

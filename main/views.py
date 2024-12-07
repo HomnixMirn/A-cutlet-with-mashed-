@@ -518,16 +518,18 @@ def addReport(request: HttpRequest):
                 return Response({'error': 'You are not an organization'}, status=status.HTTP_401_UNAUTHORIZED)
             organ = organization.objects.get(user = authorizedToken.objects.get(key=token).user)
             data = request.data
+            print(data)
             if 'id' in data:
                 try:
-                    event = Event.objects.get(id = data['id'])
+                    event = Event.objects.get(id = int(data['id']))
                     if OrganizationsEvents.objects.filter(organization = organ , events = event).exists():
                         if 'winner' in data and 'bolls' in data and 'problems' in data and 'helpers' in data:
                             if request.FILES:
                                 file = request.FILES['file']
                             else:
                                 file = None
-                            report.objects.create(bolls = data['bolls'], problems = data['problems'], helpers = data['helpers'], event = event, winner = data['winner'], file = file)
+                            person = persona.objects.get(id = int(data['winner']))
+                            report.objects.create(bolls = data['bolls'], problems = data['problems'], helpers = data['helpers'], event = event, winner = person, file = file)
                             event.ended = True
                             event.save_base()
                             return Response(status=status.HTTP_200_OK)
