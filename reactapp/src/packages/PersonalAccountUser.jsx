@@ -21,6 +21,7 @@ export default function PersonalAccountUser() {
 
     const [events, setEvents] = useState([]);
     const [popup, setPopup] = useState(false);
+    const [popup2, setPopup2] = useState(false);
 
     const [lk , setLk] = useState("persona");
     const navigate = useNavigate();
@@ -114,6 +115,31 @@ export default function PersonalAccountUser() {
             console.error('Ошибка при добавлении данных:', err);
         });
     }
+
+        function handleReport(e){
+            e.preventDefault();
+            const data = new FormData(e.target);
+            const formData = {
+                name:data.get('name'),
+                type: data.get('type'),
+                date_start: data.get('date_start'),
+                date_end: data.get('date_end'),    
+            };
+            axios.post(API_URL +'', formData,{
+                headers: {
+                    'Authorization': 'Token ' + localStorage.getItem('token'),
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res =>{
+                setPopup(false);
+                console.log('Данные успешно добавлены', res,data);
+            })
+            .catch(err =>{
+                console.error("Ошибка при добавлении данных:", err);
+            });
+
+        }
     
     return (
         <div className="wrapper">
@@ -354,8 +380,11 @@ export default function PersonalAccountUser() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="DivGeneralRightEvent">
-                                            <div className="right_event">
+                                        <div className="DivGeneralRightEvent2">
+                                            <div className= "DivButt_RightEvent2">
+                                                <button className="Butt_RightEvent2" onClick ={() => setPopup2(true)}>Добавить отчет</button>
+                                            </div>
+                                            <div className="right_event2">
                                                 <p className="check_verify">Статус : {event.verify ? "Проверено" : "Не проверено"}</p>
                                             </div>
                                         </div>
@@ -392,6 +421,35 @@ export default function PersonalAccountUser() {
                     </div>
                 </div>
             </div>
+            : null}
+
+            {popup2 !== false ?
+                <div className="popup2">
+                    <div className="back2">
+                        <div className="popup2-content">
+                            <div className="popup-header">
+                                <h1 className="popup-title">Добавление отчета</h1>
+                            </div>
+                            <form className="popup-body" onSubmit={(e) => handleReport(e)}>
+                                <p className='type_p popup2-p' name ="">Название соревнования</p>
+                                <p className='type_p popup2-p' name ="">Введите тип соревнования</p>
+                                <div className='popup_dates'>
+                                    <p className="dates2 popup2-p">Дата начала</p>
+                                    <p className='dates2 popup2-p'>Дата конца</p>
+                                </div>
+                                    <input type="text" className="popup-input" name ="" placeholder='Победитель:'/>
+                                    <input type="text" className="popup-input" name ="" placeholder='Баллы:'/>
+                                    <input type="text" className="popup-input" name =""placeholder='Проблемы при проведении:'/>
+                                    <input type="text" className="popup-input" name =""placeholder='Организации помогающие при подготовке'/>
+                                <div className="popup-buttons">
+                                    <button className="popup-button" type="submit">Отправить отчёт</button>
+                                    <button className="popup-button" onClick ={() => setPopup2(false)}>Отменить</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
             : null}
         </div>
         
