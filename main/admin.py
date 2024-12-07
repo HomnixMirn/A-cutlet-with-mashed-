@@ -25,3 +25,11 @@ class EventAdmin(admin.ModelAdmin):
 @admin.register(OrganizationsEvents)
 class OrganizationsEventsAdmin(admin.ModelAdmin):
     list_display = ('organization',)
+
+@admin.register(authorizedToken)
+class authorizedTokenAdmin(admin.ModelAdmin):
+    list_display = ('key', 'user')
+
+@admin.register(personaEvents)
+class personaEventsAdmin(admin.ModelAdmin):
+    list_display = ('persona',)

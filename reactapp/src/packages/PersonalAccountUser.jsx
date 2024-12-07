@@ -16,6 +16,8 @@ export default function PersonalAccountUser() {
 
     const [activeButton, setActiveButton] = useState('profile');
 
+    const [events, setEvents] = useState([]);
+
     const toggleDropdown = (setDropdownOpen) => {
         setDropdownOpen(prevState => !prevState);
     };
@@ -29,12 +31,13 @@ export default function PersonalAccountUser() {
         .then(res => {
             const data = res.data
             setEmail(data.user.persona.user.username)
+            setEvents(data.user.events)
             console.log(data);
             
         }).catch(err => {
             console.log(err)
         })
-    })
+    }, [])
     
     return (
         <>
@@ -155,6 +158,14 @@ export default function PersonalAccountUser() {
                     <div className="GeneralListParticipation_PerAccUs">
                         <h1 className="">Список участий</h1>
                         <div className="ListParticipation_PerAccUs">
+                            {events.map((event,index) =>
+                                {<>
+                                    <div className="">
+                                        
+                                    </div>
+                                </>}
+                                
+                            )}
 
                         
                         </div>
