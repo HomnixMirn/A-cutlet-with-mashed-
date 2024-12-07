@@ -21,8 +21,7 @@
 }
 .LeftMenuButt_PerAccUs{
     width: 262px;
-    height: 119px;
-
+    height: autopx;
 }
 .ProfileButt_PerAccUs{
     width: 261px;
@@ -518,8 +517,8 @@ margin-top: 50px;
   
   .popup-content {
     border-radius: 20px;
-width: 547px;
-height: 502px;
+    width: 547px;
+    height: 502px;
     background: rgba(70, 58, 203, 0.1);
 
 
@@ -556,14 +555,13 @@ margin-top: 15px;
     padding: 14px;
     box-sizing: border-box;
     border-radius: 15px;
-
 }
 
 .back{
     border-radius: 20px;
-width: 547px;
-height: 502px;
-background: #fff;
+    width: 547px;
+    height: 502px;
+    background: #fff;
 }
 
 .popup_dates{
@@ -571,12 +569,12 @@ background: #fff;
     flex-direction: row;
     justify-content: space-between;
     width: 500px;
-height: 48px;
+    height: 48px;
 }
 
 .dates{
     width: 230px;
-height: 48px;
+    height: 48px;
 }
 
 .popup-buttons{
@@ -584,25 +582,25 @@ height: 48px;
     flex-direction: column;
     justify-content: space-between;
     width: 500px;
-height: 48px;
-margin-top: 20px;
-gap:20px
+    height: 48px;
+    margin-top: 20px;
+    gap:20px
 }
 
 .popup-button{
     width: 500px;
-height: 48px;
-font-family: bold;
-font-weight: 700;
-font-size: 18px;
-line-height: 111%;
-text-transform: uppercase;
-text-align: center;
-color: #fff;
-background: #463acb;
-border-radius: 15px;
-border: none;
-padding: 12px 0;
+    height: 48px;
+    font-family: bold;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 111%;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    background: #463acb;
+    border-radius: 15px;
+    border: none;
+    padding: 12px 0;
 }
 
 .check_verify{
@@ -628,4 +626,135 @@ text-transform: uppercase;
 text-align: center;
 color: #000;
 padding: 12px 12px;
+}
+
+.DivGeneralRightEvent2{
+    width: 420px;
+    height: 164px;
+    display: flex;
+    flex-direction: column;
+}
+.DivButt_RightEvent2{
+    height: 52px;
+    width: 420px;
+}
+
+.Butt_RightEvent2{
+    width: 333px;
+    height: 52px;
+    background-color: #463ACB;
+    border-radius:15px ;
+    color: white;
+    font-family: Regular;
+    font-size: 24px;
+    font-weight: 400px;
+}
+
+.DivButt_RightEvent2{
+    display: flex;
+    align-items: center;
+}
+
+.right_event2{
+    height: 112px;
+    display: flex;
+    justify-content: left;
+    align-items: end;
+}
+
+.popup2-content {
+    border-radius: 20px;
+    width: 627px;
+    height: 740px;
+    background: rgba(70, 58, 203, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+}
+
+.back2{
+    border-radius: 20px;
+    width: 627px;
+    height: 740px;
+    background: #fff;
+}
+
+.popup2{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .popup2-p{
+    width: 500px;
+    height: 48px;
+    border:none;
+    padding: 14px;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+
+.dates2{
+    width: 230px;
+    height: 48px;
+    background-color: white;
+    border-radius: 15px;
+    text-align: center;
+    font-family: Regular;
+    font-weight: 400;
+    font-size: 18px;
+}
+.type_p{
+    width: 500px;
+    height: 48px;
+    background-color: white;
+    border-radius: 15px;
+    font-family: Regular;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.input-file[type=file]{
+    width: 350px;
+    color:#444;
+    padding: 5px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #555;
+}
+
+.input-file[type=file]::file-selector-button {
+    margin-right:20px;
+    border: none;
+    background:#084cdf;
+    padding:10px 20px;
+    border-radius: 10px;
+    color:#fff;
+    cursor:pointer;
+    transition: background .2s ease-in-out;
+}
+
+.input-file[type=file]::file-selector-button:hover {
+    background: #0d45a5;
+}
+
+.LeftMenu_PerAccUsmain2{
+    width: 331px;
+    height: 300px;
+    background-color: rgba(70, 58, 203, 0.1);
+    border-radius: 20px;
+    border: 1px solid blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 10px 10px 4px 0 rgba(0, 0, 0, 0.25);
 }
