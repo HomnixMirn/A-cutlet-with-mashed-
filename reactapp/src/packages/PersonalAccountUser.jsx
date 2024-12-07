@@ -359,7 +359,7 @@ export default function PersonalAccountUser() {
                         type = "submit"
                         onClick ={() => setActiveButton('admin')}
                         >
-                            валидация мероприятий
+                            Валидация мероприятий
                     </button>
                     :null}
                     </div>
