@@ -145,6 +145,7 @@ export default function PersonalAccountUser() {
             });
 
         }
+        
     
     return (
         <div className="wrapper">
@@ -313,7 +314,7 @@ export default function PersonalAccountUser() {
             </div>
             :
             <div class="GeneralDiv_PerAccUs">
-                <div className="LeftMenu_PerAccUsmain">
+                <div className="LeftMenu_PerAccUsmain2">
                     <div className="LeftMenuButt_PerAccUs">
                         <button 
                             className= {`ProfileButt_PerAccUs ${activeButton === 'profile' ? 'active':''}`}
@@ -368,7 +369,6 @@ export default function PersonalAccountUser() {
                             ):(
                             events.map((event) =>
                                 (<>
-                                    <h1 className="h1_Events_PerAccUs">Мои участия:</h1>
                                     <div className="ListParticipation_PerAccUs">
                                     <div className="card_event">
                                         
@@ -488,10 +488,13 @@ export default function PersonalAccountUser() {
                                     <p className="dates2 popup2-p">Дата начала</p>
                                     <p className='dates2 popup2-p'>Дата конца</p>
                                 </div>
-                                    <input type="text" className="popup-input" name ="" placeholder='Победитель:'/>
-                                    <input type="text" className="popup-input" name ="" placeholder='Баллы:'/>
-                                    <input type="text" className="popup-input" name =""placeholder='Проблемы при проведении:'/>
-                                    <input type="text" className="popup-input" name =""placeholder='Организации помогающие при подготовке'/>
+                                    <input type="text" className=" popup-input" name ="" placeholder='Победитель:'/>
+                                    <input type="text" className=" popup-input" name ="" placeholder='Баллы:'/>
+                                    <input type="text" className=" popup-input" name =""placeholder='Проблемы при проведении:'/>
+                                    <input type="text" className=" popup-input" name =""placeholder='Организации помогающие при подготовке'/>
+
+                                    <input type="file" className="input-file" name ="" />
+  
                                 <div className="popup-buttons">
                                     <button className="popup-button" type="submit">Отправить отчёт</button>
                                     <button className="popup-button" onClick ={() => setPopup2(false)}>Отменить</button>
