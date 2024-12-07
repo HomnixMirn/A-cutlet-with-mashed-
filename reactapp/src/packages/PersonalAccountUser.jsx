@@ -38,7 +38,7 @@ export default function PersonalAccountUser() {
     useEffect(() => {
         axios.get(API_URL + `getPersonas?search=${search}` , {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}})
         .then(res => {
-            setPersonals(res.data)
+            setPersonals(res.data.personas)
         })
     }, [search])
 
@@ -144,7 +144,7 @@ export default function PersonalAccountUser() {
             const formData = {
                 id: data.get('id'),  
                 bolls : data.get('bolls'),
-                winner: data.get('winner'),
+                winner: selectPersona,
                 problems: data.get('problems'),
                 helpers: data.get('helpers'),
                 file : data.get('file')
@@ -516,10 +516,18 @@ export default function PersonalAccountUser() {
                                 </div>
                                     <input type="text" onChange={(e) => {
                                         setSearch(e.target.value);
-                                    }} className=" popup-input" name ="winner" placeholder='Победитель:' onClick={() => setSearchPerson(!searchPerson)}/>
+                                    }} className=" popup-input" value={search} name ="winner" placeholder='Победитель:' onClick={() => setSearchPerson(!searchPerson)}/>
                                     {searchPerson ===true 
                                     ?<div className="search_input">
-                                        personals.map
+                                        {personals.map(personal => (
+                                            <div className="search_result" onClick={() => {
+                                                setSelectPersona(personal.id);
+                                                setSearch(personal.fio);
+                                                setSearchPerson(false);
+                                            }}>
+                                                {personal.fio}
+                                            </div>
+                                        ))}
                                     </div>
                                     : null}
 
