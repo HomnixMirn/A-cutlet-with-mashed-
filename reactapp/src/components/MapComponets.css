@@ -1,0 +1,93 @@
+.popup-map{
+    position: absolute;
+    bottom:15px;
+    z-index:4000;
+    padding: 30px;
+    box-shadow: 0 4px 20px 0 rgba(38, 48, 63, 0.25);
+    background: white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.popup-map-active{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.App{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+.poisk-input{
+    width: 730px;
+    padding: 15px;
+    border-radius: 10px;  
+    background: #fff;
+    border: none;
+    font-family: Light;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 125%;
+    color: #000;
+    display: flex;
+    align-items: center;
+    outline: none;
+}
+.poisk-app{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+}
+.poisk-img{
+    position: absolute;
+    padding: 10px;
+}
+.poisk-app-glav{
+    position: absolute;
+    z-index: 2000;
+    top:15px;
+}
+.button-popup-app-active{
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 30px;
+    position: absolute;
+    top:-15px;
+    right: -15px;
+    cursor: pointer;
+}
+.block-data-popup-active{
+    padding-right: 30px;
+}
+.link-popup-app-active{
+    background-color: #463ACB;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 8px;
+    font-family: bold;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    transition: opacity 0.2s ease;
+    opacity: 1;
+    margin-top: 10px;
+    padding: 10px;
+    border:none;
+    outline: none;
+}
+.link-popup-app-active:hover{
+    opacity: 0.8;
+}

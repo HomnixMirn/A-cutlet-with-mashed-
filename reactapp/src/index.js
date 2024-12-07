@@ -2,12 +2,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from './packages/Home.js';
 import UseEvents from './packages/UseEvents';
 import Events from './packages/Events';
 import Login from './packages/Login';
 import Register from './packages/Register';
-import Map from './packages/MapComponents';
 import PersonalAccountUser from './packages/PersonalAccountUser.jsx';
 import { BrowserRouter, Route, Routes  } from'react-router-dom';
 import ForgotPassword from './packages/forgotPassword.jsx';
@@ -27,7 +26,6 @@ root.render(
           <Route path="/event" element={<Events />} />
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register />} />
-          <Route path="/map" element={<Map />} />
           <Route path = "/PersonalAccountUser" element={<PersonalAccountUser />} />
           <Route path='/forgotPassword' element={<ForgotPassword />} />
           <Route path = "/resetPassword/:email" element={<ResetPassword />} />
