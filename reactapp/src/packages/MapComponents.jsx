@@ -107,7 +107,9 @@ function App() {
             </div>
           )}
         </YMaps>
+        <div></div>
       </div>
+      
     );
   }
   

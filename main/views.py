@@ -368,18 +368,20 @@ def getOrganizationsInfo(request: HttpRequest, id: int):
         return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
     
 @api_view(['GET'])
-def getVerifiedEvents(request: HttpRequest, id: int):
+def getVerifiedEvents(request: HttpRequest):
     if request.method == 'GET':
         try:
-            id = int(id)
-            events = Event.objects.filter(verify = True)
             get = request.GET
+            month = get['month']
+            year = get['year']
+            events = Event.objects.filter(verify = True, date_start__year = year, date_start__month = month)
+            
             if 'search' in get:
                 print(get['search'])
-                events = events.filter(name__icontains = get['search'])
-            serializer = EventSerializer(events[id*5:(id+1)*5], many=True)
+                events = events.filter(Q(name__icontains = get['search'].lower()) | Q(name__icontains = get['search'].title()) | Q(name__icontains = get['search'].upper()) )
+            serializer = EventSerializer(events, many=True)
             
-            return Response({ 'events':  serializer.data , 'pages' : len(events)//5}, status=status.HTTP_200_OK)
+            return Response({ 'events':  serializer.data}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     else:
@@ -442,6 +444,24 @@ def removePersonaEvent(request: HttpRequest):
                 return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'error': "Authorization header is missing"}, status=status.HTTP_401_UNAUTHORIZED)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+@api_view(['GET'])
+def getEventsOnDay(request: HttpRequest):
+    if request.method == 'GET':
+        try:
+            get = request.GET
+            day = get['day']
+            month = get['month']
+            year = get['year']
+            events = Event.objects.filter(date_start__year = year, date_start__month = month, date_start__day = day)
+            if 'search' in get:
+                events = events.filter(Q(name__icontains = get['search'].lower()) | Q(name__icontains = get['search'].title()) | Q(name__icontains = get['search'].upper()) )
+            serializer = EventSerializer(events, many=True)
+            return Response({ 'events':  serializer.data}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
     

@@ -81,10 +81,17 @@ export default function PersonalAccountUser() {
     }
     
     return (
+<<<<<<< HEAD
         <>
         <Header/>
         <Footer/>
         <div class="GeneralDiv_PerAccUs">    
+=======
+        <div className="wrapper">
+            <Header/>
+        <div class="GeneralDiv_PerAccUs">
+
+>>>>>>> 742c3fb1aef184a1c23be41dcc897dfcdebdc943
             <div className="LeftMenu_PerAccUsmain">
                 <div className="LeftMenuButt_PerAccUs">
                     <button 
@@ -238,12 +245,17 @@ export default function PersonalAccountUser() {
                                 </>))
                                 
                             )}
+<<<<<<< HEAD
+=======
+                        </div>
+>>>>>>> 742c3fb1aef184a1c23be41dcc897dfcdebdc943
                     </div>
                                     
                 </>
             }
             </div>
-        </>
+            <Footer/>
+        </div>
         
      );
 }

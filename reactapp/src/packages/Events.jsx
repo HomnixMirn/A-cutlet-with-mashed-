@@ -17,14 +17,21 @@ function Events() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [pageNum, setPageNum] =  useState(useRef(0)["current"])
-
+    const [month, setMonth] = useState(new Date().getMonth()+1);
+    const [year, setYear] = useState(new Date().getFullYear());
+    const [days , setDay] = useState(new Date(year, month,0).getDate());
     const [pages, setPage] = useState(0);
     const [search, setSearch] = useState('');
-    const fetchEvents = async (id) => {
+    let count = 0
+    console.log(days)
+    const moths = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"]
+    const fetchEvents = async () => {
         try {
-            const response = await axios.get(`${API_URL}getVerifiedEvents/${id}?search=${search}`);
-            setPage(response.data.pages);
             
+            
+            const response = await axios.get(`${API_URL}getVerifiedEvents?search=${search}&month=${month}&year=${year}`);
+            setPage(response.data.pages);
+            setDay(new Date(year, month,0).getDate());
             return response.data.events;
         } catch (err) {
             throw err.response ? err.response.data.error : 'Что-то пошло не так';
@@ -34,7 +41,7 @@ function Events() {
     useEffect(() => {
         const loadEvents = async () => {
             try {
-                const events = await fetchEvents(pageNum);
+                const events = await fetchEvents();
                 setEvents(events);
             } catch (err) {
                 setError(err);
@@ -44,7 +51,7 @@ function Events() {
         };
 
         loadEvents();
-    }, [ pageNum,search]);
+    }, [ pageNum,search,month,year]);
 
 
 
@@ -59,61 +66,67 @@ function Events() {
     return (
         <div className='wrapper'>
             <Header />
-            <Footer />
+            <h2></h2>
+        
             <div className="search_input">
             <input type="text" placeholder="Поиск"  className='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
             <div><img src={loopa} alt=""  className="loopa"/></div>
+            
             </div>
-            <div className='events'>
-            {events.map((event) => (
-                    <div className="event">
-                        <div className="event_top">
-                            <div className="date">
-                                <p className="day_start">{event.date_start}</p>
-                                <p className="day_start">{event.date_end}</p>
-                            </div>
-                            <div className="event_title">
-                                <p className="event_name">{event.name}</p>
-                            </div>
-                            <div className="event_city">
-                                {event.organization ?<p className="event_date">{event.organization.region}</p>: <p className="event_date">Проводиться Онлайн</p>}
-                            </div>
+            <div className="date">
+                <button className='date_button_up' onClick={() => {
+                    if (month===1){
+                        setMonth(12)
+                        setYear(year-1)
+                    }
+                    else{setMonth(month-1)}
+                    
+
+                }}>←</button>
+                <p className="month">{moths[month-1]}</p>
+                <p className="year">{year}</p>
+                <button className='date_button_down' onClick={() => {
+                    if (month===12){
+                        setMonth(1)
+                        setYear(year+1)
+                    }
+                    else setMonth(month+1)
+                    
+                    }}>→</button>
+            </div>
+            <div className='events_Calendar'>
+            
+                <>
+                {Array.from({ length: days }, (_, index) => index + 1).map((day) => (
+                    <div className='card_day'>
+                        <p className="num_day">{day}</p>
+                        {events.map((event) => {
+                                <>
+                                
+                                    {day === Number(event.date_start.split('-')[2]) ?
+                                    
+                                        count++
+                                    
+                                    :
+                                    <></>
+                                    }
+                                </>
+                        })}
+                        
+                        <div className="many_event">
+                                <p className="p_many_event">Количество мероприятий в этот день: <span className="days_count"> {count}</span></p>
                         </div>
-                        <div className="event_bottom">
-                            <div className="event_type">
-                                <img src={TypeImg} alt="" className="event_type_img"/>
-                                <p className="event_type_name">{event.type}</p>
-                            </div>
-                            <div className="event_age_group">
-                                <img src={user_icon} alt="" className="event_type_img" />
-                                <p className="event_age_group_name">{event.age_group}</p>
-                            </div>
-                            <button className="event_button" onClick={() => {
-                                if (!localStorage.getItem('token')) {
-                                    navigate('/Login');
-                                    return;
-                                }
-                                axios.post(API_URL + 'addEventToPerson' , {id: event.id} , {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}}).then(res => {
-                                    const data = res.data
-                                    navigate('/PersonalAccountUser');
-                                    console.log(data);
-                                }).catch(err => {
-                                    navigate('/PersonalAccountUser');
-                                })
-                            }}
-                                >Записаться</button>
-                        </div>
+                        {count !==0 ? <button className="button_day" onClick={() => navigate(`/events/${year}/${month}/${day}`)}>Показать</button> : <></>}
+                        <p className="hiden">{count = 0}</p>
+                        
                     </div>
                 ))}
+                </>
+
             </div>
-            <div className='pagination'>
-                {Array.from({ length: pages+1 }, (_, index) => index + 1).map((page) => (
-                    <button className={page === pageNum+1 ? 'page active' : 'page'} key={page} onClick={() => {setPageNum(page-1); console.log(page)}}>
-                        {page}
-                    </button>
-                ))}
-            </div>
+            <Footer />
         </div>
+        
     );
 }
 

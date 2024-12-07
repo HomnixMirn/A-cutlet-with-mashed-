@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import UseEvents from './packages/UseEvents';
 import Events from './packages/Events';
 import Login from './packages/Login';
 import Register from './packages/Register';
@@ -30,8 +31,9 @@ root.render(
           <Route path = "/PersonalAccountUser" element={<PersonalAccountUser />} />
           <Route path='/forgotPassword' element={<ForgotPassword />} />
           <Route path = "/resetPassword/:email" element={<ResetPassword />} />
-          <Route path = "/Event/:id" element={<Events/>} />
+          <Route path = "/Event/:days/:year" element={<Events/>} />
           <Route path = "/OrganizationInfo/:id" element={<OrganizationInfo/>} />
+          <Route path="/event/:year/:month/:day" element={<UseEvents />} />
         </Routes>
     </BrowserRouter>
   // </React.StrictMode>
