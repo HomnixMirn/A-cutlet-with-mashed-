@@ -30,7 +30,7 @@ function App() {
             <div className="app-block-2">
               <div className="block-2-1">
                 <h1 className="h1-block-2">{data.name}</h1>
-                <p className="p-block-2">по спортивному программированию</p>
+                <p className="p-block-2">{data.type}</p>
                 </div>
 
               <div className="block-2-2">
