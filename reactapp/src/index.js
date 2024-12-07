@@ -33,7 +33,7 @@ root.render(
           <Route path = "/resetPassword/:email" element={<ResetPassword />} />
           <Route path = "/Event/:days/:year" element={<Events/>} />
           <Route path = "/OrganizationInfo/:id" element={<OrganizationInfo/>} />
-          <Route path="/useevents/:id" element={<UseEvents />} />
+          <Route path="/event/:year/:month/:day" element={<UseEvents />} />
         </Routes>
     </BrowserRouter>
   // </React.StrictMode>

@@ -34,7 +34,7 @@ function Header() {
                     <div className="fix-header">
                         <Link to={`/Event/${month}/${year}`} className="Event">
                         <img src={event}  alt='' className="Event-img"/>
-                        <h1 className="event-h1">Событие</h1>
+                        <h1 className="event-h1">События</h1>
                         </Link>
                         <Link className="Region">
                         <img src={region}  alt='' className="Region-img"/>
