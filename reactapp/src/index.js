@@ -12,7 +12,7 @@ import { BrowserRouter, Route, Routes  } from'react-router-dom';
 import ForgotPassword from './packages/forgotPassword.jsx';
 import ResetPassword from './packages/resetPassword.jsx';
 import OrganizationInfo from './packages/OrganizationInfo.jsx';
-
+import Analytics from './packages/Analytics.js';
 
 export const API_URL = "http://localhost:8000/api/hacaton/";
 export const API_MEDIA = "http://localhost:8000";
@@ -32,6 +32,7 @@ root.render(
           <Route path = "/Event/:days/:year" element={<Events/>} />
           <Route path = "/OrganizationInfo/:id" element={<OrganizationInfo/>} />
           <Route path="/event/:year/:month/:day" element={<UseEvents />} />
+          <Route path="/Analytics" element={<Analytics />} />
         </Routes>
     </BrowserRouter>
   // </React.StrictMode>
