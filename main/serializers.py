@@ -45,9 +45,17 @@ class personalSerializer(serializers.ModelSerializer):
 
 
 class EventSerializer(serializers.ModelSerializer):
+    organization = serializers.SerializerMethodField()
+
     class Meta:
         model = Event
         fields = "__all__"
+
+    def get_organization(self, obj):
+        org_events = OrganizationsEvents.objects.filter(events=obj).first()
+        if org_events:
+            return OrganizationSerializer(org_events.organization).data
+        return None
         
         
         

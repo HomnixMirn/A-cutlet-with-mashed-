@@ -91,10 +91,10 @@ function OrganizationInfo() {
                                 }
                                 axios.post(API_URL + 'addEventToPerson' , {id: event.id} , {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}}).then(res => {
                                     const data = res.data
-                                    navigate('/');
+                                    navigate('/PersonalAccountUser');
                                     console.log(data);
                                 }).catch(err => {
-                                    navigate('/');
+                                    navigate('/PersonalAccountUser');
                                 })
                             }}
                                 >Записаться</button>
