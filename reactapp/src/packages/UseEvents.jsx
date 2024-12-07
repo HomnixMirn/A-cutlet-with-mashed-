@@ -69,7 +69,7 @@ function UseEvents() {
             <div><img src={loopa} alt=""  className="loopa"/></div>
             </div>
             <div className='events-back'>
-        <div className='back'>
+        <div className='back-button-none'>
             <a className='a-back' href='/Event/:days/:year'><button class="date_button_up">←</button></a>
         </div>
             {events.map((event) => (

@@ -109,11 +109,10 @@
 .event_button-opisani:hover{
     opacity: 0.8;
 }
-
-.back{
-    width: 1660px;
-    display: flex;
-    flex-direction: row;
+.back-button-none{
+    border-radius: 20px;
+    height: 75px;
+    background: #fff;
 }
 
 .button-back{
@@ -134,15 +133,4 @@
 
 .a-back{
     text-decoration: none;
-}
-
-.events-back{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 1674px;
-    align-self: center;
-    gap: 20px;
-    margin-bottom: 100px;
 }
