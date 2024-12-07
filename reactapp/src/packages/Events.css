@@ -72,6 +72,7 @@ padding-left:10px ;
     font-size: 30px;
     font-family: bold;
     border-radius: 5px;
+    border: none;
 }
 
 .date_button_down{
@@ -87,6 +88,7 @@ padding-left:10px ;
     font-size: 30px;
     font-family: bold;
     border-radius: 5px;
+    border: none;
 }
 
 .month{
@@ -175,4 +177,5 @@ line-height: 208%;
 text-align: center;
 color: #fff;
 margin-top: 10px;
+border: none;
 }

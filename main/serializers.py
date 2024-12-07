@@ -4,12 +4,12 @@ from .models import *
 
 
 class OrganizationSerializer(serializers.ModelSerializer):
-    # мне надо чтобы number_region зависел от region и имел значение region+1
+
     # number_region = serializers.SerializerMethodField()
 
     class Meta:
         model = organization
-        fields = ['id','region', 'fio', 'email']
+        fields = ['id','region', 'fio', 'email','admin']
 
     # def get_number_region(self, obj):
         
@@ -41,7 +41,7 @@ class personalSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = persona
-        fields = ['user', 'name', 'id_user', 'fio', 'phone', 'born_date', 'sex', 'country', 'region', 'city', 'user']
+        fields = ['user', 'name', 'id_user', 'fio', 'phone', 'born_date', 'sex', 'country', 'region', 'city', 'user','id']
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -71,4 +71,11 @@ class PersonaEventsSerializer(serializers.ModelSerializer):
     persona = personalSerializer()
     class Meta:
         model = personaEvents
+        fields = "__all__"
+        
+class reportSerializer(serializers.ModelSerializer):
+    event = EventSerializer()
+    winner = personalSerializer()
+    class Meta:
+        model = report
         fields = "__all__"

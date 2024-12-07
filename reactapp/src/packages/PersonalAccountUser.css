@@ -17,11 +17,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 10px 10px 4px 0 rgba(0, 0, 0, 0.25);
 }
 .LeftMenuButt_PerAccUs{
     width: 262px;
-    height: 119px;
-
+    height: autopx;
 }
 .ProfileButt_PerAccUs{
     width: 261px;
@@ -68,6 +68,7 @@
     background-color: rgba(70, 58, 203, 0.1);
     border-radius: 20px;
     border: 1px solid blue;
+    box-shadow: 10px 10px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .PublicData_PerAccUs{
@@ -117,6 +118,7 @@
     border-radius: 20px;
     border: 1px solid blue;
     margin-top: 22.5px;
+    box-shadow: 10px 10px 4px 0 rgba(0, 0, 0, 0.25);
 
 }
 
@@ -125,6 +127,7 @@
     height: 161px;
     display: flex;
     justify-content: center;
+    margin-left: 5px;
 }
 
 .LocalInfo_PerAccUs{
@@ -132,7 +135,7 @@
 }
 
 .LocalInfoInputs_PerAccUs{
-    margin-left: 15px;
+    margin-left: 10px;
 }
 
 .LocalDataInputFIO_PerAccUs{
@@ -236,6 +239,7 @@
     display: flex;
     align-items: center;
     margin-top: 22.5px;
+    box-shadow: 10px 10px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .MainLocation_PerAccUs{
@@ -251,17 +255,14 @@
     border-right: 1px solid blue;
 }
 
-.Location_PerAccUs{
-    width: 920px;
-    height:178px;
-    margin-left:15px;
-}
+
 
 .LocationInputs_PerAccUs{
     width: 925px;
     height: 178px ;
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+    margin-left:10px;
 }
 
 .LocationInputContry_PerAccUs{
@@ -293,6 +294,7 @@
     margin-top: 22.5px;
     display: flex;
     align-items: center;
+    box-shadow: 10px 10px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .ChangePassword_PerAccUs{
@@ -344,6 +346,99 @@
     
 }
 
+/*Ивенты*/
+.GeneralListParticipation_PerAccUs{
+    width: 1195px;
+    height: auto;
+}
+
+
+.card_event{
+    width: 1195px ;
+    height: 312px ;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.25);
+    margin-top: 57.5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+
+.left_event{
+    width: 550px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.type_event{
+    width: 530px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 5px;
+    margin-top: 25px;
+}
+
+.DivGeneralRightEvent{
+    width: 420px;
+    height: 164px;
+    display: flex;
+    align-items: end;
+}
+
+.right_event{
+    width: 420px;
+    display: flex;
+    flex-direction: row;
+    gap:20px
+}
+
+.RightEvent_DeleteButt{
+    width:420px ;
+    height: 60px;
+    background-color: #463ACB;
+    color: white;
+    font-family: Regular;
+    font-weight: 700;
+    font-size: 24px;
+    border-radius: 15px;
+    border: none;
+}
+
+.date_event{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.h1_event{
+    font-family: Bold;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.p_event{
+    width: auto;
+    font-family: Regular;
+    font-weight: 700;
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+.h1_notevent{
+    height: 920px;
+    width: auto;
+    font-family: Bold;
+    font-size: 32px;
+    font-weight: 700;
+}
+
 /*Общие*/
 input{
     font-family: Regular;
@@ -365,4 +460,301 @@ input{
     font-family: Regular;
     font-weight: 700;
     font-size: 18px;
+}
+
+.PublicId_PerAccUs{
+    border-radius: 15px;
+width: 808px;
+height: 45px;
+background: #fff;
+margin-top: 10px;
+padding: 10px;
+font-family: bold;
+font-weight: 400;
+font-size: 18px;
+line-height: 139%;
+color: #a3a3a3;
+}
+
+.PublicInfoPerAccUs{
+    width: 1362px;
+    height: 202px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(70, 58, 203, 0.1);
+    border-radius: 20px;
+    border: 1px solid blue;
+    box-shadow: 10px 10px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.button_create_event{
+    font-family: bold;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 111%;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.88);
+    border-radius: 10px;
+width: 319px;
+height: 56px;
+background: #463acb;
+margin-top: 50px;
+}
+
+.popup{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+  
+  .popup-content {
+    border-radius: 20px;
+    width: 547px;
+    height: 502px;
+    background: rgba(70, 58, 203, 0.1);
+
+
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+}
+
+.popup-title{
+    font-family: bold;
+font-weight: 700;
+font-size: 24px;
+line-height: 125%;
+text-transform: uppercase;
+text-align: center;
+color: #000;
+margin-top: 15px;
+}
+
+.popup-body{
+    display: flex;
+    margin-top: 10px;
+    flex-direction: column;
+    align-items: center;
+    gap: 17px;
+}
+
+.popup-input{
+    width: 500px;
+    height: 48px;
+    border:none;
+    padding: 14px;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+
+.back{
+    border-radius: 20px;
+    width: 547px;
+    height: 502px;
+    background: #fff;
+}
+
+.popup_dates{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 500px;
+    height: 48px;
+}
+
+.dates{
+    width: 230px;
+    height: 48px;
+}
+
+.popup-buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 500px;
+    height: 48px;
+    margin-top: 20px;
+    gap:20px
+}
+
+.popup-button{
+    width: 500px;
+    height: 48px;
+    font-family: bold;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 111%;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    background: #463acb;
+    border-radius: 15px;
+    border: none;
+    padding: 12px 0;
+}
+
+.check_verify{
+    font-family: bold;
+font-weight: 600;
+font-size: 24px;
+line-height: 104%;
+text-align: center;
+color: #000;
+}
+
+.button_verify{
+    border: 1px solid #000;
+    border-radius: 15px;
+
+    height: 46px;
+    background: #fff;
+    font-family: bold;
+font-weight: 700;
+font-size: 18px;
+line-height: 111%;
+text-transform: uppercase;
+text-align: center;
+color: #000;
+padding: 12px 12px;
+}
+
+.DivGeneralRightEvent2{
+    width: 420px;
+    height: 164px;
+    display: flex;
+    flex-direction: column;
+}
+.DivButt_RightEvent2{
+    height: 52px;
+    width: 420px;
+}
+
+.Butt_RightEvent2{
+    width: 333px;
+    height: 52px;
+    background-color: #463ACB;
+    border-radius:15px ;
+    color: white;
+    font-family: Regular;
+    font-size: 24px;
+    font-weight: 400px;
+}
+
+.DivButt_RightEvent2{
+    display: flex;
+    align-items: center;
+}
+
+.right_event2{
+    height: 112px;
+    display: flex;
+    justify-content: left;
+    align-items: end;
+}
+
+.popup2-content {
+    border-radius: 20px;
+    width: 627px;
+    height: 740px;
+    background: rgba(70, 58, 203, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+}
+
+.back2{
+    border-radius: 20px;
+    width: 627px;
+    height: 740px;
+    background: #fff;
+}
+
+.popup2{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .popup2-p{
+    width: 500px;
+    height: 48px;
+    border:none;
+    padding: 14px;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+
+.dates2{
+    width: 230px;
+    height: 48px;
+    background-color: white;
+    border-radius: 15px;
+    text-align: center;
+    font-family: Regular;
+    font-weight: 400;
+    font-size: 18px;
+}
+.type_p{
+    width: 500px;
+    height: 48px;
+    background-color: white;
+    border-radius: 15px;
+    font-family: Regular;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.input-file[type=file]{
+    width: 350px;
+    color:#444;
+    padding: 5px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #555;
+}
+
+.input-file[type=file]::file-selector-button {
+    margin-right:20px;
+    border: none;
+    background:#084cdf;
+    padding:10px 20px;
+    border-radius: 10px;
+    color:#fff;
+    cursor:pointer;
+    transition: background .2s ease-in-out;
+}
+
+.input-file[type=file]::file-selector-button:hover {
+    background: #0d45a5;
+}
+
+.LeftMenu_PerAccUsmain2{
+    width: 331px;
+    height: 300px;
+    background-color: rgba(70, 58, 203, 0.1);
+    border-radius: 20px;
+    border: 1px solid blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 10px 10px 4px 0 rgba(0, 0, 0, 0.25);
 }

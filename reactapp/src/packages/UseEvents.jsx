@@ -13,14 +13,14 @@ import loopa from '../static/img/loopa.png';
 
 function UseEvents() {
     const navigate = useNavigate();
-    const [events, setEvents] = useState([]);
+    const [ended, setEnded] = useState(false);
+    const [events,  setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [pageNum, setPageNum] =  useState(useRef(0)["current"])
     const [pages, setPage] = useState(0);
     const [search, setSearch] = useState('');
     const url = new URL(window.location.href);
-
     const year = url.pathname.split('/')[2];
     const month = url.pathname.split('/')[3];
     const day = url.pathname.split('/')[4];
@@ -34,6 +34,7 @@ function UseEvents() {
             throw err.response ? err.response.data.error : 'Что-то пошло не так';
         }
     };
+
 
     useEffect(() => {
         const loadEvents = async () => {
@@ -63,7 +64,6 @@ function UseEvents() {
     return (
         <div className='wrapper'>
             <Header />
-            <h2>Verified Events</h2>
             <div className="search_input">
             <input type="text" placeholder="Поиск"  className='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
             <div><img src={loopa} alt=""  className="loopa"/></div>
@@ -72,18 +72,18 @@ function UseEvents() {
             {events.map((event) => (
                     <div className="event">
                         <div className="event_top">
-                            <div className="date">
+                            <div className="date-use-event">
                                 <p className="day_start">{event.date_start}</p>
                                 <p className="day_start">{event.date_end}</p>
                             </div>
-                            <div className="event_title">
+                            <div className="event_title-use">
                                 <p className="event_name">{event.name}</p>
                             </div>
                             <div className="event_city">
                                 {event.organization ?<p className="event_date">{event.organization.region}</p>: <p className="event_date">Проводиться Онлайн</p>}
                             </div>
                         </div>
-                        <div className="event_bottom">
+                        <div className="event_bottom-useev">
                             <div className="event_type">
                                 <img src={TypeImg} alt="" className="event_type_img"/>
                                 <p className="event_type_name">{event.type}</p>
@@ -93,20 +93,15 @@ function UseEvents() {
                                 <p className="event_age_group_name">{event.age_group}</p>
                             </div>
                             <div className='button-Sign'>
-                            <button className="event_button-opisani" onClick={() => {
-                                if (!localStorage.getItem('token')) {
-                                    navigate('/Login');
-                                    return;
-                                }
-                                axios.post(API_URL + 'addEventToPerson' , {id: event.id} , {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}}).then(res => {
-                                    const data = res.data
-                                    navigate('/PersonalAccountUser');
-                                    console.log(data);
-                                }).catch(err => {
-                                    navigate('/PersonalAccountUser');
-                                })
-                            }}
-                                >Записаться</button>
+                            <button className="event_button-opisani"
+                                        onClick={() => {
+                                            if (!localStorage.getItem('token')) {
+                                                navigate('/Login');
+                                                return;
+                                            }
+                                        }}>
+                                    {event.ended == 1 && 'Результаты' || 'Записаться'}
+                                </button>
                             </div>
                         </div>
                     </div>

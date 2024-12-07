@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 class organization(models.Model):
     region = models.CharField(max_length=150)
-    fio = models.CharField(max_length=250)
+    fio = models.CharField(max_length=250, blank=True, null=True)
     email = models.CharField(max_length=250)
     admin = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -43,7 +43,7 @@ class authorizedToken(Token):
     
     
 class persona (models.Model):
-    sexs=[('М','Мужчина'),('Ж','Женщина')]
+    sexs=[('Мужчина','Мужчина'),('Женщина','Женщина')]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=250 , blank=True, null=True)
     id_user = models.CharField(max_length=250 , blank=True, null=True)
@@ -66,6 +66,7 @@ class Event(models.Model):
     date_start = models.DateField()
     date_end = models.DateField()
     verify = models.BooleanField(default=False)
+    ended = models.BooleanField(default=False)
     
 class OrganizationsEvents(models.Model):
     events =models.ManyToManyField(Event)
@@ -77,3 +78,15 @@ class personaEvents(models.Model):
 
     def __str__(self):
         return f'{self.persona.user.username}'
+    
+class report(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    winner = models.ForeignKey(persona, on_delete=models.CASCADE)
+    bolls = models.IntegerField()
+    problems = models.TextField()
+    helpers = models.TextField()
+    file = models.FileField(upload_to='files/', blank=True, null=True)
+    
+    def __str__(self):
+        return f'{self.event.name}'
+    
