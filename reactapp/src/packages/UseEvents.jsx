@@ -10,7 +10,6 @@ import TypeImg from '../static/img/TypeImg.png';
 import user_icon from '../static/img/user_icon.png';
 import { useNavigate } from 'react-router-dom';
 import loopa from '../static/img/loopa.png';
-import Back from '../static/img/Back.png'
 
 function UseEvents() {
     const navigate = useNavigate();
@@ -68,10 +67,7 @@ function UseEvents() {
             <input type="text" placeholder="Поиск"  className='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
             <div><img src={loopa} alt=""  className="loopa"/></div>
             </div>
-            <div className='events-back'>
-        <div className='back'>
-            <a className='a-back' href='/Event/:days/:year'><button class="date_button_up">←</button></a>
-        </div>
+            <div className='events'>
             {events.map((event) => (
                     <div className="event">
                         <div className="event_top">
