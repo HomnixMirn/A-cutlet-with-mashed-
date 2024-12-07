@@ -25,4 +25,6 @@ urlpatterns = [
     re_path(r'^api/hacaton/resetPassword/(?P<email>[0-9A-Za-z._%+-]+@[0-9A-Za-z.-]+\.[A-Za-z]+)$', resetPassword),
     re_path(r'^api/hacaton/removePersonEvent$', removePersonaEvent),
     re_path(r'^api/hacaton/getEventsOnDay$', getEventsOnDay),
+    re_path(r'^api/hacaton/getPersonas$', getPersonas),
+    re_path(r'^api/hacaton/addReport$', addReport),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   
