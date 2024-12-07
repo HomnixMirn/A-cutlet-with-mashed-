@@ -72,3 +72,10 @@ class PersonaEventsSerializer(serializers.ModelSerializer):
     class Meta:
         model = personaEvents
         fields = "__all__"
+        
+class reportSerializer(serializers.ModelSerializer):
+    event = EventSerializer()
+    winner = personalSerializer()
+    class Meta:
+        model = report
+        fields = "__all__"
