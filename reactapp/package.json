@@ -1,6 +1,7 @@
 {
   "name": "react-one",
   "version": "0.1.0",
+  "homepage": "https://Kirillica228.github.io/test/",
   "private": true,
   "dependencies": {
     "@pbe/react-yandex-maps": "^1.2.5",
@@ -15,6 +16,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -41,6 +44,8 @@
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
+    "postcss-nested": "^7.0.2",
     "tailwindcss": "^3.4.16"
   }
 }
