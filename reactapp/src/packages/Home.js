@@ -9,9 +9,9 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import React from 'react';
 import {Link} from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 function App() {
-
+  const navigate = useNavigate();
   const [data, setData] = React.useState([]);
   useEffect (() => {
     axios.get(API_URL + 'getTekEvent')
@@ -48,10 +48,14 @@ function App() {
               {
                 localStorage.getItem('token') 
                 ? (
-                  <Link to="/addEventToPerson">Записаться</Link>
+                  <Link className='link_home' onClick={() => {
+                    axios.post(API_URL + 'addEventToPerson', {id: data.id}, { headers: {'Authorization': 'Token ' + localStorage.getItem('token')} }).then(res => {
+                      navigate('/personalAccountUser')
+                    })
+                  }}>Записаться</Link>
                 )
                 : (
-                  <Link to="/login">Зарегистрироваться</Link>
+                  <Link className='link_home' to="/login">Зарегистрироваться</Link>
                 )
               }
               
