@@ -52,7 +52,7 @@ export default function PersonalAccountUser() {
         <>
         <Header/>
         <Footer/>
-        <div className="">
+        <div className="main">
 
             <div className="">
                 <button className= "" type = " ">Данные профиля</button>

@@ -15,6 +15,9 @@ function Header() {
         document.title = "Header";
     }, []);
     useEffect(() => {
+        if (!localStorage.getItem('token')) {
+            return;
+        }
         axios.get(API_URL + 'personalInfo', {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}}).then(res => {
             const data = res.data
         }).catch(err => {
@@ -37,7 +40,7 @@ function Header() {
                         </Link>
                     </div>
                         {localStorage.getItem('token') ?
-                        <div> <Link to="/personalAccount" className="personal_info">Личный кабинет</Link>
+                        <div> <Link to="/PersonalAccountUser" className="personal_info">Личный кабинет</Link>
                         <button onClick={() => {localStorage.removeItem('token')
                         navigate('/')
                         }} className="register-header">Выход</button>
