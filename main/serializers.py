@@ -4,12 +4,12 @@ from .models import *
 
 
 class OrganizationSerializer(serializers.ModelSerializer):
-    # мне надо чтобы number_region зависел от region и имел значение region+1
+
     # number_region = serializers.SerializerMethodField()
 
     class Meta:
         model = organization
-        fields = ['id','region', 'fio', 'email']
+        fields = ['id','region', 'fio', 'email','admin']
 
     # def get_number_region(self, obj):
         

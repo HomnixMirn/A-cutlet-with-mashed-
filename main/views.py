@@ -185,14 +185,23 @@ def redactPersonal(request:HttpRequest):
                 phone= data['phone']
                 born_date = data['born_date']
                 sex = data['sex']
-                country = data['county']
+                country = data['country']
                 region = data['region']
                 city = data['city']
                 user = authorizedToken.objects.get(key=token).user
                 personal = persona.objects.get(user = user)
-                personal(name = name , id_user = id_user, fio = fio, phone = phone, born_date = born_date , sex =sex, country = country , region = region, city = city)
-                
+                print(personal)
+                personal.name = name
+                personal.id_user = id_user
+                personal.fio = fio
+                personal.phone = phone
+                personal.born_date = born_date
+                personal.sex = sex
+                personal.country = country
+                personal.region = region
+                personal.city = city
                 personal.save_base()
+                
                 return Response(status=status.HTTP_202_ACCEPTED)
             except Exception as e:
                 return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
