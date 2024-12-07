@@ -558,3 +558,31 @@ def getReport(request: HttpRequest, id: int):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+@api_view(['GET'])
+def getMostPopularOrganizationsEvents(request: HttpRequest):
+    if request.method == 'GET':
+        try:
+            personalEvents = personaEvents.objects.all()
+            allOrganization = {}
+            for i in personalEvents:
+                for j in i.events.all():
+                    if OrganizationsEvents.objects.filter(events = j).exists():
+                        allOrganization[OrganizationsEvents.objects.filter(events = j).first().organization.region] = allOrganization.get(OrganizationsEvents.objects.filter(events = j).first().organization.region, 0) + 1
+            events ={}
+            print(2)
+            orgEvents = OrganizationsEvents.objects.all()
+            for i in orgEvents:
+                for j in i.events.all():
+                    events[i.organization.region] = events.get(i.organization.region, 0) + 1
+                
+            
+            
+            print(allOrganization)
+            print(events)
+            return Response({'popularPerson': dict(sorted(allOrganization.items(), key=lambda x: x[1], reverse=True)[:5]), 'popularOrg': dict(sorted(events.items(), key=lambda x: x[1], reverse=True)[:5])}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
