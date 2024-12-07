@@ -20,7 +20,9 @@ export default function PersonalAccountUser() {
     const [activeButton, setActiveButton] = useState('profile');
 
     const [events, setEvents] = useState([]);
+    const [popup, setPopup] = useState(false);
 
+    const [lk , setLk] = useState("persona");
     const navigate = useNavigate();
 
 
@@ -37,11 +39,19 @@ export default function PersonalAccountUser() {
         axios.get(API_URL + 'personalInfo', {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}})
         .then(res => {
             const data = res.data
+            if (data.user.organization){
+                setLk("organization")
+                setUser(data.user.organization)
+                setEvents(data.user.events)
+            }
+            else{
+            console.log(data)
             setEmail(data.user.persona.user.username)
             setEvents(data.user.events)
             setUser(data.user.persona)
             console.log(data);
             console.log(data.user.events)
+            }
             
         }).catch(err => {
             console.log(err)
@@ -79,10 +89,36 @@ export default function PersonalAccountUser() {
             console.error('Ошибка при обновлении данных:', err);
         });
     }
+    function handleSubmit(e){
+        e.preventDefault();
+        const data = new FormData(e.target);
+        const formData = {
+            name: data.get('name'),
+            type: data.get('type'),
+            date_start: data.get('date_start'),
+            date_end: data.get('date_end'),
+            age_group: data.get('age_group'),
+            
+        };
+        axios.post(API_URL +'createEvent', formData, {  
+            headers: {
+                'Authorization': 'Token ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res =>{
+            setPopup(false);
+            console.log('Данные успешно добавлены', res,data);
+        })
+        .catch(err => {
+            console.error('Ошибка при добавлении данных:', err);
+        });
+    }
     
     return (
         <div className="wrapper">
             <Header/>
+        {lk === "persona" ?
         <div class="GeneralDiv_PerAccUs">
 
             <div className="LeftMenu_PerAccUsmain">
@@ -101,6 +137,7 @@ export default function PersonalAccountUser() {
                         >
                             Мои участия
                     </button>
+                    
                 </div>
             </div>
             {activeButton ==='profile' ?<>
@@ -243,8 +280,122 @@ export default function PersonalAccountUser() {
                 </>
             }
             </div>
+            :
+            <div class="GeneralDiv_PerAccUs">
+                <div className="LeftMenu_PerAccUsmain">
+                    <div className="LeftMenuButt_PerAccUs">
+                        <button 
+                            className= {`ProfileButt_PerAccUs ${activeButton === 'profile' ? 'active':''}`}
+                            type = "button"
+                            onClick ={() => setActiveButton('profile')}
+                            >
+                                Данные профиля
+                        </button>
+                        <button 
+                            className= {`PartButt_PerAccUs ${activeButton === 'participation'? 'active':''}`} 
+                            type = "submit"
+                            onClick ={() => setActiveButton('participation')}
+                            >
+                                Наши мероприятия
+                        </button>
+                        {user.admin === true ?
+                    <button 
+                        className= {`PartButt_PerAccUs ${activeButton === 'admin'? 'active':''}`} 
+                        type = "submit"
+                        onClick ={() => setActiveButton('admin')}
+                        >
+                            Мои участия
+                    </button>
+                    :null}
+                    </div>
+                    
+                    
+                </div>
+                {activeButton === 'profile' ?
+                <div className="MainDiv_PerAccUs">
+                    
+                    <div className="PublicInfoPerAccUs">
+                        <div className="PublicData_PerAccUs">
+                            <div className="PublicInfo_PerAccUs">
+                                <h1 className="h1_PerAccUs">Публичные данные</h1>
+                                <p className="p_PerAccUs">данные, которые будут видны остальным пользователям</p>
+                            </div>
+                            <div className="PublicInfoInputs_PerAccUs">
+                                <p className="PublicId_PerAccUs">{user.fio}</p>
+                                <p className="PublicId_PerAccUs">{user.region}</p>
+                                <p className="PublicId_PerAccUs">{user.email}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button className="button_create_event" onClick={() => setPopup(true)}>Создать мероприятие</button>
+                </div>
+                : 
+                <>
+                    <div className="GeneralListParticipation_PerAccUs">
+                            {events.length === 0 ? (
+                                <h1 className="h1_notevent">Вы еще нигде не участвовали</h1>
+                            ):(
+                            events.map((event) =>
+                                (<>
+                                    <h1 className="h1_Events_PerAccUs">Мои участия:</h1>
+                                    <div className="ListParticipation_PerAccUs">
+                                    <div className="card_event">
+                                        
+                                        <div className="left_event">
+                                            <p className="h1_event">{event.name}</p>
+                                            <div className="type_event">
+                                                <img src={TypeImg} alt="" className="event_type_img"/>
+                                                <p className="p_event">{event.type}</p>
+                                            </div>
+                                            <div className="left_bottom_event">
+                                                <div className="date_event">
+                                                    <img src= {Event} alt="" width="35px" height="35px" />
+                                                    <p className="p_event">{event.date_start.split('-')[1]}.{event.date_start.split('-')[2]} - {event.date_end.split('-')[1]}.{event.date_end.split('-')[2]}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="DivGeneralRightEvent">
+                                            <div className="right_event">
+                                                <p className="check_verify">Статус : {event.verify ? "Проверено" : "Не проверено"}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </>))
+                                
+                            )}
+                    </div>
+                </>}
+            </div>
+}
             <Footer/>
+            {popup !== false ? 
+            <div className="popup">
+                <div className="back">
+                    <div className="popup-content">
+                        <div className="popup-header">
+                            <h1 className="popup-title">Создание мероприятия</h1>
+                        </div>
+                        <form className="popup-body" onSubmit={(e) => handleSubmit(e)}>
+                            <input className="popup-input" type="text" name="name" placeholder="Название мероприятия" />
+                            <input className="popup-input" type="text" name="type" placeholder="Тип мероприятия" />
+                            <input className="popup-input" type="text" name="age_group" placeholder="Введите возрастную группу" />
+                            <div className="popup_dates">
+                                <input className="dates popup-input" type="date" name="date_start" placeholder="Дата начала" />
+                                <input className="dates popup-input" type="date" name="date_end" placeholder="Дата окончания" />
+                            </div>
+                            <div className="popup-buttons">
+                                <button className="popup-button" type="submit">Отправить на рассмотрение</button>
+                                <button className="popup-button" onClick={() => setPopup(false)}>Отменить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            : null}
         </div>
+        
+
         
      );
 }
