@@ -30,7 +30,7 @@ function Header() {
             <>  
                 <ul className="ul-header">
                     <div className="fix-header">
-                        <Link className="Event">
+                        <Link to="/Event/0" className="Event">
                         <img src={event}  alt='' className="Event-img"/>
                         <h1 className="event-h1">Событие</h1>
                         </Link>
