@@ -3,9 +3,8 @@ import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { API_URL } from '..';
-import { use } from 'react';
 import './OrganizationInfo.css';
-import './userevents.css';
+import './.css';
 import TypeImg from '../static/img/TypeImg.png';
 import user_icon from '../static/img/user_icon.png';
 import { useNavigate } from 'react-router-dom';
@@ -19,14 +18,9 @@ function UseEvents() {
     const [pageNum, setPageNum] =  useState(useRef(0)["current"])
     const [pages, setPage] = useState(0);
     const [search, setSearch] = useState('');
-    const url = new URL(window.location.href);
-
-    const year = url.pathname.split('/')[2];
-    const month = url.pathname.split('/')[3];
-    const day = url.pathname.split('/')[4];
     const fetchEvents = async (id) => {
         try {
-            const response = await axios.get(`${API_URL}getEventsOnDay?search=${search}&month=${month}&year=${year}&day=${day}`);
+            const response = await axios.get(`${API_URL}getVerifiedEvents/${id}?search=${search}`);
             setPage(response.data.pages);
             
             return response.data.events;
