@@ -20,7 +20,7 @@ export default function ForgotPassword() {
         ;
     }
     const url = new URL(window.location.href);
-    console.log(url.pathname.split('/')[2]);
+    console.log(url.pathname.split('/')[3]);
     
     return (
             <div className="wraper">
