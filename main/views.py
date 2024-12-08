@@ -589,3 +589,38 @@ def getMostPopularOrganizationsEvents(request: HttpRequest):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+@api_view(['POST'])
+def addComment(request: HttpRequest):
+    if request.method == 'POST':
+        if request.headers.get('Authorization'):
+            token = request.headers.get('Authorization').split(' ')[1]
+            if not authorizedToken.objects.filter(key=token).exists():
+                return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+            if not persona.objects.filter(user = authorizedToken.objects.get(key=token).user).exists():
+                return Response({'error': 'You are not a persona'}, status=status.HTTP_401_UNAUTHORIZED)
+            perso = persona.objects.get(user = authorizedToken.objects.get(key=token).user)
+            data = request.data
+            if 'id' in data:
+                try:
+                    event = Event.objects.get(id = int(data['id']))
+                    if personaEvents.objects.filter(persona = perso , events = event).exists():
+                        if 'text' in data:
+                            if comment.objects.filter(persona = perso , event = event).exists():
+                                return Response({'error': 'You already have this comment'}, status=status.HTTP_400_BAD_REQUEST)
+                            commne = comment.objects.create(persona = perso, event = event, comment = data['text'])
+                            if OrganizationsEvents.objects.filter(events = event).exists():
+                                org = OrganizationsEvents.objects.filter(events = event).first().comments.add(commne)
+                            return Response(status=status.HTTP_200_OK)
+                        else:
+                            return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+                    else:
+                        return Response({'error': 'Event is not in your organization'}, status=status.HTTP_400_BAD_REQUEST)
+                except Exception as e:
+                    return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'error': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': "Authorization header is missing"}, status=status.HTTP_401_UNAUTHORIZED)
+    else:
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)

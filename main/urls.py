@@ -29,4 +29,5 @@ urlpatterns = [
     re_path(r'^api/hacaton/addReport$', addReport),
     re_path(r'^api/hacaton/getReport/(?P<id>[0-9]+)$', getReport),
     re_path(r'^api/hacaton/getMostPopularOrganizationsEvents', getMostPopularOrganizationsEvents),
+    re_path(r'^api/hacaton/addComment', addComment),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   
