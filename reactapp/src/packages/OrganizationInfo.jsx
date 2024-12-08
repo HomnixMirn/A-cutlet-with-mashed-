@@ -26,6 +26,8 @@ function OrganizationInfo() {
             const data = res.data
             setOrganization(data.organization);
             setEvents(data.events);
+            console.log(data);
+            
         }).catch(err => {
             console.log(err)
         })
