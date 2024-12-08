@@ -484,9 +484,13 @@ def getEventsOnDay(request: HttpRequest):
             day = get['day']
             month = get['month']
             year = get['year']
+            print(get)
+            print(f'{year}-{month}-{day}')
             events = Event.objects.filter(date_start__year = year, date_start__month = month, date_start__day = day)
+            
             serializer = EventSerializer(events, many=True)
             if 'search' in get:
+                print(1)
                 serializer = list(filter(lambda x: get['search'].lower() in x['name'].lower() or get['search'].lower() in x['organization']['region'].lower()  , serializer.data))
             
             return Response({ 'events':  serializer}, status=status.HTTP_200_OK)
