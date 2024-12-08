@@ -10,8 +10,6 @@ from django.contrib.auth import authenticate
 import json
 from .models import *
 import re
-from django.shortcuts import redirect
-from geopy.geocoders import Nominatim
 from .sendEmail import getEmailCode
 from .sendEmail import sendRestorePassword
 from datetime import datetime
