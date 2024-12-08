@@ -84,8 +84,8 @@ function UseEvents() {
                     <div className="event">
                         <div className="event_top">
                             <div className="date-use-event">
-                                <p className="day_start">{event.date_start}</p>
-                                <p className="day_start">{event.date_end}</p>
+                                <p className="day_start">{event.date_start.split('-')[1]}.{event.date_start.split('-')[2]} - {event.date_end.split('-')[1]}.{event.date_end.split('-')[2]}</p>
+
                             </div>
                             <div className="event_title-use">
                                 <p className="event_name">{event.name}</p>

@@ -59,6 +59,11 @@ function OrganizationInfo() {
                         </div>
                     </div>
                 </div>
+            </div>1
+            <div className="OrganizationComment">
+                <section class = "section section1">
+                <marquee direction="right" scrolldelay="0.1">Коммент</marquee>
+                </section>
             </div>
             <h1 className="title title_event">События</h1>
             <div className="events">
@@ -66,8 +71,8 @@ function OrganizationInfo() {
                     <div className="event">
                         <div className="event_top">
                             <div className="date">
-                                <p className="day_start">{event.date_start}</p>
-                                <p className="day_start">{event.date_end}</p>
+                                <p className="day_start">{event.date_start.split('-')[1]}.{event.date_start.split('-')[2]} - {event.date_end.split('-')[1]}.{event.date_end.split('-')[2]}</p>
+                                
                             </div>
                             <div className="event_title">
                                 <p className="event_name">{event.name}</p>
