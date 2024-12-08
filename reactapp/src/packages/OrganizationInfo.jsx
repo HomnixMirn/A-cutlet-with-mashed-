@@ -28,7 +28,8 @@ function OrganizationInfo() {
             const data = res.data
             setOrganization(data.organization);
             setEvents(data.events);
-            setComments(data.comments);
+            console.log(data);
+            
         }).catch(err => {
             console.log(err)
         })

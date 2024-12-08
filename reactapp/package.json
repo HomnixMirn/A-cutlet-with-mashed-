@@ -1,7 +1,7 @@
 {
   "name": "react-one",
   "version": "0.1.0",
-  "homepage": "https://Kirillica228.github.io/test/",
+  "homepage": "https://shadow7x.github.io/hacaton",
   "private": true,
   "dependencies": {
     "@pbe/react-yandex-maps": "^1.2.5",
