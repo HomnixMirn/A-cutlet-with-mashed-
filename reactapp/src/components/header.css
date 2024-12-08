@@ -9,6 +9,10 @@ header{
     z-index: 1;
 }
 
+.active {
+    background-color: #dadada;
+    color: white;
+}
 
 .logo{
     background-image:url(../static/img/fsp_full_ru-black.svg);
@@ -108,8 +112,6 @@ header{
 }
 
 .regions{
-    width: 200px;
-    height: 40px;
     text-decoration: none;
     display: flex;
     justify-content: center;
@@ -117,6 +119,15 @@ header{
     color: rgb(0, 0, 0);
     border-radius: 8px;
     font-family: bold;
+    flex-direction: column;
+}
+
+.regions-active{
+    background-color: #dadada;
+}
+
+.regions:focus{
+    background-color: #dadada;
 }
 
 .Event{
@@ -127,6 +138,18 @@ header{
     flex-direction: column;
     width: 70px;
     height: 50px;
+}
+
+.Event-active{
+    background-color: #dadada;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    flex-direction: column;
+    width: 70px;
+    height: 50px;
+    border-radius: 10px;
 }
 
 .Event:hover{
@@ -170,4 +193,38 @@ header{
     font-family: bold;
     font-size: 12px;
     text-decoration: none;
+}
+
+.Region-active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    flex-direction: column;
+    width: 118px;
+    height: 51px;
+    background-color: #dadada;
+    border-radius: 10px; 
+}
+
+.personal_info-active{
+    text-decoration: none;
+    background-color: #463ACB;
+    color: #ffffff;
+    text-align: center;
+    width: 170px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-family: bold;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    transition: opacity 0.2s ease;
+    opacity: 1;
+}
+.personal_info-active:hover{
+    opacity: 0.8;
 }

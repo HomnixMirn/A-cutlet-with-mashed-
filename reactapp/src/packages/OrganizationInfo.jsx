@@ -61,6 +61,11 @@ function OrganizationInfo() {
                         </div>
                     </div>
                 </div>
+            </div>1
+            <div className="OrganizationComment">
+                <section class = "section section1">
+                <marquee direction="right" scrolldelay="0.1">Коммент</marquee>
+                </section>
             </div>
             <h1 className="title title_event">События</h1>
             <div className="events">
