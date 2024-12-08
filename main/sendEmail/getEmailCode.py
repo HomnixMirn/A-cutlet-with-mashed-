@@ -24,8 +24,9 @@ def sendVerificated(email,code):
     msg.attach(content)
 
     try: 
-        
+        print(123)
         server.sendmail(sender, email, msg.as_string())
+        print(321)
 
     except Exception as _ex:
         return f'{_ex}\n Проверьте правильно ли указанны ваши данные'
