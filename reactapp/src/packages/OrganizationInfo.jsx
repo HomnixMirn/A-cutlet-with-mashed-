@@ -103,10 +103,11 @@ function OrganizationInfo() {
                                 <img src={TypeImg} alt="" className="event_type_img"/>
                                 <p className="event_type_name">{event.type}</p>
                             </div>
-                            <div className="event_age_group">
+                            <div className="event_age_group-og">
                                 <img src={user_icon} alt="" className="event_type_img" />
                                 <p className="event_age_group_name">{event.age_group}</p>
                             </div>
+                            <div className="button-Sign-ovr">
                             <button className="event_button" onClick={() => {
                                 if (!localStorage.getItem('token')) {
                                     navigate('/Login');
@@ -121,6 +122,7 @@ function OrganizationInfo() {
                                 })
                             }}
                                 >Записаться</button>
+                            </div>
                         </div>
                     </div>
                 ))}

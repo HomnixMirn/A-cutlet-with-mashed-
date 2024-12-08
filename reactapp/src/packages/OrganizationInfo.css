@@ -245,18 +245,16 @@ color: #000;
     display: flex;
     align-items: center;
     justify-content: center;
-    top: 150px;
-    right: 30px;
     width: 251px;
-height: 50px;
+    height: 50px;
     background: #463acb;
     border-radius: 10px;
-font-weight: 700;
-font-size: 18px;
-line-height: 111%;
-text-transform: uppercase;
-color: #fff;
-border: none;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 111%;
+    text-transform: uppercase;
+    color: #fff;
+    border: none;
 }
 
 .OrganizationComment{
@@ -300,4 +298,22 @@ border: none;
     to {
         transform: translateX(100%);
     }
+}
+
+.event_age_group-og{
+    padding: 10px 25px;
+    width: 730px;
+    height: 180px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.button-Sign-ovr{
+    width: 342px;
+    display: flex;
+    flex-direction: column-reverse;
+    height: 50px;
+    height: 170px;
 }

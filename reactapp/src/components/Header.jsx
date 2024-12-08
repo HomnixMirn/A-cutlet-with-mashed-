@@ -6,6 +6,7 @@ import region from '../static/img/region.png';
 import axios from "axios";
 import { API_URL } from '../index';
 import { useNavigate } from 'react-router-dom';
+import Analytics from '../static/img/Analytics.png';
 
 function Header() {
   const navigate = useNavigate();
@@ -38,6 +39,10 @@ function Header() {
             <Link to="/" className={location.pathname === "/" ? "Region-active" : "Region"}>
               <img src={region}  alt='' className="Region-img"/>
               <h1 className="regions-h1">Список регионов</h1>
+            </Link>
+            <Link to="/Analytics" className={location.pathname === "/Analytics" ? "Analytics-active" : "Analytics"}>
+              <img src={Analytics}  alt='' className="Region-img"/>
+              <h1 className="regions-h1">Анализ</h1>
             </Link>
           </div>
           {localStorage.getItem('token') ?
