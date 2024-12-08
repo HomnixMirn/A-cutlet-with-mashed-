@@ -17,7 +17,7 @@ function OrganizationInfo() {
     const navigate = useNavigate();
     const [organization , setOrganization] = useState([]);
     const [events , setEvents] = useState([]);
-    const id  = new URL(window.location.href).pathname.split('/')[2];
+    const id  = new URL(window.location.href).pathname.split('/')[3];
     console.log(id);
 
     const[comments , setComments] = useState([]);

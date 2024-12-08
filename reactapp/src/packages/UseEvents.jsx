@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { API_URL } from '..';
+import { API_MEDIA, API_URL } from '..';
 import { use } from 'react';
 import './OrganizationInfo.css';
 import './userevents.css';
@@ -23,6 +23,7 @@ function UseEvents() {
     const [pageNum, setPageNum] =  useState(useRef(0)["current"])
     const [pages, setPage] = useState(0);
     const [search, setSearch] = useState('');
+    const [reportId, setReportId] = useState(1);
     const url = new URL(window.location.href);
     const year = url.pathname.split('/')[3];
     const month = url.pathname.split('/')[4];
@@ -55,7 +56,14 @@ function UseEvents() {
         loadEvents();
     }, [ pageNum,search]);
 
-
+    useEffect(() => {
+        axios.get(API_URL + 'getReport/' + reportId, {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}}).then(res => {
+            const data = res.data
+            setReport(data);
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [reportId]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -105,8 +113,17 @@ function UseEvents() {
                                             }
                                             if (event.ended == 1) {
                                                 setPopup (true);
+                                                setReportId(event.id);
+                                                
                                             }
-                                        }}>
+                                            else {
+                                                axios.post(API_URL + 'addEventToPerson', { id: event.id }, { headers: { 'Authorization': 'Token ' + localStorage.getItem('token') } }).then(res => {
+                                                    navigate('/PersonalAccountUser');
+                                                }).catch(err => {
+                                                    navigate('/PersonalAccountUser');
+                                                });
+                                            
+                                        }}}>
                                     {event.ended == 1 && 'Результаты' || 'Записаться'}
                                 </button>
                                 {popup && (
@@ -114,7 +131,25 @@ function UseEvents() {
                                     <div className="back2">
                                         <div className="popup-content-use">
                                             <h2 className='popup-title'>Результаты события</h2>
-                                            <p>{report.event_id}</p>
+                                            <p className='type_p popup2-p' name ="">{report.event.name}</p>
+                                                <p className='type_p popup2-p' name ="">{report.event.type}</p>
+                                                <div className='popup_dates'>
+                                                    <p className="dates2 popup2-p">{report.event.date_start}</p>
+                                                    <p className='dates2 popup2-p'>{report.event.date_end}</p>
+                                                </div>
+                                                <div className ="GeneralInputSearch">
+                                                    <input type="text" onChange={(e) => {
+                                                        
+                                                    }} className=" popup-input" value={report.winner.fio} name ="winner" placeholder='Победитель:'/>
+                                                    
+                                                </div>
+                                                    
+                                                    <input type="number" className=" popup-input" name ="bolls" placeholder='Баллы:' value={report.bolls}/>
+                                                    <input type="text" className=" popup-input" name ="problems"placeholder='Проблемы при проведении:' value={report.problems}/>
+                                                    <input type="text" className=" popup-input" name ="helpers"placeholder='Организации помогающие при подготовке' value={report.helpers}/>
+
+                                                    <a href={API_MEDIA + report.file}>Файл</a>
+  
                                             <p className='popup-description'>{event.description}</p>
                                             <button className='popup-button' onClick={() => setPopup(false)}>Закрыть</button>
                                         </div>

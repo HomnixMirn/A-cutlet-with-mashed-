@@ -558,7 +558,8 @@ def addReport(request: HttpRequest):
 def getReport(request: HttpRequest, id: int):
     if request.method == 'GET':
         try:
-            rep = report.objects.get(id = id)
+            event  = Event.objects.get(id = id)
+            rep = report.objects.filter(event = event).first()
             serializer = reportSerializer(rep)
             return Response(serializer.data , status=status.HTTP_200_OK)
         except Exception as e:
