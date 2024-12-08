@@ -19,6 +19,8 @@ function OrganizationInfo() {
     const [events , setEvents] = useState([]);
     const id  = new URL(window.location.href).pathname.split('/')[2];
     console.log(id);
+
+    const[comments , setComments] = useState([]);
     
     useEffect(() => {
         
@@ -26,6 +28,7 @@ function OrganizationInfo() {
             const data = res.data
             setOrganization(data.organization);
             setEvents(data.events);
+            setComments(data.comments);
         }).catch(err => {
             console.log(err)
         })
@@ -62,7 +65,10 @@ function OrganizationInfo() {
             </div>1
             <div className="OrganizationComment">
                 <section class = "section section1">
-                <marquee direction="right" scrolldelay="0.1">Коммент</marquee>
+                    {comments.map((comment) =>(
+                        <marquee direction="right" scrolldelay="0.1">{comment}</marquee>
+                    )
+                )}
                 </section>
             </div>
             <h1 className="title title_event">События</h1>
