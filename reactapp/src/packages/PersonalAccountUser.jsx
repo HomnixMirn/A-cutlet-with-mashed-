@@ -172,12 +172,11 @@ export default function PersonalAccountUser() {
             e.preventDefault();
             const data = new FormData(e.target);
             const formData ={
-                text : data.get('comment'),
-                id : popupId
+                comment : data.get('comment')
             };
             axios.post(API_URL + 'addComment', formData,{
                 headers: {
-                    'Authorization': `Token ${localStorage.getItem('token')}`,
+                    'Authorization': 'Token' + localStorage.getItem('token'),
                     'Content-Type': 'multipart/form-data'
                 }
             })
@@ -336,9 +335,7 @@ export default function PersonalAccountUser() {
                                         </div>
                                         <div className="DivGeneralRightEvent">
                                             <div className="RightEvent_CommentDiv">
-                                                <button className="RightEvent_DeleteButt" onClick ={() => {setPopup3(true)
-                                                    setPopupId(event.id)
-                                                } }>Написать комментарий</button>
+                                                <button className="RightEvent_DeleteButt" onClick ={() => setPopup3(true) }>Написать комментарий</button>
                                             </div>
                                             <div className="right_event">
                                                 <button 
@@ -580,7 +577,6 @@ export default function PersonalAccountUser() {
                 </div>
             : null}
  
- 
                 {popup3 !== false ?
                     <div className=" popup3">
                         <div className="back3">
@@ -589,8 +585,7 @@ export default function PersonalAccountUser() {
                                 <p className='popup3-p'>Напишите в текстовом поле снизу краткое впечатление об мероприятии</p>
                             </div>
                             <form className="popup3-body" onSubmit={(e) => handleComment(e)}>
-                                <textarea name="comment" id="" className="popup3-textarea" placeholder='Ваш текст'></textarea>
-                                <input type="hidden" name='id' value={popupId.id} className='' />
+                                <textarea name="" id="" className="popup3-textarea" placeholder='Ваш текст'></textarea>
                             <div className="popup3-buttons">
                                 <button className="popup3-button" type="submit">Отправить комментарий</button>
                                 <button className="popup3-button" onClick ={() => setPopup3(false)}>Отменить</button>

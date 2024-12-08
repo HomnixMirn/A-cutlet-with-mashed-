@@ -21,6 +21,7 @@ function OrganizationInfo() {
     console.log(id);
 
     const[comments , setComments] = useState([]);
+    const[currentCommentIndex, setCurrentCommentIndex] = useState(0)
     
     useEffect(() => {
         
@@ -28,13 +29,23 @@ function OrganizationInfo() {
             const data = res.data
             setOrganization(data.organization);
             setEvents(data.events);
+            setComments(data.comments)
             console.log(data);
+            
             
         }).catch(err => {
             console.log(err)
         })
     },[])
+    console.log(comments);
     console.log(events);
+    
+    useEffect(() =>{
+        const interval = setInterval(() => {
+            setCurrentCommentIndex((prevIndex)=> (prevIndex + 1) % comments.length);
+        },6500);
+        return() => clearInterval(interval);
+    },[comments]);
     
     return (
         <div className="wrapper">
@@ -65,13 +76,12 @@ function OrganizationInfo() {
                 </div>
             </div>1
             <div className="OrganizationComment">
-                <section class = "section section1">
-                    {comments.map((comment) =>(
-                        <marquee direction="right" scrolldelay="0.1">{comment}</marquee>
-                    )
-                )}
-                </section>
-            </div>
+                    <div className="comment-marquee">
+                        {comments.map((comment,index) => (
+                            <p key={index} className={index === currentCommentIndex ? 'active': ''}>{comment.comment}</p>
+                        ))}
+                    </div>
+                </div>
             <h1 className="title title_event">События</h1>
             <div className="events">
                 {events.map((event) => (
