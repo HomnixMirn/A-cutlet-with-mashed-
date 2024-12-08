@@ -861,3 +861,18 @@ padding: 12px 12px;
     border: none;
     padding: 12px 0;
 }
+
+.popup-link-file{
+    border-radius: 10px;
+padding: 20px;
+width: 241px;
+text-decoration: none;
+background: #463acb;
+font-family: bold;
+font-weight: 700;
+font-size: 18px;
+line-height: 111%;
+text-transform: uppercase;
+text-align: center;
+color: #fff;
+}

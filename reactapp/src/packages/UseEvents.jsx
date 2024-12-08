@@ -148,7 +148,7 @@ function UseEvents() {
                                                     <input type="text" className=" popup-input" name ="problems"placeholder='Проблемы при проведении:' value={report.problems}/>
                                                     <input type="text" className=" popup-input" name ="helpers"placeholder='Организации помогающие при подготовке' value={report.helpers}/>
 
-                                                    <a href={API_MEDIA + report.file}>Файл</a>
+                                                    <a href={API_MEDIA + report.file} className='popup-link-file'>Файл</a>
   
                                             <p className='popup-description'>{event.description}</p>
                                             <button className='popup-button' onClick={() => setPopup(false)}>Закрыть</button>
