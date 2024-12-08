@@ -422,7 +422,7 @@ def forgotPassword(request: HttpRequest):
             try:
                 if not User.objects.filter(username = data['email']).exists():
                     return Response({'error': 'Email not found'}, status=status.HTTP_400_BAD_REQUEST)
-                sendRestorePassword.sendVerificated(data['email'],f'http://localhost:3000/resetPassword/{data["email"]}/')
+                sendRestorePassword.sendVerificated(data['email'],f'http://localhost:3000/hacaton/resetPassword/{data["email"]}/')
                 return Response(status=status.HTTP_200_OK)
             except Exception as e:
                 return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -597,13 +597,16 @@ def getMostPopularOrganizationsEvents(request: HttpRequest):
 def addComment(request: HttpRequest):
     if request.method == 'POST':
         if request.headers.get('Authorization'):
+            print(request.headers.get('Authorization').split(' '))
             token = request.headers.get('Authorization').split(' ')[1]
+            print(token)
             if not authorizedToken.objects.filter(key=token).exists():
                 return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
             if not persona.objects.filter(user = authorizedToken.objects.get(key=token).user).exists():
                 return Response({'error': 'You are not a persona'}, status=status.HTTP_401_UNAUTHORIZED)
             perso = persona.objects.get(user = authorizedToken.objects.get(key=token).user)
             data = request.data
+            print(data)
             if 'id' in data:
                 try:
                     event = Event.objects.get(id = int(data['id']))

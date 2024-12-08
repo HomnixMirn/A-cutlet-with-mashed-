@@ -24,9 +24,6 @@ class code(models.Model):
     
 
     
-    def __str__(self):
-        return f"{self.user.username}"
-    
 class lastIvent(models.Model):
     city = models.CharField(max_length=250, blank=True, null=True)
     mens = models.CharField(max_length=250,blank=True, null=True)

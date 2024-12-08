@@ -176,7 +176,7 @@ export default function PersonalAccountUser() {
             };
             axios.post(API_URL + 'addComment', formData,{
                 headers: {
-                    'Authorization': 'Token' + localStorage.getItem('token'),
+                    'Authorization': `Token ${localStorage.getItem('token')}`,
                     'Content-Type': 'multipart/form-data'
                 }
             })
