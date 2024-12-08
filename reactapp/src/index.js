@@ -14,8 +14,10 @@ import ResetPassword from './packages/resetPassword.jsx';
 import OrganizationInfo from './packages/OrganizationInfo.jsx';
 import Analytics from './packages/Analytics.js';
 
-export const API_URL = "https://shadow7x.pythonanywhere.com/api/hacaton/";
-export const API_MEDIA = "https://shadow7x.pythonanywhere.com";
+// export const API_URL = "https://shadow7x.pythonanywhere.com/api/hacaton/";
+// export const API_MEDIA = "https://shadow7x.pythonanywhere.com";
+export const API_URL = "http://localhost:8000/api/hacaton/"; // 
+export const API_MEDIA = "http://localhost:8000";
 
 
 const basename = '/hacaton';
