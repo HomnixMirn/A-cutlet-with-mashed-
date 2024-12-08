@@ -222,8 +222,6 @@ header{
     border-width: 1px;
     border-style: solid;
     border-color: black;
-    transition: opacity 0.2s ease;
-    opacity: 1;
 }
 .personal_info-active:hover{
     opacity: 0.8;

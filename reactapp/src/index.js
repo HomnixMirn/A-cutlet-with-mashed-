@@ -17,10 +17,12 @@ import Analytics from './packages/Analytics.js';
 export const API_URL = "http://localhost:8000/api/hacaton/";
 export const API_MEDIA = "http://localhost:8000";
 
+
+const basename = '/hacaton';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
         <Routes>
           <Route path="/" element={<App/>} />
           <Route path="/event" element={<Events />} />

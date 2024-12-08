@@ -24,9 +24,9 @@ function UseEvents() {
     const [pages, setPage] = useState(0);
     const [search, setSearch] = useState('');
     const url = new URL(window.location.href);
-    const year = url.pathname.split('/')[2];
-    const month = url.pathname.split('/')[3];
-    const day = url.pathname.split('/')[4];
+    const year = url.pathname.split('/')[3];
+    const month = url.pathname.split('/')[4];
+    const day = url.pathname.split('/')[5];
     const fetchEvents = async (id) => {
         try {
             const response = await axios.get(`${API_URL}getEventsOnDay?search=${search}&month=${month}&year=${year}&day=${day}`);
@@ -40,14 +40,7 @@ function UseEvents() {
 
 
     useEffect(() => {
-/*************  ✨ Codeium Command ⭐  *************/
-    /**
-     * Loads events of the day, specified by the current 'pageNum',
-     * and sets the state variables 'events', 'error', and 'loading'
-     * accordingly. If an error occurs, sets 'error' to it and
-     * 'loading' to false.
-     */
-/******  e986af1a-3538-4fef-8a30-c7f165aa72aa  *******/        const loadEvents = async () => {
+      const loadEvents = async () => {
             try {
                 const events = await fetchEvents(pageNum);
                 setEvents(events);

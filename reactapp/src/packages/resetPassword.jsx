@@ -14,7 +14,7 @@ export default function ForgotPassword() {
         const formData = new FormData(e.target);
         const password = formData.get('password');
         const url = new URL(window.location.href);
-        const email = url.pathname.split('/')[2];
+        const email = url.pathname.split('/')[3];
         
         axios.post(`${API_URL}resetPassword/${email}`, {password: password}).then((res) => navigate('/')).catch((err) => console.log(err));
         ;
