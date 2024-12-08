@@ -157,7 +157,7 @@ function UseEvents() {
                                 </div>
                                 )}
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 ))}
             </div>
