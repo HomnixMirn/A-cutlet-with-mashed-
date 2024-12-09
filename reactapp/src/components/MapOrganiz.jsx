@@ -7,20 +7,28 @@ const mapState = {
 };
 
 export default function MapOrganiz({ regionName }) {
-  const mapRef = React.useRef(null);
-
+  const mapRef = React.useRef(1);
+  console.log(regionName);
+  
+  
   const getRegions = (ymaps) => {
-    if (mapRef.current) {
+    
+      console.log(mapRef.current)
       const objectManager = new ymaps.ObjectManager();
       mapRef.current.objectManager = objectManager;
+      console.log(mapRef.current)
 
       ymaps.borders.load("RU", { lang: "ru", quality: 2 })
         .then(function (result) {
           console.log(result);
 
           const filteredRegions = result.features.filter(feature => {
+            console.log(feature.properties.name);
+            console.log(regionName);
             return feature.properties.name === regionName;
           });
+
+          console.log(filteredRegions);
 
           if (filteredRegions.length > 0) {
             filteredRegions.forEach(feature => {
@@ -45,7 +53,7 @@ export default function MapOrganiz({ regionName }) {
           }
         })
         .catch(err => console.error("гг гг", err));
-    }
+    
   };
 
   return (

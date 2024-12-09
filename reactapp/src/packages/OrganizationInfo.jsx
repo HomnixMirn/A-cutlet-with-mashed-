@@ -15,6 +15,7 @@ import MapOrganiz from "../components/MapOrganiz";
 
 function OrganizationInfo() {
     const navigate = useNavigate();
+    
     const [organization , setOrganization] = useState([]);
     const [events , setEvents] = useState([]);
     const id  = new URL(window.location.href).pathname.split('/')[3];
@@ -25,7 +26,7 @@ function OrganizationInfo() {
     
     useEffect(() => {
         
-        axios.get(API_URL + 'getOrganizationInfo/'+id, {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}}).then(res => {
+        axios.get(API_URL + 'getOrganizationInfo/'+id, {  headers: {'Authorization': 'Token ' + localStorage.getItem('token')}}).then(res =>  {
             const data = res.data
             setOrganization(data.organization);
             setEvents(data.events);
@@ -39,21 +40,21 @@ function OrganizationInfo() {
     },[])
     console.log(comments);
     console.log(events);
-    
+    console.log(organization)
     useEffect(() =>{
         const interval = setInterval(() => {
             setCurrentCommentIndex((prevIndex)=> (prevIndex + 1) % comments.length);
         },6500);
         return() => clearInterval(interval);
     },[comments]);
-    
+
     return (
         <div className="wrapper">
         <Header />
         <div className="main">
             <h1 className="title">Представитель региона</h1>
             <div className="main_info">
-                <MapOrganiz regionName={organization.region}/>
+                {organization.region && <MapOrganiz regionName={organization.region}/>}
                 <div className="info_org">
                     <div className="stat_info">
                         <p className="name">Руководитель:</p>
@@ -74,7 +75,7 @@ function OrganizationInfo() {
                         </div>
                     </div>
                 </div>
-            </div>1
+            </div>
             <div className="OrganizationComment">
                     <div className="comment-marquee">
                         {comments.map((comment,index) => (

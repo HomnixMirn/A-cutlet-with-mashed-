@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate 
 import json
 from .models import *
-import re
+
 from .sendEmail import getEmailCode
 from .sendEmail import sendRestorePassword
 from datetime import datetime
@@ -18,7 +18,7 @@ from .parser import getInfo
 from .parser import getLastIvents
 
 import datetime
-from django.contrib.auth.models import User
+
 
 # Create your views here.
 

@@ -15,9 +15,10 @@ const DEFAULT_STROKE_COLOR = "#B0B0B0"; // Серый
 const HOVER_STROKE_COLOR = "#49C0B5"; // Цвет при наведении
 
 function MapComp(width, height) {
-  const [mapData, setMapData] = React.useState([]);
-  const mapRef = React.createRef(null);
 
+  const [mapData, setMapData] = React.useState(React.useRef([])['current']);
+  const mapRef = React.createRef(null);
+  const mapDataRef = React.useRef(mapData);
   const [popup, setPopup] = React.useState([]); // Хранение попапа
   const [popupState, setPopupState] = React.useState(false);
 
@@ -27,6 +28,8 @@ function MapComp(width, height) {
   const [popupPoisk, setPopupPoisk] = React.useState('');
   const [filteredRegions, setFilteredRegions] = React.useState([]);
 
+  const [search, setSearch] = React.useState(true);
+
   React.useEffect(() => {
     axios.get(API_URL + 'get_organization')
       .then((res) => {
@@ -34,7 +37,11 @@ function MapComp(width, height) {
         console.log(res.data); // Сохраняем данные о регионах
       })
       .catch(err => console.log(err));
-  }, []);
+  }, [search]);
+  
+  React.useEffect(() => {
+    mapDataRef.current = mapData;
+  }, [mapData]);
 
   React.useEffect(() => {
     console.log(popupPoisk);
@@ -115,21 +122,23 @@ function MapComp(width, height) {
           objectManager.add(result);
           setFilteredRegions(regions);
           mapRef.current.geoObjects.add(objectManager);
-  
-          objectManager.objects.events.add('mouseenter', function (e) {
+          
+          // У меня есть useEffect который получает mapData но в эту функцию почему приходит пустой массив mapData
+          objectManager.objects.events.add('mouseenter', async function (e) {
             const objectId = e.get('objectId');
             const object = objectManager.objects.getById(objectId); // Получаем объект по ID
-  
-            if (object) {
             
-  
+            if (object) {
+              setSearch(!search);
+              console.log(search);
               objectManager.objects.setObjectOptions(objectId, {
                 strokeColor: HOVER_STROKE_COLOR,
                 strokeWidth: 3,
               });
-  
+              console.log(mapData);
+              console.log(mapDataRef.current);
               const originalRegionName = object.name;
-              let regionData = mapData.find(item => item.region === originalRegionName);
+              let regionData = mapDataRef.current.find(item => item.region === originalRegionName);
 
               setPopup(regionData);
               setPopupState(!popupState);
@@ -152,7 +161,7 @@ function MapComp(width, height) {
       
           if (object) {
               const originalRegionName = object.name;
-              let regionData = mapData.find(item => item.region === originalRegionName);
+              let regionData = mapDataRef.current.find(item => item.region === originalRegionName);
       
               // Устанавливаем данные попапа при клике
               setPopupActiveData(regionData);
@@ -194,8 +203,8 @@ function MapComp(width, height) {
               </div>
             ) : popupState ? (
               <div className="popup-map">
-                <div>{popup.fio}</div>
-                <div>{popup.region}</div>
+                <div>{popup ? popup.fio : ''}</div>
+                <div>{popup ? popup.region : ''}</div>
               </div>
             ) : (
               <h1 className="a"></h1>
